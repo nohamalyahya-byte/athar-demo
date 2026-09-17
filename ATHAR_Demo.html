@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أثر · تجربة المريض</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:ital,wght@1,800&display=swap">
+<style>
+  /* ---------- tokens ---------- */
+  :root{
+    --navy:#0F1E3A; --navy-2:#16294B; --ground:#F3F5F9; --card:#FFFFFF; --card-2:#F7F9FC;
+    --ink:#12213A; --muted:#5B6B82; --faint:#8D9AAE; --line:#E3E8F0; --line-2:#EEF2F7;
+    --blue:#1F5FC7; --blue-soft:#E6EEFB; --teal:#148FA6; --teal-soft:#E1F4F7;
+    --critical:#C62838; --critical-soft:#FBE9EB; --warning:#C97A0E; --warning-soft:#FBF0DC;
+    --good:#1E8E5A; --good-soft:#E3F5EC; --purple:#6A4BCB; --purple-soft:#EEE9FA;
+    --shadow:0 1px 2px rgba(18,33,58,.05), 0 8px 24px rgba(18,33,58,.06);
+    --shadow-lift:0 12px 36px rgba(18,33,58,.14);
+    --r:14px; --side:236px;
+    --font:"IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --logo:"Montserrat", "Segoe UI", sans-serif;
+    --sidebar-ink:#FFFFFF; --sidebar-muted:#9FB0CC; --sidebar-active:rgba(255,255,255,.12);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0B1526; --card:#13223B; --card-2:#182A47; --ink:#EEF3FA; --muted:#A9B7CB; --faint:#7D8CA3;
+      --line:#233656; --line-2:#1C2E4C; --blue:#6E9CF0; --blue-soft:#1A2E55; --teal:#3FBBD2; --teal-soft:#123A45;
+      --critical:#F0606D; --critical-soft:#4A1F26; --warning:#E8A33A; --warning-soft:#4A3414; --good:#4CC48C; --good-soft:#153F2C;
+      --purple:#A08BF0; --purple-soft:#2B2452; --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --shadow-lift:0 12px 36px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0B1526; --card:#13223B; --card-2:#182A47; --ink:#EEF3FA; --muted:#A9B7CB; --faint:#7D8CA3;
+    --line:#233656; --line-2:#1C2E4C; --blue:#6E9CF0; --blue-soft:#1A2E55; --teal:#3FBBD2; --teal-soft:#123A45;
+    --critical:#F0606D; --critical-soft:#4A1F26; --warning:#E8A33A; --warning-soft:#4A3414; --good:#4CC48C; --good-soft:#153F2C;
+    --purple:#A08BF0; --purple-soft:#2B2452; --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    --shadow-lift:0 12px 36px rgba(0,0,0,.5);
+  }
+
+  /* ---------- base ---------- */
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--ground);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  button{font:inherit;color:inherit;cursor:pointer}
+  button:focus-visible,[tabindex]:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .num{font-variant-numeric:tabular-nums}
+  svg text{font-family:var(--font)}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+  /* ---------- shell ---------- */
+  .app{display:grid;grid-template-columns:var(--side) 1fr;min-height:100vh}
+  .sidebar{background:var(--navy);color:var(--sidebar-ink);padding:22px 18px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
+  .lockup{display:flex;flex-direction:column;gap:8px;padding:4px 6px 10px}
+  .lockup .row{display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;gap:10px;direction:ltr}
+  .lockup .en{font-family:var(--logo);font-style:italic;font-weight:800;font-size:26px;color:#33B9DD;letter-spacing:-.01em;line-height:1}
+  .lockup .bar{width:3px;height:30px;background:#33B9DD;border-radius:2px}
+  .lockup .ar{font-weight:700;font-size:38px;line-height:1;color:#fff}
+  .lockup .rule{height:4px;border-radius:2px;background:linear-gradient(90deg,#1F5FC7,#35C4D6)}
+  .lockup .tag{font-size:11px;color:var(--sidebar-muted);text-align:center;letter-spacing:.04em}
+  .nav{display:flex;flex-direction:column;gap:4px;list-style:none;margin:0;padding:0}
+  .nav button{width:100%;display:flex;align-items:center;gap:12px;padding:11px 12px;border:0;border-radius:10px;background:transparent;color:var(--sidebar-muted);font-size:14.5px;font-weight:500;text-align:right}
+  .nav button svg{width:20px;height:20px;flex:0 0 auto}
+  .nav button[aria-current="page"]{background:var(--sidebar-active);color:#fff}
+  .nav button:not([aria-disabled]):hover{color:#fff;background:rgba(255,255,255,.06)}
+  .nav button[aria-disabled]{opacity:.55;cursor:default}
+  .nav .badge{margin-inline-start:auto;background:var(--critical);color:#fff;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px}
+  .sidebar .foot{margin-top:auto;font-size:11.5px;color:var(--sidebar-muted);line-height:1.5;padding:0 6px}
+
+  .main{min-width:0;padding:18px 26px 110px}
+  .topbar{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+  .search{flex:1;max-width:560px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;color:var(--faint);font-size:14px}
+  .search svg{width:18px;height:18px}
+  .icons{margin-inline-start:auto;display:flex;align-items:center;gap:10px}
+  .iconbtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--muted);position:relative}
+  .iconbtn svg{width:19px;height:19px}
+  .iconbtn .dot{position:absolute;top:8px;inset-inline-end:9px;width:8px;height:8px;border-radius:50%;background:var(--critical);border:2px solid var(--card)}
+  .who{display:flex;align-items:center;gap:10px;padding-inline-start:6px}
+  .who .av{width:38px;height:38px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:700;font-size:14px}
+  .who .t{line-height:1.25;font-size:13px}
+  .who .t b{display:block;font-size:13.5px}
+  .who .t span{color:var(--muted);font-size:12px}
+
+  /* ---------- screens ---------- */
+  section[data-screen]{display:none}
+  section[data-screen][data-active]{display:block}
+  .banner{position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(100deg,#0F1E3A 0%,#1B3160 55%,#254A85 100%);color:#fff;padding:26px 30px;min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:6px;box-shadow:var(--shadow)}
+  .banner h1{margin:0;font-size:24px;font-weight:700;letter-spacing:-.01em}
+  .banner p{margin:0;color:#BFD0EE;font-size:14px}
+  .banner .sky{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
+  .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:16px}
+  .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px;min-width:0}
+  .card h2{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--ink)}
+  .card h2 small{color:var(--faint);font-weight:500;font-size:12.5px;margin-inline-start:8px}
+  .k{color:var(--faint);font-size:12.5px;font-weight:500}
+
+  /* KPI tiles */
+  .kpi{grid-column:span 3;display:flex;align-items:center;gap:16px}
+  .kpi .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto}
+  .kpi .ico svg{width:22px;height:22px}
+  .kpi .v{font-size:28px;font-weight:700;line-height:1.1}
+  .kpi .v small{font-size:14px;font-weight:600;color:var(--muted);margin-inline-start:4px}
+  .kpi .d{font-size:12.5px;margin-top:2px}
+  .up{color:var(--good)} .down{color:var(--critical)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600}
+  .pill.critical{background:var(--critical-soft);color:var(--critical)}
+  .pill.warning{background:var(--warning-soft);color:var(--warning)}
+  .pill.good{background:var(--good-soft);color:var(--good)}
+  .pill.blue{background:var(--blue-soft);color:var(--blue)}
+
+  /* patient cards */
+  .patients{grid-column:span 12;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+  .pcard{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;display:flex;align-items:center;gap:12px;border:2px solid transparent;text-align:right;transition:transform .2s,box-shadow .2s;position:relative}
+  .pcard:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+  .pcard .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;flex:0 0 auto;background:var(--blue-soft);color:var(--blue)}
+  .pcard .t{flex:1;min-width:0}
+  .pcard .t b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pcard .t span{display:block;font-size:12px;color:var(--muted)}
+  .ring{position:relative;width:56px;height:56px;flex:0 0 auto}
+  .ring svg{width:56px;height:56px;transform:rotate(-90deg)}
+  .ring .track{stroke:var(--line);fill:none;stroke-width:6}
+  .ring .arc{fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.2,.7,.2,1)}
+  .ring .n{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;font-size:14px}
+  .pcard[data-risk="critical"]{border-color:var(--critical);background:linear-gradient(0deg,var(--critical-soft),var(--card) 70%)}
+  .pcard[data-risk="critical"] .av{background:var(--critical-soft);color:var(--critical)}
+  .pcard[data-focus]{animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(198,40,56,.35),var(--shadow)}50%{box-shadow:0 0 0 12px rgba(198,40,56,0),var(--shadow)}}
+  .pcard .chev{position:absolute;top:12px;inset-inline-start:12px;color:var(--faint)}
+
+  /* charts */
+  .c-line{grid-column:span 7}
+  .c-donut{grid-column:span 5}
+  .c-map{grid-column:span 5}
+  .c-mix{grid-column:span 7}
+  .chart{position:relative}
+  .chart svg{width:100%;height:auto;display:block}
+  .tip{position:absolute;pointer-events:none;background:var(--navy);color:#fff;font-size:12.5px;padding:6px 10px;border-radius:8px;white-space:nowrap;transform:translate(50%,-100%);opacity:0;transition:opacity .12s}
+  .tip b{font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;font-size:13px;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:6px;vertical-align:-1px}
+  .legend b{color:var(--ink);font-weight:600;margin-inline-start:4px}
+  .map-wrap{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+  .map-wrap svg{width:100%;max-width:260px}
+  .stats{display:flex;flex-direction:column;gap:12px;min-width:150px}
+  .stats .s{display:flex;align-items:center;gap:10px;font-size:13px}
+  .stats .s i{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .stats .s i svg{width:16px;height:16px}
+  .stats .s .b{flex:1;height:7px;border-radius:4px;background:var(--line-2);overflow:hidden}
+  .stats .s .b span{display:block;height:100%;border-radius:4px}
+  .mini{grid-column:span 3;display:flex;align-items:center;gap:14px}
+  .mini .ring{width:64px;height:64px}
+  .mini .ring svg{width:64px;height:64px}
+  .mini .ico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:var(--ink);background:var(--card-2)}
+  .mini .ico svg{width:20px;height:20px}
+  .mini .t b{display:block;font-size:14px}
+  .mini .t span{font-size:12px;color:var(--muted)}
+
+  /* profile */
+  .phead{grid-column:span 12;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .phead .av{width:72px;height:72px;border-radius:50%;background:var(--critical-soft);color:var(--critical);display:grid;place-items:center;font-size:24px;font-weight:700}
+  .phead .t h2{margin:0 0 4px;font-size:20px}
+  .phead .meta{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:13.5px}
+  .phead .meta span b{color:var(--ink);font-weight:600}
+  .phead .right{margin-inline-start:auto;display:flex;gap:10px;align-items:center}
+  .btn{border:0;border-radius:11px;padding:10px 18px;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s}
+  .btn svg{width:18px;height:18px}
+  .btn.primary{background:var(--blue);color:#fff;box-shadow:0 6px 16px rgba(31,95,199,.3)}
+  .btn.primary:hover{transform:translateY(-1px)}
+  .btn.danger{background:var(--critical);color:#fff;box-shadow:0 6px 16px rgba(198,40,56,.3)}
+  .btn.ghost{background:var(--card-2);color:var(--ink);border:1px solid var(--line)}
+  .gauge-card{grid-column:span 4;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+  .gauge{width:220px;position:relative}
+  .gauge svg{width:100%;height:auto;display:block}
+  .gauge .val{position:absolute;left:0;right:0;bottom:6px;font-size:44px;font-weight:700;line-height:1}
+  .gauge .arc{fill:none;stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1),stroke .6s}
+  .gauge .track{fill:none;stroke:var(--line);stroke-width:14;stroke-linecap:round}
+  .reason{font-size:13px;color:var(--muted);max-width:32ch}
+  .journey{grid-column:span 8}
+  .steps{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;margin-top:6px;position:relative}
+  .step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;position:relative;padding:0 4px}
+  .step .dot{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--card-2);border:2px solid var(--line);color:var(--muted);position:relative;z-index:1}
+  .step .dot svg{width:18px;height:18px}
+  .step[data-state="done"] .dot{background:var(--blue);border-color:var(--blue);color:#fff}
+  .step[data-state="warn"] .dot{background:var(--warning);border-color:var(--warning);color:#fff}
+  .step[data-state="fail"] .dot{background:var(--critical);border-color:var(--critical);color:#fff}
+  .step[data-state="fixed"] .dot{background:var(--good);border-color:var(--good);color:#fff}
+  .step:not(:last-child)::after{content:"";position:absolute;top:19px;inset-inline-start:calc(50% + 22px);width:calc(100% - 44px);height:2px;background:var(--line)}
+  .step[data-state="done"]::after,.step[data-state="warn"]::after,.step[data-state="fail"]::after,.step[data-state="fixed"]::after{background:var(--blue)}
+  .step[data-state="warn"]::after{background:var(--warning)} .step[data-state="fail"]::after{background:var(--critical)} .step[data-state="fixed"]::after{background:var(--good)}
+  .step b{font-size:13px;line-height:1.3}
+  .step span{font-size:12px;color:var(--muted);line-height:1.3}
+  .step[data-state="warn"] span{color:var(--warning);font-weight:600}
+  .step[data-state="fail"] span{color:var(--critical);font-weight:600}
+  .step[data-state="fixed"] span{color:var(--good);font-weight:600}
+  .signals{grid-column:span 12;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .sig{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+  .sig .h{display:flex;align-items:center;gap:10px}
+  .sig .h i{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex:0 0 auto}
+  .sig .h i svg{width:19px;height:19px}
+  .sig .h b{font-size:14px}
+  .sig .v{font-size:22px;font-weight:700}
+  .sig .v small{font-size:12.5px;color:var(--muted);font-weight:500;margin-inline-start:6px}
+  .sig .b{height:7px;border-radius:4px;background:var(--line-2);overflow:hidden}
+  .sig .b span{display:block;height:100%;border-radius:4px}
+  .floor{grid-column:span 8}
+  .floor svg{width:100%;height:auto;display:block;background:var(--card-2);border-radius:12px}
+  .note{grid-column:span 4;display:flex;flex-direction:column;gap:14px}
+  .quote{background:var(--card-2);border-inline-start:4px solid var(--critical);border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.8}
+  .quote small{display:block;color:var(--muted);font-size:12.5px;margin-top:4px}
+  .kv{display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+  .kv div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+  .kv div span:first-child{color:var(--muted)}
+
+  /* alert */
+  .alert-card{grid-column:span 7;position:relative;overflow:hidden}
+  .alert-card::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:6px;background:var(--critical)}
+  .alert-card[data-done]::before{background:var(--good)}
+  .alert-h{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .alert-h .ico{width:44px;height:44px;border-radius:12px;background:var(--critical-soft);color:var(--critical);display:grid;place-items:center}
+  .alert-card[data-done] .alert-h .ico{background:var(--good-soft);color:var(--good)}
+  .alert-h .ico svg{width:22px;height:22px}
+  .alert-h h2{margin:0;font-size:17px}
+  .alert-h .time{color:var(--muted);font-size:12.5px}
+  .actions{display:flex;flex-direction:column;gap:8px;margin:12px 0 6px}
+  .act{display:flex;align-items:center;gap:12px;background:var(--card-2);border-radius:11px;padding:10px 12px;font-size:14px}
+  .act .n{width:26px;height:26px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:700;font-size:12.5px;flex:0 0 auto}
+  .act .own{margin-inline-start:auto;color:var(--muted);font-size:12.5px;white-space:nowrap}
+  .act[data-done] .n{background:var(--good);color:#fff}
+  .form{grid-column:span 5}
+  .form label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px}
+  .form input,.form textarea{width:100%;border:1px solid var(--line);background:var(--card-2);border-radius:10px;padding:10px 12px;font:inherit;color:var(--ink)}
+  .form textarea{min-height:76px;resize:vertical}
+  .radios{display:flex;flex-direction:column;gap:8px}
+  .radios label{display:flex;align-items:center;gap:10px;margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--ink);cursor:pointer;background:var(--card-2)}
+  .radios input{width:auto}
+  .radios label:has(input:checked){border-color:var(--blue);background:var(--blue-soft)}
+  .form .row{display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap}
+  .result{grid-column:span 12;display:none;align-items:center;gap:20px;flex-wrap:wrap;background:linear-gradient(90deg,var(--good-soft),var(--card));border:1px solid var(--good)}
+  .result[data-show]{display:flex}
+  .result .big{display:flex;align-items:center;gap:16px}
+  .result .big .from{font-size:30px;font-weight:700;color:var(--critical);text-decoration:line-through;opacity:.7}
+  .result .big .to{font-size:44px;font-weight:700;color:var(--good)}
+  .result .big .arrow{font-size:28px;color:var(--muted)}
+  .result .t{flex:1;min-width:220px}
+  .result .t b{font-size:17px}
+  .result .t p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+  .learn{grid-column:span 12}
+  .patterns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .pat{background:var(--card-2);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+  .pat i{width:38px;height:38px;border-radius:10px;background:var(--purple-soft);color:var(--purple);display:grid;place-items:center;flex:0 0 auto}
+  .pat i svg{width:18px;height:18px}
+  .pat b{display:block;font-size:14px;margin-bottom:2px}
+  .pat span{font-size:12.5px;color:var(--muted)}
+
+  /* presenter bar */
+  .presenter{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:8px;background:var(--navy);color:#fff;padding:8px 10px;border-radius:999px;box-shadow:0 14px 40px rgba(0,0,0,.35);font-size:13.5px}
+  .presenter button{border:0;background:rgba(255,255,255,.1);color:#fff;border-radius:999px;padding:7px 14px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .presenter button:hover{background:rgba(255,255,255,.18)}
+  .presenter button svg{width:16px;height:16px}
+  .presenter .steps-dots{display:flex;gap:6px;padding:0 8px}
+  .presenter .steps-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25)}
+  .presenter .steps-dots i[data-on]{background:#35C4D6}
+  .presenter .lbl{padding:0 6px;color:#BFD0EE;white-space:nowrap}
+  .presenter .lbl b{color:#fff}
+  .presenter .reset{background:transparent;color:#BFD0EE}
+
+  .fade{animation:fade .35s ease both}
+  @keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .walker{display:none}
+  }
+
+  /* responsive */
+  @media (max-width:1180px){
+    .kpi{grid-column:span 6} .c-line,.c-donut,.c-map,.c-mix{grid-column:span 12} .mini{grid-column:span 6}
+    .patients{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .gauge-card,.journey,.floor,.note,.alert-card,.form{grid-column:span 12}
+    .signals{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media (max-width:820px){
+    .app{grid-template-columns:1fr}
+    .sidebar{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px;padding:12px 16px}
+    .sidebar .lockup{flex-direction:row;align-items:center;gap:12px;padding:0}
+    .sidebar .lockup .rule,.sidebar .lockup .tag,.sidebar .foot{display:none}
+    .nav{flex-direction:row;flex-wrap:wrap;gap:2px}
+    .nav button{padding:8px 10px;font-size:13px}
+    .nav button span.txt{display:none}
+    .main{padding:14px 16px 120px}
+    .kpi,.mini{grid-column:span 12}
+    .patients{grid-template-columns:1fr}
+    .steps{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:22px}
+    .step:nth-child(4)::after{display:none}
+    .signals{grid-template-columns:1fr}
+    .patterns{grid-template-columns:1fr}
+    .presenter{width:calc(100% - 24px);justify-content:space-between;flex-wrap:wrap}
+    .presenter .lbl{display:none}
+    .search{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- ========== sidebar ========== -->
+  <aside class="sidebar" aria-label="القائمة الرئيسية">
+    <div class="lockup" aria-label="أثر">
+      <div class="row"><span class="ar">أثر</span><span class="bar"></span><span class="en">ATHAR</span></div>
+      <div class="rule"></div>
+      <div class="tag">Silent Experience Intelligence Engine</div>
+    </div>
+    <ul class="nav">
+      <li><button data-nav="overview" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg><span class="txt">الرئيسية</span></button></li>
+      <li><button data-nav="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M17 8h5M17 12h5"/></svg><span class="txt">المرضى</span></button></li>
+      <li><button data-nav="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg><span class="txt">التنبيهات</span><span class="badge" data-alert-count>3</span></button></li>
+      <li><button aria-disabled="true" title="قريباً"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span class="txt">التحليلات</span></button></li>
+      <li><button aria-disabled="true" title="قريباً"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-7h18v7M3 11V7a2 2 0 0 1 2-2h5v6M6 18v2M18 18v2"/></svg><span class="txt">الأسرّة</span></button></li>
+      <li><button aria-disabled="true" title="قريباً"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span class="txt">المواعيد</span></button></li>
+      <li><button aria-disabled="true" title="قريباً"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l6-6a4.95 4.95 0 0 1 7 7zM7 10l7 7"/></svg><span class="txt">الصيدلية</span></button></li>
+      <li><button aria-disabled="true" title="قريباً"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span class="txt">الإعدادات</span></button></li>
+    </ul>
+    <div class="foot">نموذج تجريبي · بيانات وهمية<br>هيلثون 2026</div>
+  </aside>
+
+  <!-- ========== main ========== -->
+  <main class="main">
+    <div class="topbar">
+      <div class="search" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>ابحث عن مريض أو رقم ملف…</span></div>
+      <div class="icons">
+        <button class="iconbtn" aria-label="التنبيهات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg><span class="dot"></span></button>
+        <button class="iconbtn" aria-label="الإعدادات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></button>
+        <div class="who"><div class="av">ن.ي</div><div class="t"><b>نهى اليحيى</b><span>إدارة تجربة المريض</span></div></div>
+      </div>
+    </div>
+
+    <!-- ===== screen 1: overview ===== -->
+    <section data-screen="overview" data-active>
+      <div class="banner">
+        <svg class="sky" viewBox="0 0 1200 150" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
+          <g fill="#0A1730" opacity=".9">
+            <rect x="40" y="96" width="30" height="54"/><rect x="80" y="80" width="22" height="70"/><rect x="112" y="104" width="40" height="46"/>
+            <rect x="170" y="70" width="26" height="80"/><rect x="206" y="90" width="34" height="60"/><rect x="250" y="108" width="20" height="42"/>
+            <rect x="300" y="84" width="28" height="66"/><rect x="340" y="98" width="46" height="52"/><rect x="400" y="60" width="24" height="90"/>
+            <path d="M470 150V62l16-30 16 30v88z"/><rect x="520" y="94" width="30" height="56"/><rect x="560" y="76" width="22" height="74"/>
+            <path d="M640 150V40l22-34 22 34v50h-14v60z"/><rect x="700" y="90" width="36" height="60"/><rect x="750" y="72" width="26" height="78"/>
+            <rect x="790" y="104" width="44" height="46"/><rect x="850" y="66" width="24" height="84"/><rect x="890" y="94" width="30" height="56"/>
+            <rect x="940" y="82" width="40" height="68"/><rect x="1000" y="100" width="26" height="50"/><rect x="1040" y="70" width="22" height="80"/>
+            <rect x="1080" y="96" width="48" height="54"/><rect x="1140" y="86" width="30" height="64"/>
+          </g>
+          <g fill="#F5D67A" opacity=".7"><circle cx="486" cy="80" r="1.6"/><circle cx="662" cy="70" r="1.6"/><circle cx="665" cy="90" r="1.6"/><circle cx="862" cy="90" r="1.6"/><circle cx="412" cy="84" r="1.6"/><circle cx="1050" cy="92" r="1.6"/><circle cx="182" cy="90" r="1.6"/></g>
+        </svg>
+        <h1>لوحة تجربة المريض</h1>
+        <p>مستشفى النخيل التخصصي · الرياض · <span data-today></span></p>
+      </div>
+
+      <div class="grid">
+        <div class="card kpi"><div class="ico" style="background:var(--good-soft);color:var(--good)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14a4 4 0 0 0 7 0M9 10h.01M15 10h.01"/></svg></div><div><div class="k">رضا المرضى</div><div class="v num">94<small>%</small></div><div class="d up">▲ 2.1 عن الربع الماضي</div></div></div>
+        <div class="card kpi"><div class="ico" style="background:var(--blue-soft);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg></div><div><div class="k">مرضى اليوم</div><div class="v num">312</div><div class="d" style="color:var(--muted)">حتى الساعة <span class="num">11:30</span></div></div></div>
+        <div class="card kpi"><div class="ico" style="background:var(--warning-soft);color:var(--warning)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><div class="k">متوسط الانتظار</div><div class="v num">27<small>دقيقة</small></div><div class="d down">▲ 4 د عن الأسبوع الماضي</div></div></div>
+        <div class="card kpi"><div class="ico" style="background:var(--critical-soft);color:var(--critical)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg></div><div><div class="k">تنبيهات التجربة الصامتة</div><div class="v num" data-alert-kpi>3</div><div class="d"><span class="pill critical">تحتاج تدخلاً اليوم</span></div></div></div>
+
+        <div class="patients" data-patients></div>
+
+        <div class="card c-line">
+          <h2>رضا المرضى الشهري <small>آخر 12 شهراً · %</small></h2>
+          <div class="chart" data-chart="line"></div>
+        </div>
+        <div class="card c-donut">
+          <h2>الإشارات الصامتة هذا الشهر <small>حسب النوع</small></h2>
+          <div class="chart" data-chart="donut"></div>
+        </div>
+
+        <div class="card c-map">
+          <h2>الموقع والتغطية</h2>
+          <div class="map-wrap">
+            <svg viewBox="0 0 100 100" aria-label="خريطة المملكة العربية السعودية" role="img">
+              <path d="M1.9 17.3 9.4 .6 22.2 .6 27.8 1.9 35.4 6.8 48.1 18.5 56.6 19.1 62.3 22.8 65.6 25.3 69.8 30.9 73.6 35.8 74.1 40.7 76.9 45.7 80.7 47.5 82.5 53.7 99.5 59.3 96.7 75.3 82.5 81.5 68.9 84 64.6 86.4 60.8 93.2 50.5 91.4 44.3 92 40.6 96.3 38.7 97.5 37.7 91.4 31.6 81.5 26.4 72.8 22.2 66 18.9 53.7 14.2 47.5 9.4 38.3 3.8 29 .5 24.1Z" fill="var(--line-2)" stroke="var(--line)" stroke-width=".8" stroke-linejoin="round"/>
+              <circle cx="57.5" cy="46.3" r="8" fill="var(--blue)" opacity=".15"/>
+              <circle cx="57.5" cy="46.3" r="2.6" fill="var(--blue)"/>
+              <circle cx="22.2" cy="66" r="1.6" fill="var(--teal)"/><circle cx="74.1" cy="40.7" r="1.6" fill="var(--teal)"/>
+            </svg>
+            <div class="stats">
+              <div class="s"><i style="background:var(--blue-soft);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></i><div style="flex:1"><div>الرياض · المقر الرئيسي</div><div class="b"><span style="width:100%;background:var(--blue)"></span></div></div></div>
+              <div class="s"><i style="background:var(--good-soft);color:var(--good)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></i><div style="flex:1"><div>رحلات مقروءة اليوم <b class="num">1,984</b></div><div class="b"><span style="width:78%;background:var(--good)"></span></div></div></div>
+              <div class="s"><i style="background:var(--teal-soft);color:var(--teal)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/></svg></i><div style="flex:1"><div>نقاط خدمة متصلة <b class="num">42</b></div><div class="b"><span style="width:88%;background:var(--teal)"></span></div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card c-mix">
+          <h2>أين تتعثر الرحلة <small>حصة كل نقطة من الإشارات · آخر 30 يوماً</small></h2>
+          <div class="chart" data-chart="bars"></div>
+        </div>
+
+        <div class="card mini"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-7h18v7M3 11V7a2 2 0 0 1 2-2h5v6"/></svg></div><div class="t"><b>إشغال الأسرّة</b><span>من 420 سريراً</span></div><div class="ring" style="margin-inline-start:auto" data-ring="82" data-color="var(--blue)"></div></div>
+        <div class="card mini"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg></div><div class="t"><b>زيارات العيادات</b><span>مقارنة بالمتوقع</span></div><div class="ring" style="margin-inline-start:auto" data-ring="96" data-color="var(--teal)"></div></div>
+        <div class="card mini"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="t"><b>الالتزام بالمواعيد</b><span>خلال 15 دقيقة</span></div><div class="ring" style="margin-inline-start:auto" data-ring="91" data-color="var(--good)"></div></div>
+        <div class="card mini"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div><div class="t"><b>الاستجابة للاستبيان</b><span>من المرضى المغادرين</span></div><div class="ring" style="margin-inline-start:auto" data-ring="38" data-color="var(--warning)"></div></div>
+      </div>
+    </section>
+
+    <!-- ===== screen 2: profile ===== -->
+    <section data-screen="profile">
+      <div class="grid" style="margin-top:0">
+        <div class="card phead">
+          <div class="av">س.م</div>
+          <div class="t">
+            <h2>سعد بن ناصر المطيري</h2>
+            <div class="meta"><span>العمر <b class="num">58</b></span><span>رقم الملف <b class="num">A-20481</b></span><span>الزيارة <b><span data-today></span> · <span class="num">09:12</span></b></span><span>العيادة <b>الباطنة</b></span><span>التأمين <b>شركة الدرع الطبي</b></span></div>
+          </div>
+          <div class="right">
+            <span class="pill critical" data-status-pill><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg> خطر صامت · أولوية عالية</span>
+            <button class="btn danger" data-go="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg> عرض التنبيه</button>
+          </div>
+        </div>
+
+        <div class="card gauge-card">
+          <h2 style="align-self:flex-start">خطر التجربة الصامتة <small>Silent Experience Risk</small></h2>
+          <div class="gauge" data-gauge>
+            <svg viewBox="0 0 220 130" aria-hidden="true">
+              <path class="track" d="M20 120 A90 90 0 0 1 200 120"/>
+              <path class="arc" d="M20 120 A90 90 0 0 1 200 120" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+            </svg>
+            <div class="val num" data-gauge-val>0</div>
+          </div>
+          <span class="pill critical" data-gauge-pill>أولوية عالية</span>
+          <div class="reason" data-gauge-reason>أربع إشارات تعثّر في زيارة واحدة، بلا شكوى وبلا رد على الاستبيان.</div>
+        </div>
+
+        <div class="card journey">
+          <h2>رحلة الزيارة كما حدثت <small>مقروءة من نقاط الخدمة · <span class="num" data-today></span></small></h2>
+          <div class="steps" data-steps></div>
+        </div>
+
+        <div class="signals" data-signals></div>
+
+        <div class="card floor">
+          <h2>المسار داخل المستشفى <small>تتبّع داخلي · من الدخول إلى الخروج</small></h2>
+          <svg viewBox="0 0 1000 520" aria-label="خريطة مسار المريض داخل المستشفى" role="img">
+            <defs>
+              <path id="route" d="M110 440 L300 350 L560 170 L820 250 L300 350 L560 440 L740 470 L900 400"/>
+              <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5 0 10z" fill="var(--blue)"/></marker>
+            </defs>
+            <g fill="none" stroke="var(--line)" stroke-width="1.5">
+              <rect x="20" y="20" width="960" height="480" rx="14"/>
+              <rect x="200" y="290" width="200" height="140" rx="8"/><rect x="460" y="90" width="220" height="160" rx="8"/><rect x="740" y="180" width="180" height="140" rx="8"/>
+              <rect x="470" y="380" width="200" height="110" rx="8"/><rect x="40" y="380" width="150" height="100" rx="8"/><rect x="840" y="360" width="120" height="90" rx="8"/>
+            </g>
+            <g fill="var(--muted)" font-size="16" font-weight="600" text-anchor="middle">
+              <text x="300" y="320">التسجيل</text><text x="570" y="122">العيادات</text><text x="830" y="212">التأمين</text><text x="570" y="412">الصيدلية</text><text x="115" y="412">المدخل</text><text x="900" y="392">الخروج</text>
+            </g>
+            <path d="M110 440 L300 350 L560 170 L820 250" fill="none" stroke="var(--blue)" stroke-width="4" stroke-dasharray="4 10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M820 250 L300 350" fill="none" stroke="var(--warning)" stroke-width="4" stroke-dasharray="4 10" stroke-linecap="round" marker-end="url(#arr)"/>
+            <path d="M300 350 L560 440 L740 470 L900 400" fill="none" stroke="var(--blue)" stroke-width="4" stroke-dasharray="4 10" stroke-linecap="round" stroke-linejoin="round"/>
+            <g>
+              <circle cx="110" cy="440" r="9" fill="var(--blue)"/><circle cx="300" cy="350" r="9" fill="var(--blue)"/><circle cx="560" cy="170" r="9" fill="var(--blue)"/><circle cx="820" cy="250" r="9" fill="var(--warning)"/>
+              <circle cx="900" cy="400" r="9" fill="var(--blue)"/>
+              <circle cx="570" cy="440" r="26" fill="none" stroke="var(--critical)" stroke-width="3" stroke-dasharray="6 6"/>
+              <path d="M560 430l20 20M580 430l-20 20" stroke="var(--critical)" stroke-width="4" stroke-linecap="round"/>
+            </g>
+            <g fill="var(--warning)" font-size="14" font-weight="700" text-anchor="middle"><text x="560" y="286">عاد إلى التسجيل</text></g>
+            <g fill="var(--critical)" font-size="14" font-weight="700" text-anchor="middle"><text x="570" y="486">تجاوز الصيدلية</text></g>
+            <circle class="walker" r="11" fill="#fff" stroke="var(--blue)" stroke-width="4">
+              <animateMotion dur="9s" repeatCount="indefinite" rotate="0"><mpath href="#route"/></animateMotion>
+            </circle>
+          </svg>
+        </div>
+
+        <div class="card note">
+          <h2>ما لم يقله المريض</h2>
+          <div class="quote">لم تُسجَّل شكوى.<br>لم يُجب على الاستبيان.<br>وغادر ووصفته لم تُصرف.<small>مصدر الإشارات: نقاط الخدمة، نظام الطوابير، الصيدلية، ومنصة الاستبيانات.</small></div>
+          <div class="kv">
+            <div><span>مدة الزيارة</span><b class="num">2 س 08 د</b></div>
+            <div><span>عدد نقاط الخدمة</span><b class="num">6</b></div>
+            <div><span>زيارات سابقة</span><b class="num">4</b> <span style="color:var(--muted)">· آخرها قبل 3 أشهر</span></div>
+            <div><span>استبيان</span><b style="color:var(--critical)">لم يُرد</b></div>
+          </div>
+          <button class="btn danger" data-go="alert" style="align-self:flex-start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg> عرض التنبيه والتدخل</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== screen 3: alert & intervention ===== -->
+    <section data-screen="alert">
+      <div class="grid" style="margin-top:0">
+        <div class="card alert-card" data-alert>
+          <div class="alert-h">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-alert-icon><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg></div>
+            <div><h2 data-alert-title>تنبيه مبكر — خطر تجربة صامتة <span class="num">70</span></h2><div class="time">سعد بن ناصر المطيري · رُصد الساعة <span class="num">11:24</span> · قبل مغادرة المريض بأربع دقائق</div></div>
+          </div>
+          <p style="margin:0;color:var(--muted);font-size:14px">أثر جمع أربع إشارات تعثّر في زيارة واحدة وحوّلها إلى تنبيه قبل أن تتحول إلى فقدان ثقة. الإجراءات المقترحة:</p>
+          <div class="actions" data-actions>
+            <div class="act"><span class="n">1</span><span>اتصال من تجربة المريض خلال 24 ساعة</span><span class="own">فريق تجربة المريض</span></div>
+            <div class="act"><span class="n">2</span><span>صرف الوصفة وتوصيلها إلى المنزل</span><span class="own">الصيدلية</span></div>
+            <div class="act"><span class="n">3</span><span>متابعة موافقة التأمين وإبلاغ المريض</span><span class="own">شؤون التأمين</span></div>
+          </div>
+          <div class="kv" style="margin-top:8px">
+            <div><span>احتمال عدم العودة بلا تدخل</span><b class="num" style="color:var(--critical)">3.2×</b></div>
+            <div><span>احتمال تقييم سلبي علني</span><b class="num">41%</b></div>
+          </div>
+        </div>
+
+        <div class="card form">
+          <h2>تنفيذ التدخل <small>يُسجَّل في ملف المريض</small></h2>
+          <form data-form>
+            <label for="agent">اسم المتصل</label>
+            <input id="agent" value="أمل الحربي" autocomplete="off">
+            <label>نتيجة الاتصال</label>
+            <div class="radios">
+              <label><input type="radio" name="outcome" value="ok" checked> تم التواصل، واعتُذر للمريض، وتُصرف الوصفة وتُوصَّل اليوم</label>
+              <label><input type="radio" name="outcome" value="later"> تم التواصل، وحُدد موعد متابعة</label>
+              <label><input type="radio" name="outcome" value="none"> لم يُرد على الاتصال</label>
+            </div>
+            <label for="note">ملاحظة</label>
+            <textarea id="note">المريض شكر الاتصال، وأكد أنه لم يكن سيعود. طلب توصيل الدواء بعد العصر.</textarea>
+            <div class="row">
+              <button type="submit" class="btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg> تنفيذ التدخل</button>
+              <span class="k" data-form-hint>ستُحدَّث درجة الخطر فور التسجيل</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="card result" data-result>
+          <div class="big"><span class="from num">70</span><span class="arrow">←</span><span class="to num" data-result-val>22</span></div>
+          <div class="t"><b>تمت استعادة الثقة</b><p>انخفض خطر التجربة الصامتة إلى منخفض بعد التدخل. تُتابع الرحلة تلقائياً 30 يوماً، ويُحدَّث النموذج بنتيجة الحالة.</p></div>
+          <span class="pill good"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg> استعادة استباقية</span>
+        </div>
+
+        <div class="card learn">
+          <h2>تعلّم مستمر <small>ما يتعلمه أثر من كل حالة</small></h2>
+          <div class="patterns">
+            <div class="pat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i><div><b>انتظار > 40 دقيقة + تأمين معلّق = <span class="num">3.2×</span> احتمال عدم العودة</b><span>نمط مؤكد من <span class="num">1,240</span> رحلة · ثقة <span class="num">92%</span> · يرفع أولوية التنبيه تلقائياً</span></div></div>
+            <div class="pat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l6-6a4.95 4.95 0 0 1 7 7zM7 10l7 7"/></svg></i><div><b>الوصفة غير المصروفة تُتوقع قبل الخروج بـ<span class="num">12</span> دقيقة</b><span>من حركة المريض بعد العيادة · يتيح التدخل قبل المغادرة لا بعدها</span></div></div>
+            <div class="pat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><div><b>الرد على الاستبيان يهبط إلى <span class="num">9%</span> بعد زيارة فيها ثلاث إشارات فأكثر</b><span>الصمت نفسه إشارة · لذلك لا ينتظر أثر الشكوى</span></div></div>
+            <div class="pat" data-learned style="opacity:.45"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.5L20 9l-4 4 1 5.5-5-2.7-5 2.7 1-5.5-4-4 5.5-.5z"/></svg></i><div><b data-learned-title>بانتظار نتيجة هذه الحالة</b><span data-learned-sub>تُضاف نتيجة التدخل إلى النموذج فور تسجيلها</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ========== presenter bar ========== -->
+<div class="presenter" role="toolbar" aria-label="خطوات العرض">
+  <button data-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg> السابق</button>
+  <div class="steps-dots" data-dots><i data-on></i><i></i><i></i><i></i><i></i></div>
+  <span class="lbl">خطوة <b class="num" data-step-n>1</b>/5 · <span data-step-name>النتائج المعلنة</span></span>
+  <button data-next>التالي <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+  <button class="reset" data-reset title="R">إعادة</button>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- data (fictional) ---------- */
+  const DATA = {
+    patients: [
+      {id: 'p1', name: 'نورة العتيبي', dept: 'النساء والولادة', age: 34, risk: 12},
+      {id: 'p2', name: 'خالد الشمري', dept: 'العظام', age: 45, risk: 28},
+      {id: 'p3', name: 'سعد بن ناصر المطيري', dept: 'الباطنة', age: 58, risk: 70, hero: true},
+      {id: 'p4', name: 'ريم القحطاني', dept: 'الجلدية', age: 29, risk: 41},
+      {id: 'p5', name: 'عبدالله الدوسري', dept: 'القلب', age: 62, risk: 18},
+    ],
+    satisfaction: [91.2, 92.0, 91.6, 92.8, 93.1, 92.6, 93.4, 93.9, 93.2, 93.8, 94.3, 94.0],
+    months: ['أكتوبر', 'نوفمبر', 'ديسمبر', 'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر'],
+    signals: [
+      {k: 'انتظار طويل', v: 46, c: 'var(--blue)'},
+      {k: 'تنقّل متكرر', v: 31, c: 'var(--teal)'},
+      {k: 'تأخر التأمين', v: 27, c: 'var(--warning)'},
+      {k: 'وصفة لم تُصرف', v: 24, c: 'var(--purple)'},
+    ],
+    touchpoints: [
+      {k: 'التسجيل', v: 14}, {k: 'الانتظار', v: 36}, {k: 'العيادة', v: 8}, {k: 'التأمين', v: 21}, {k: 'الصيدلية', v: 19}, {k: 'الاستبيان', v: 2},
+    ],
+    journey: [
+      {t: 'تسجيل', s: '09:12', st: 'done', i: 'card'},
+      {t: 'انتظار', s: '45 دقيقة', st: 'warn', i: 'clock'},
+      {t: 'العيادة', s: '10:02', st: 'done', i: 'cross'},
+      {t: 'التأمين', s: 'معلّق · 38 د', st: 'warn', i: 'shield'},
+      {t: 'الصيدلية', s: 'لم تُصرف', st: 'fail', i: 'pill'},
+      {t: 'الاستبيان', s: 'بلا رد', st: 'fail', i: 'chat'},
+      {t: 'الخروج', s: '11:20', st: 'done', i: 'exit'},
+    ],
+    signalCards: [
+      {t: 'انتظار طويل', v: '+45', u: 'دقيقة فوق المعيار', p: 90, c: 'var(--warning)', soft: 'var(--warning-soft)', i: 'clock'},
+      {t: 'تنقّل متكرر', v: '3', u: 'مرات بين نقاط الخدمة', p: 60, c: 'var(--teal)', soft: 'var(--teal-soft)', i: 'loop'},
+      {t: 'تأخر التأمين', v: '38', u: 'دقيقة بلا موافقة', p: 76, c: 'var(--warning)', soft: 'var(--warning-soft)', i: 'shield'},
+      {t: 'وصفة لم تُصرف', v: '0', u: 'من 2 أدوية صُرفت', p: 100, c: 'var(--critical)', soft: 'var(--critical-soft)', i: 'pill'},
+    ],
+  };
+  const ICON = {
+    card: '<path d="M3 6h18v12H3zM7 10h4M7 14h6M15 10h3v4h-3z"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    cross: '<path d="M9.5 3h5v6.5H21v5h-6.5V21h-5v-6.5H3v-5h6.5z"/>',
+    shield: '<path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"/>',
+    pill: '<path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l6-6a4.95 4.95 0 0 1 7 7zM7 10l7 7"/>',
+    chat: '<path d="M4 5h16v11H8l-4 4z"/>',
+    exit: '<path d="M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5M14 7l5 5-5 5M19 12H8"/>',
+    loop: '<path d="M4 12a8 8 0 0 1 14-5.3M18 3v4h-4M20 12a8 8 0 0 1-14 5.3M6 21v-4h4"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7"/>',
+  };
+  const svg = (d, extra = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${d}</svg>`;
+  const riskColor = (r) => r >= 60 ? 'var(--critical)' : r >= 35 ? 'var(--warning)' : 'var(--good)';
+  const riskWord = (r) => r >= 60 ? 'أولوية عالية' : r >= 35 ? 'أولوية متوسطة' : 'منخفض';
+  const initials = (n) => n.split(' ').filter((w) => w !== 'بن').slice(0, 2).map((w) => w[0]).join('.');
+
+  /* ---------- state ---------- */
+  const state = {screen: 'overview', step: 1, recovered: false};
+  const STEPS = [
+    {screen: 'overview', name: 'النتائج المعلنة', focus: false},
+    {screen: 'overview', name: 'مريض يصمت', focus: true},
+    {screen: 'profile', name: 'رحلته كما حدثت'},
+    {screen: 'alert', name: 'تنبيه مبكر'},
+    {screen: 'alert', name: 'استعادة الثقة', recover: true},
+  ];
+
+  /* ---------- render: overview ---------- */
+  function ring(v, color, size = 56) {
+    const r = (size - 8) / 2, C = 2 * Math.PI * r;
+    return `<div class="ring" style="width:${size}px;height:${size}px"><svg viewBox="0 0 ${size} ${size}" style="width:${size}px;height:${size}px"><circle class="track" cx="${size/2}" cy="${size/2}" r="${r}"/><circle class="arc" cx="${size/2}" cy="${size/2}" r="${r}" stroke="${color}" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - v / 100)}"/></svg><div class="n num" style="color:${color}">${v}${size >= 64 ? '%' : ''}</div></div>`;
+  }
+  function renderPatients() {
+    $('[data-patients]').innerHTML = DATA.patients.map((p) => {
+      const risk = p.hero && state.recovered ? 22 : p.risk;
+      const level = risk >= 60 ? 'critical' : risk >= 35 ? 'warning' : 'good';
+      return `<button class="pcard" data-id="${p.id}" data-risk="${level}" ${p.hero && state.step === 2 ? 'data-focus' : ''} aria-label="فتح ملف ${p.name}">
+        <span class="chev">${svg('<path d="m15 6-6 6 6 6"/>')}</span>
+        <div class="av">${initials(p.name)}</div>
+        <div class="t"><b>${p.name}</b><span>${p.dept} · ${p.age} سنة</span></div>
+        ${ring(risk, riskColor(risk))}
+      </button>`;
+    }).join('');
+    $$('.pcard').forEach((b) => b.addEventListener('click', () => go('profile')));
+  }
+  function renderLine() {
+    const W = 640, H = 230, pl = 44, pr = 16, pt = 18, pb = 34;
+    const ys = DATA.satisfaction, n = ys.length, lo = 90, hi = 96;
+    const x = (i) => pl + (i / (n - 1)) * (W - pl - pr);
+    const y = (v) => pt + (1 - (v - lo) / (hi - lo)) * (H - pt - pb);
+    const pts = ys.map((v, i) => [x(i), y(v)]);
+    const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    const area = d + ` L${x(n - 1)} ${y(lo)} L${x(0)} ${y(lo)} Z`;
+    const grid = [90, 92, 94, 96].map((v) => `<line x1="${pl}" x2="${W - pr}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line-2)"/><text x="${pl - 8}" y="${y(v) + 4}" font-size="11" fill="var(--faint)" text-anchor="end" class="num">${v}</text>`).join('');
+    const labels = DATA.months.map((m, i) => i % 2 ? '' : `<text x="${x(i)}" y="${H - 10}" font-size="11" fill="var(--faint)" text-anchor="middle">${m}</text>`).join('');
+    const last = pts[n - 1];
+    const el = $('[data-chart="line"]');
+    el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" direction="ltr" aria-label="رضا المرضى الشهري">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--blue)" stop-opacity=".22"/><stop offset="1" stop-color="var(--blue)" stop-opacity="0"/></linearGradient></defs>
+      ${grid}${labels}
+      <path d="${area}" fill="url(#lg)"/>
+      <path d="${d}" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      ${pts.map((p) => `<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="var(--card)" stroke="var(--blue)" stroke-width="2"/>`).join('')}
+      <circle cx="${last[0]}" cy="${last[1]}" r="6" fill="var(--blue)" stroke="var(--card)" stroke-width="2.5"/>
+      <text x="${last[0]}" y="${last[1] - 12}" font-size="13" font-weight="700" fill="var(--ink)" text-anchor="middle" class="num">${ys[n - 1]}%</text>
+      <line data-cross x1="0" x2="0" y1="${pt}" y2="${H - pb}" stroke="var(--faint)" stroke-dasharray="3 3" opacity="0"/>
+      ${pts.map((p, i) => `<rect data-i="${i}" x="${p[0] - (W - pl - pr) / (n - 1) / 2}" y="0" width="${(W - pl - pr) / (n - 1)}" height="${H}" fill="transparent"/>`).join('')}
+    </svg><div class="tip"></div>`;
+    const tip = $('.tip', el), cross = $('[data-cross]', el), svgEl = $('svg', el);
+    svgEl.addEventListener('mousemove', (e) => {
+      const r = e.target.getAttribute('data-i'); if (r === null) return;
+      const i = +r, p = pts[i], box = svgEl.getBoundingClientRect(), sx = box.width / W;
+      tip.innerHTML = `${DATA.months[i]} · <b class="num">${ys[i]}%</b>`;
+      tip.style.right = (box.width - p[0] * sx) + 'px'; tip.style.top = (p[1] * sx - 10) + 'px'; tip.style.opacity = 1;
+      cross.setAttribute('x1', p[0]); cross.setAttribute('x2', p[0]); cross.setAttribute('opacity', 1);
+    });
+    svgEl.addEventListener('mouseleave', () => { tip.style.opacity = 0; cross.setAttribute('opacity', 0); });
+  }
+  function renderDonut() {
+    const total = DATA.signals.reduce((a, s) => a + s.v, 0), R = 54, C = 2 * Math.PI * R, gap = 2.5;
+    let off = 0;
+    const slices = DATA.signals.map((s) => {
+      const len = (s.v / total) * C - gap;
+      const el = `<circle r="${R}" cx="80" cy="80" fill="none" stroke="${s.c}" stroke-width="18" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}" transform="rotate(-90 80 80)"><title>${s.k}: ${s.v}</title></circle>`;
+      off += (s.v / total) * C; return el;
+    }).join('');
+    $('[data-chart="donut"]').innerHTML = `<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+      <svg viewBox="0 0 160 160" style="width:160px;flex:0 0 auto" aria-label="توزيع الإشارات الصامتة">${slices}
+        <text x="80" y="76" text-anchor="middle" font-size="30" font-weight="700" fill="var(--ink)" class="num">${total}</text>
+        <text x="80" y="98" text-anchor="middle" font-size="12" fill="var(--muted)">إشارة</text></svg>
+      <div class="legend" style="flex-direction:column;gap:10px;margin:0">${DATA.signals.map((s) => `<div><i style="background:${s.c}"></i>${s.k}<b class="num">${s.v}</b> <span style="color:var(--faint)" class="num">(${Math.round(s.v / total * 100)}%)</span></div>`).join('')}</div>
+    </div>`;
+  }
+  function renderBars() {
+    const W = 640, H = 200, pl = 16, pr = 16, pt = 24, pb = 30, max = 40;
+    const n = DATA.touchpoints.length, bw = (W - pl - pr) / n, w = bw * .52;
+    const bars = DATA.touchpoints.map((t, i) => {
+      const h = (t.v / max) * (H - pt - pb), x = pl + i * bw + (bw - w) / 2, y = H - pb - h;
+      const hot = t.k === 'الانتظار' || t.k === 'التأمين' || t.k === 'الصيدلية';
+      return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${hot ? 'var(--blue)' : 'var(--line)'}"><title>${t.k}: ${t.v}%</title></rect>
+        <text x="${x + w / 2}" y="${y - 7}" font-size="12" font-weight="600" fill="var(--ink)" text-anchor="middle" class="num">${t.v}%</text>
+        <text x="${x + w / 2}" y="${H - 9}" font-size="12" fill="var(--muted)" text-anchor="middle">${t.k}</text>`;
+    }).join('');
+    $('[data-chart="bars"]').innerHTML = `<svg viewBox="0 0 ${W} ${H}" aria-label="حصة نقاط الخدمة من الإشارات"><line x1="${pl}" x2="${W - pr}" y1="${H - pb}" y2="${H - pb}" stroke="var(--line)"/>${bars}</svg>`;
+  }
+  function renderMiniRings() {
+    $$('[data-ring]').forEach((el) => { el.outerHTML = ring(+el.dataset.ring, el.dataset.color, 64); });
+  }
+
+  /* ---------- render: profile ---------- */
+  function renderJourney() {
+    const steps = DATA.journey.map((s) => ({...s}));
+    if (state.recovered) { steps[4] = {t: 'الصيدلية', s: 'صُرفت · توصيل', st: 'fixed', i: 'pill'}; steps.push({t: 'تدخل', s: '11:52 ✓', st: 'fixed', i: 'check'}); }
+    $('[data-steps]').innerHTML = steps.map((s) => `<div class="step" data-state="${s.st}"><div class="dot">${svg(ICON[s.i])}</div><b>${s.t}</b><span class="num">${s.s}</span></div>`).join('');
+    $('[data-steps]').style.gridTemplateColumns = `repeat(${steps.length},minmax(0,1fr))`;
+  }
+  function renderSignals() {
+    $('[data-signals]').innerHTML = DATA.signalCards.map((c) => `<div class="sig">
+      <div class="h"><i style="background:${c.soft};color:${c.c}">${svg(ICON[c.i])}</i><b>${c.t}</b></div>
+      <div class="v num">${c.v}<small>${c.u}</small></div>
+      <div class="b"><span style="width:${c.p}%;background:${c.c}"></span></div></div>`).join('');
+  }
+  function renderGauge() {
+    const v = state.recovered ? 22 : 70, col = riskColor(v);
+    const arc = $('[data-gauge] .arc'), val = $('[data-gauge-val]');
+    arc.style.stroke = col;
+    requestAnimationFrame(() => { arc.style.strokeDashoffset = 100 - v; });
+    const start = +val.textContent || 0, t0 = performance.now(), dur = reduced ? 0 : 1100;
+    const tick = (now) => { const p = dur ? Math.min(1, (now - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3); val.textContent = Math.round(start + (v - start) * e); val.style.color = col; if (p < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+    const pill = $('[data-gauge-pill]'); pill.className = 'pill ' + (v >= 60 ? 'critical' : v >= 35 ? 'warning' : 'good'); pill.textContent = riskWord(v);
+    $('[data-gauge-reason]').textContent = state.recovered ? 'تم التواصل وصُرفت الوصفة. تُتابع الرحلة تلقائياً 30 يوماً.' : 'أربع إشارات تعثّر في زيارة واحدة، بلا شكوى وبلا رد على الاستبيان.';
+    const sp = $('[data-status-pill]'); sp.className = 'pill ' + (state.recovered ? 'good' : 'critical');
+    sp.innerHTML = state.recovered ? svg(ICON.check, 'width="14" height="14"') + ' تمت استعادة الثقة' : svg('<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>', 'width="14" height="14"') + ' خطر صامت · أولوية عالية';
+  }
+
+  /* ---------- render: alert ---------- */
+  function renderAlert() {
+    const card = $('[data-alert]'), res = $('[data-result]');
+    if (state.recovered) {
+      card.setAttribute('data-done', ''); res.setAttribute('data-show', '');
+      $('[data-alert-title]').innerHTML = 'تنبيه مُعالَج — استُعيدت الثقة <span class="num">22</span>';
+      $('[data-alert-icon]').innerHTML = ICON.check;
+      $$('.act', card).forEach((a) => { a.setAttribute('data-done', ''); $('.n', a).innerHTML = svg(ICON.check, 'width="14" height="14"'); });
+      $('[data-form-hint]').textContent = 'سُجِّل التدخل الساعة 11:52';
+      const l = $('[data-learned]'); l.style.opacity = 1; $('[data-learned-title]').textContent = 'حالة سعد: تدخل قبل المغادرة أعاد الثقة'; $('[data-learned-sub]').textContent = 'أُضيفت إلى النموذج · نمط "وصفة لم تُصرف + انتظار طويل" صار أدق';
+    } else {
+      card.removeAttribute('data-done'); res.removeAttribute('data-show');
+      $('[data-alert-title]').innerHTML = 'تنبيه مبكر — خطر تجربة صامتة <span class="num">70</span>';
+      $('[data-alert-icon]').innerHTML = '<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>';
+      $$('.act', card).forEach((a, i) => { a.removeAttribute('data-done'); $('.n', a).textContent = i + 1; });
+      $('[data-form-hint]').textContent = 'ستُحدَّث درجة الخطر فور التسجيل';
+      const l = $('[data-learned]'); l.style.opacity = .45; $('[data-learned-title]').textContent = 'بانتظار نتيجة هذه الحالة'; $('[data-learned-sub]').textContent = 'تُضاف نتيجة التدخل إلى النموذج فور تسجيلها';
+    }
+    const n = state.recovered ? 2 : 3;
+    $('[data-alert-count]').textContent = n; $('[data-alert-kpi]').textContent = n;
+  }
+
+  /* ---------- navigation ---------- */
+  function go(screen) {
+    state.screen = screen;
+    $$('section[data-screen]').forEach((s) => { const on = s.dataset.screen === screen; s.toggleAttribute('data-active', on); if (on) { s.classList.remove('fade'); void s.offsetWidth; s.classList.add('fade'); } });
+    $$('[data-nav]').forEach((b) => { if (b.dataset.nav === screen) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    if (screen === 'profile') renderGauge();
+    window.scrollTo({top: 0, behavior: reduced ? 'auto' : 'smooth'});
+  }
+  function intervene() { state.recovered = true; renderAll(); go('alert'); $('[data-result]').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'center'}); }
+  function step(n) {
+    state.step = Math.max(1, Math.min(STEPS.length, n));
+    const s = STEPS[state.step - 1];
+    if (s.recover && !state.recovered) { state.recovered = true; renderAll(); }
+    if (!s.recover && state.step < 5 && state.recovered) { state.recovered = false; renderAll(); }
+    renderPatients();
+    go(s.screen);
+    $$('[data-dots] i').forEach((d, i) => d.toggleAttribute('data-on', i < state.step));
+    $('[data-step-n]').textContent = state.step; $('[data-step-name]').textContent = s.name;
+    if (s.focus) setTimeout(() => $('.pcard[data-focus]')?.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'center'}), 150);
+  }
+  function reset() { state.recovered = false; renderAll(); step(1); }
+  function renderAll() { renderPatients(); renderJourney(); renderSignals(); renderAlert(); if (state.screen === 'profile') renderGauge(); }
+
+  /* ---------- wire ---------- */
+  $$('[data-nav]').forEach((b) => b.addEventListener('click', () => go(b.dataset.nav)));
+  $$('[data-go]').forEach((b) => b.addEventListener('click', () => go(b.dataset.go)));
+  $('[data-form]').addEventListener('submit', (e) => { e.preventDefault(); intervene(); });
+  $('[data-next]').addEventListener('click', () => step(state.step + 1));
+  $('[data-prev]').addEventListener('click', () => step(state.step - 1));
+  $('[data-reset]').addEventListener('click', reset);
+  document.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+    if (e.key === 'ArrowLeft') step(state.step + 1);   /* RTL: left = forward */
+    if (e.key === 'ArrowRight') step(state.step - 1);
+    if (e.key.toLowerCase() === 'r') reset();
+  });
+  const today = new Date().toLocaleDateString('ar-SA-u-nu-latn', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'});
+  $$('[data-today]').forEach((el) => el.textContent = today);
+
+  renderLine(); renderDonut(); renderBars(); renderMiniRings(); renderAll(); step(1);
+  window.athar = {state, go, step, intervene, reset};
+})();
+</script>
+</body>
+</html>
