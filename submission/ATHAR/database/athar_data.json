@@ -1,0 +1,756 @@
+{
+  "TH": {
+    "med": 40,
+    "high": 70
+  },
+  "WAIT_LIMIT": 30,
+  "SIG": {
+    "resched": {
+      "w": 8,
+      "n": {
+        "ar": "تكرار إعادة الجدولة من مقدم الخدمة",
+        "en": "Repeated provider-initiated rescheduling"
+      },
+      "src": {
+        "ar": "نظام المواعيد",
+        "en": "Appointments system"
+      }
+    },
+    "wait": {
+      "w": 12,
+      "n": {
+        "ar": "انتظار يتجاوز الحد التوضيحي (30 د)",
+        "en": "Waiting above illustrative limit (30 min)"
+      },
+      "src": {
+        "ar": "نظام الطوابير",
+        "en": "Queue system"
+      }
+    },
+    "move": {
+      "w": 10,
+      "n": {
+        "ar": "تنقل غير متوقع مقارنة بالمسار المتوقع",
+        "en": "Unexpected movement vs expected path"
+      },
+      "src": {
+        "ar": "تحديد الموقع الداخلي (محاكاة)",
+        "en": "Indoor positioning (simulated)"
+      }
+    },
+    "ret": {
+      "w": 10,
+      "n": {
+        "ar": "عودة غير متوقعة إلى محطة سابقة",
+        "en": "Unexpected return to an earlier station"
+      },
+      "src": {
+        "ar": "تحديد الموقع الداخلي (محاكاة)",
+        "en": "Indoor positioning (simulated)"
+      }
+    },
+    "appr": {
+      "w": 10,
+      "n": {
+        "ar": "موافقة معلقة تعيق الخدمة",
+        "en": "Pending approval blocking service"
+      },
+      "src": {
+        "ar": "نظام التأمين والموافقات",
+        "en": "Insurance & approvals system"
+      }
+    }
+  },
+  "P": {
+    "reg": {
+      "ar": "التسجيل",
+      "en": "Registration"
+    },
+    "cw": {
+      "ar": "انتظار العيادة",
+      "en": "Clinic waiting"
+    },
+    "cl": {
+      "ar": "العيادة",
+      "en": "Clinic"
+    },
+    "rad": {
+      "ar": "منطقة الأشعة",
+      "en": "Radiology zone"
+    },
+    "ins": {
+      "ar": "نافذة التأمين",
+      "en": "Insurance desk"
+    },
+    "ph": {
+      "ar": "الصيدلية",
+      "en": "Pharmacy"
+    },
+    "ent": {
+      "ar": "المدخل",
+      "en": "Entrance"
+    },
+    "lab": {
+      "ar": "المختبر",
+      "en": "Laboratory"
+    },
+    "er": {
+      "ar": "الطوارئ",
+      "en": "Emergency"
+    }
+  },
+  "DEPTS": {
+    "ob": {
+      "ar": "النساء والولادة",
+      "en": "OB/GYN"
+    },
+    "or": {
+      "ar": "العظام",
+      "en": "Orthopedics"
+    },
+    "im": {
+      "ar": "الباطنة",
+      "en": "Internal Medicine"
+    },
+    "de": {
+      "ar": "الجلدية",
+      "en": "Dermatology"
+    },
+    "ca": {
+      "ar": "القلب",
+      "en": "Cardiology"
+    },
+    "em": {
+      "ar": "الطوارئ",
+      "en": "Emergency"
+    }
+  },
+  "cases": [
+    {
+      "id": "A-01",
+      "name": {
+        "ar": "الحالة أ-01",
+        "en": "Case A-01"
+      },
+      "age": 34,
+      "dept": "ob",
+      "status": "review",
+      "consent": {
+        "s": "none"
+      },
+      "inst": {
+        "state": "open",
+        "at": "10:35",
+        "reason": {
+          "ar": "انتظار 41 دقيقة — 11 دقيقة فوق الحد التوضيحي",
+          "en": "41 min wait — 11 min over illustrative limit"
+        }
+      },
+      "signals": [
+        {
+          "key": "wait",
+          "w": 12,
+          "state": "active",
+          "src": "sys",
+          "ev": "wait-j5icn",
+          "pathChecked": true
+        }
+      ],
+      "events": [
+        {
+          "status": "off",
+          "psrc": "sys",
+          "what": {
+            "ar": "التسجيل",
+            "en": "Registration"
+          },
+          "start": "10:02",
+          "upd": "10:04",
+          "place": "reg",
+          "src": {
+            "ar": "نظام معلومات المستشفى",
+            "en": "HIS"
+          }
+        },
+        {
+          "status": "on",
+          "psrc": "sys",
+          "what": {
+            "ar": "انتظار العيادة (41 د حتى الآن)",
+            "en": "Clinic waiting (41 min so far)"
+          },
+          "start": "10:05",
+          "upd": "10:46",
+          "place": "cw",
+          "src": {
+            "ar": "نظام الطوابير",
+            "en": "Queue system"
+          }
+        }
+      ],
+      "form": {
+        "contact": "none",
+        "verify": "open",
+        "adesc": "",
+        "owner": "",
+        "assignee": "",
+        "fu": "",
+        "rdesc": "",
+        "rhow": ""
+      },
+      "log": [
+        {
+          "at": "10:35",
+          "k": "lg_alert",
+          "v": {
+            "ar": "انتظار يتجاوز الحد التوضيحي",
+            "en": "waiting above illustrative limit"
+          }
+        }
+      ],
+      "loc": []
+    },
+    {
+      "id": "A-02",
+      "name": {
+        "ar": "الحالة أ-02",
+        "en": "Case A-02"
+      },
+      "age": 45,
+      "dept": "or",
+      "status": "contacting",
+      "consent": {
+        "s": "granted",
+        "at": "08:51",
+        "last": "09:58"
+      },
+      "inst": null,
+      "signals": [
+        {
+          "key": "resched",
+          "w": 8,
+          "state": "active",
+          "src": "sys",
+          "ev": "resched-awzja",
+          "pathChecked": true
+        },
+        {
+          "key": "appr",
+          "w": 10,
+          "state": "active",
+          "src": "sys",
+          "ev": "appr-f5b9u",
+          "pathChecked": true
+        },
+        {
+          "key": "ret",
+          "w": 10,
+          "state": "active",
+          "src": "loc",
+          "ev": "ret-nah7j",
+          "pathChecked": true
+        }
+      ],
+      "events": [
+        {
+          "status": "off",
+          "psrc": "sys",
+          "what": {
+            "ar": "إعادة جدولة الموعد مرتين من مقدم الخدمة",
+            "en": "Appointment rescheduled twice by provider"
+          },
+          "start": "—",
+          "upd": "—",
+          "place": null,
+          "src": {
+            "ar": "نظام المواعيد",
+            "en": "Appointments system"
+          }
+        },
+        {
+          "status": "on",
+          "psrc": "sys",
+          "what": {
+            "ar": "موافقة تأمين معلقة لإجراء الأشعة",
+            "en": "Insurance approval pending for imaging"
+          },
+          "start": "09:20",
+          "upd": "09:58",
+          "place": "ins",
+          "src": {
+            "ar": "نظام التأمين والموافقات",
+            "en": "Insurance & approvals"
+          }
+        },
+        {
+          "status": "off",
+          "psrc": "loc",
+          "what": {
+            "ar": "عودة إلى نافذة التسجيل بعد بدء الخدمة",
+            "en": "Returned to registration after service start"
+          },
+          "start": "09:41",
+          "upd": "09:44",
+          "place": "reg",
+          "src": {
+            "ar": "تحديد الموقع الداخلي (محاكاة)",
+            "en": "Indoor positioning (simulated)"
+          }
+        }
+      ],
+      "form": {
+        "contact": "ok",
+        "verify": "open",
+        "adesc": "متابعة الموافقة مع شؤون التأمين",
+        "owner": "فريق تجربة المريض",
+        "assignee": "شؤون التأمين",
+        "fu": "",
+        "rdesc": "",
+        "rhow": ""
+      },
+      "log": [
+        {
+          "at": "09:46",
+          "k": "lg_signal",
+          "v": {
+            "ar": "اجتماع 3 إشارات مؤهلة",
+            "en": "3 qualifying signals combined"
+          }
+        },
+        {
+          "at": "09:50",
+          "k": "lg_assign",
+          "v": {
+            "ar": "شؤون التأمين",
+            "en": "Insurance affairs"
+          }
+        },
+        {
+          "at": "09:55",
+          "k": "lg_contact",
+          "v": {
+            "ar": "تم التواصل",
+            "en": "Contacted"
+          }
+        }
+      ],
+      "loc": [
+        "ent",
+        "reg",
+        "cw",
+        "cl",
+        "ins",
+        "reg"
+      ]
+    },
+    {
+      "id": "A-03",
+      "name": {
+        "ar": "الحالة أ-03",
+        "en": "Case A-03"
+      },
+      "age": 58,
+      "dept": "im",
+      "status": "review",
+      "interactive": true,
+      "step": 0,
+      "clock": null,
+      "post": false,
+      "consent": {
+        "s": "none"
+      },
+      "inst": null,
+      "signals": [
+        {
+          "key": "resched",
+          "w": 8,
+          "state": "active",
+          "src": "sys",
+          "ev": "ev-resched",
+          "pathChecked": true
+        }
+      ],
+      "events": [
+        {
+          "status": "off",
+          "psrc": "sys",
+          "id": "e-res",
+          "what": {
+            "ar": "تكرار إعادة الجدولة من مقدم الخدمة",
+            "en": "Repeated provider-initiated rescheduling"
+          },
+          "start": "—",
+          "upd": "—",
+          "place": null,
+          "src": {
+            "ar": "نظام المواعيد",
+            "en": "Appointments system"
+          }
+        }
+      ],
+      "form": {
+        "contact": "none",
+        "verify": "open",
+        "adesc": "",
+        "owner": "",
+        "assignee": "",
+        "fu": "",
+        "rdesc": "",
+        "rhow": ""
+      },
+      "log": [
+        {
+          "at": "—",
+          "k": "lg_signal",
+          "v": {
+            "ar": "تكرار إعادة الجدولة (8 نقاط)",
+            "en": "Repeated rescheduling (8 pts)"
+          }
+        }
+      ],
+      "loc": [],
+      "added": {}
+    },
+    {
+      "id": "A-04",
+      "name": {
+        "ar": "الحالة أ-04",
+        "en": "Case A-04"
+      },
+      "age": 29,
+      "dept": "de",
+      "status": "review",
+      "consent": {
+        "s": "granted",
+        "at": "09:02",
+        "last": "10:30"
+      },
+      "inst": {
+        "state": "open",
+        "at": "10:21",
+        "reason": {
+          "ar": "انتظار 36 دقيقة — 6 دقائق فوق الحد التوضيحي",
+          "en": "36 min wait — 6 min over illustrative limit"
+        }
+      },
+      "signals": [
+        {
+          "key": "resched",
+          "w": 8,
+          "state": "active",
+          "src": "sys",
+          "ev": "resched-e88rr",
+          "pathChecked": true
+        },
+        {
+          "key": "wait",
+          "w": 12,
+          "state": "active",
+          "src": "sys",
+          "ev": "wait-au3gz",
+          "pathChecked": true
+        },
+        {
+          "key": "appr",
+          "w": 10,
+          "state": "active",
+          "src": "sys",
+          "ev": "appr-gbhl0",
+          "pathChecked": true
+        },
+        {
+          "key": "move",
+          "w": 10,
+          "state": "active",
+          "src": "loc",
+          "ev": "move-qeq40",
+          "pathChecked": true
+        }
+      ],
+      "events": [
+        {
+          "status": "off",
+          "psrc": "sys",
+          "what": {
+            "ar": "إعادة جدولة الموعد مرتين من مقدم الخدمة",
+            "en": "Appointment rescheduled twice by provider"
+          },
+          "start": "—",
+          "upd": "—",
+          "place": null,
+          "src": {
+            "ar": "نظام المواعيد",
+            "en": "Appointments system"
+          }
+        },
+        {
+          "status": "off",
+          "psrc": "loc",
+          "what": {
+            "ar": "توجه إلى المختبر دون طلب تحاليل في الزيارة",
+            "en": "Went to the lab with no lab order in the visit"
+          },
+          "start": "09:31",
+          "upd": "09:39",
+          "place": "lab",
+          "src": {
+            "ar": "تحديد الموقع الداخلي (محاكاة)",
+            "en": "Indoor positioning (simulated)"
+          }
+        },
+        {
+          "status": "on",
+          "psrc": "sys",
+          "what": {
+            "ar": "موافقة معلقة لإجراء جلدي",
+            "en": "Approval pending for dermatology procedure"
+          },
+          "start": "09:45",
+          "upd": "10:30",
+          "place": "ins",
+          "src": {
+            "ar": "نظام التأمين والموافقات",
+            "en": "Insurance & approvals"
+          }
+        },
+        {
+          "status": "on",
+          "psrc": "sys",
+          "what": {
+            "ar": "انتظار العيادة (36 د حتى الآن)",
+            "en": "Clinic waiting (36 min so far)"
+          },
+          "start": "09:51",
+          "upd": "10:27",
+          "place": "cw",
+          "src": {
+            "ar": "نظام الطوابير",
+            "en": "Queue system"
+          }
+        }
+      ],
+      "form": {
+        "contact": "none",
+        "verify": "open",
+        "adesc": "",
+        "owner": "",
+        "assignee": "",
+        "fu": "",
+        "rdesc": "",
+        "rhow": ""
+      },
+      "log": [
+        {
+          "at": "10:21",
+          "k": "lg_alert",
+          "v": {
+            "ar": "انتظار يتجاوز الحد التوضيحي",
+            "en": "waiting above illustrative limit"
+          }
+        }
+      ],
+      "loc": [
+        "ent",
+        "reg",
+        "lab",
+        "cw",
+        "ins",
+        "cw"
+      ]
+    },
+    {
+      "id": "A-05",
+      "name": {
+        "ar": "الحالة أ-05",
+        "en": "Case A-05"
+      },
+      "age": 62,
+      "dept": "ca",
+      "status": "resolved",
+      "consent": {
+        "s": "denied",
+        "at": "08:40"
+      },
+      "inst": {
+        "state": "closed",
+        "at": "09:20",
+        "reason": {
+          "ar": "انتظار 34 دقيقة",
+          "en": "34 min wait"
+        }
+      },
+      "signals": [
+        {
+          "key": "wait",
+          "w": 12,
+          "state": "hist",
+          "src": "sys",
+          "ev": "wait-o49yn",
+          "pathChecked": true
+        }
+      ],
+      "events": [
+        {
+          "status": "off",
+          "psrc": "sys",
+          "what": {
+            "ar": "انتظار العيادة 44 دقيقة (14 فوق الحد)",
+            "en": "Clinic waiting 44 min (14 over limit)"
+          },
+          "start": "08:46",
+          "upd": "09:30",
+          "place": "cw",
+          "src": {
+            "ar": "نظام الطوابير",
+            "en": "Queue system"
+          }
+        },
+        {
+          "status": "off",
+          "psrc": "sys",
+          "what": {
+            "ar": "بدء خدمة العيادة",
+            "en": "Clinic service started"
+          },
+          "start": "09:30",
+          "upd": "09:52",
+          "place": "cl",
+          "src": {
+            "ar": "نظام معلومات المستشفى",
+            "en": "HIS"
+          }
+        }
+      ],
+      "form": {
+        "contact": "ok",
+        "verify": "need",
+        "adesc": "اعتذار وتنسيق أولوية الدخول للطبيب",
+        "owner": "فريق تجربة المريض",
+        "assignee": "تمريض العيادة",
+        "fu": "",
+        "rdesc": "دخل المريض للطبيب خلال 8 دقائق من التواصل",
+        "rhow": "حدث بدء الخدمة في النظام + تأكيد شفهي من المريض"
+      },
+      "log": [
+        {
+          "at": "09:20",
+          "k": "lg_alert",
+          "v": {
+            "ar": "انتظار يتجاوز الحد التوضيحي",
+            "en": "waiting above illustrative limit"
+          }
+        },
+        {
+          "at": "09:22",
+          "k": "lg_assign",
+          "v": {
+            "ar": "تمريض العيادة",
+            "en": "Clinic nursing"
+          }
+        },
+        {
+          "at": "09:24",
+          "k": "lg_contact",
+          "v": {
+            "ar": "تم التواصل",
+            "en": "Contacted"
+          }
+        },
+        {
+          "at": "09:25",
+          "k": "lg_verify",
+          "v": {
+            "ar": "احتياج مؤكد",
+            "en": "Confirmed need"
+          }
+        },
+        {
+          "at": "09:31",
+          "k": "lg_status",
+          "v": {
+            "ar": "تمت المعالجة",
+            "en": "Resolved"
+          }
+        }
+      ],
+      "loc": []
+    },
+    {
+      "id": "A-06",
+      "name": {
+        "ar": "الحالة أ-06",
+        "en": "Case A-06"
+      },
+      "age": 51,
+      "dept": "em",
+      "status": "contacting",
+      "consent": {
+        "s": "none"
+      },
+      "inst": {
+        "state": "open",
+        "at": "11:05",
+        "reason": {
+          "ar": "انتظار 33 دقيقة في الطوارئ (حالة غير حرجة)",
+          "en": "33 min ER wait (non-urgent)"
+        }
+      },
+      "signals": [
+        {
+          "key": "wait",
+          "w": 12,
+          "state": "active",
+          "src": "sys",
+          "ev": "wait-5qrja",
+          "pathChecked": true
+        }
+      ],
+      "events": [
+        {
+          "status": "on",
+          "psrc": "sys",
+          "what": {
+            "ar": "انتظار الطوارئ — فرز غير حرج",
+            "en": "ER waiting — non-urgent triage"
+          },
+          "start": "10:32",
+          "upd": "11:05",
+          "place": "er",
+          "src": {
+            "ar": "نظام الطوابير",
+            "en": "Queue system"
+          }
+        }
+      ],
+      "form": {
+        "contact": "noans",
+        "verify": "open",
+        "adesc": "",
+        "owner": "",
+        "assignee": "فريق تجربة المريض",
+        "fu": "",
+        "rdesc": "",
+        "rhow": ""
+      },
+      "log": [
+        {
+          "at": "11:05",
+          "k": "lg_alert",
+          "v": {
+            "ar": "انتظار يتجاوز الحد التوضيحي",
+            "en": "waiting above illustrative limit"
+          }
+        },
+        {
+          "at": "11:12",
+          "k": "lg_contact",
+          "v": {
+            "ar": "لم يرد",
+            "en": "No answer"
+          }
+        }
+      ],
+      "loc": []
+    }
+  ]
+}
