@@ -47,7 +47,7 @@ S.append('<div class="scene" id="done"><div class="cs" style="bottom:auto;top:15
  +''.join(f'<div class="th" style="right:{i*300}px" data-at="{.5+i*.15}" data-k="pop"><div class="disc"></div><img src="el/{J[i][0]}.png"><div class="ok" id="ok{i}">{CHK}</div><div class="cap">{J[i][2]}</div></div>' for i in range(6))+'</div></div>')
 S.append(f'''<div class="scene" id="bec"><div class="cs"><div class="hx" data-at=".2" data-k="words">{words("لأن كل مريض")}</div><div class="hx" data-at="1.0" data-k="words">{words("يترك أثرًا.","gt")}</div></div></div>''')
 S.append(f'''<div class="scene" id="end"><div id="bgimg"></div>{logo("B",300)}<div class="cs" style="top:470px"><div class="pill" data-at="2.0" data-k="pop">هيلثون 2026</div></div></div>''')
-S.append('''<div class="scene" id="team"><div class="cs"><div class="k" data-at=".2">فريق أثر · رقم 69</div><div class="names" data-at=".4">نهى اليحيى · جمانة هيثم · ليندا العيسى</div><div class="div" data-at=".8" data-k="fade"></div>
+S.append('''<div class="scene" id="team"><div class="cs"><div class="k" data-at=".2" style="font-size:40px">فريق أثر · رقم 69</div><div class="names" data-at=".4">قائد الفريق: نهى اليحيى</div><div class="div" data-at=".8" data-k="fade"></div>
 <div class="qr" data-at="1.0"><img src="el/13_qr.png"><div><b>جرّب النموذج الأولي</b><span>nohamalyahya-byte.github.io/athar-demo</span></div></div></div>
 <div class="foot" data-at="1.6" data-k="fade">هيلثون 2026 · المدينة الطبية الجامعية — جامعة الملك سعود</div></div>''')
 CSS=r'''
