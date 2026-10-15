@@ -1,0 +1,89 @@
+const { chromium } = require('/opt/node-tools/node_modules/playwright');
+const fs=require('fs');
+const img=(p)=>'data:image/png;base64,'+fs.readFileSync(p).toString('base64');
+const F="'IBM Plex Sans Arabic',sans-serif", M="'Montserrat',sans-serif";
+const CSS=`*{box-sizing:border-box;margin:0;padding:0}html,body{font-family:${F};color:#12243D;background:#fff}
+.pg{width:1920px;height:1080px;position:relative;overflow:hidden;page-break-after:always;background:#F3F7FB;padding:64px 80px}
+.pg.dark{background:radial-gradient(900px 500px at 85% -10%,rgba(91,196,206,.18),transparent 60%),radial-gradient(700px 500px at 0% 100%,rgba(24,85,164,.4),transparent 60%),linear-gradient(160deg,#050E1F 0%,#0A1A36 55%,#071429 100%);color:#F2F7FC}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:34px;border-bottom:2px solid #E2EAF3;padding-bottom:18px}.dark .hd{border-color:rgba(91,196,206,.25)}
+.hd h1{font-size:44px;font-weight:700}.hd .k{font-size:18px;color:#5B6F8A;font-family:${M};font-weight:800;font-style:italic;letter-spacing:.05em}.dark .hd .k{color:#5BC4CE}
+.hd .sub{font-size:20px;color:#5B6F8A;margin-top:6px}.dark .hd .sub{color:#A9BFD6}
+.logo{display:flex;align-items:center;gap:12px;direction:rtl}.logo .ar{font-size:40px;font-weight:700}.logo .vl{width:4px;height:36px;border-radius:4px;background:linear-gradient(180deg,#1855A4,#5BC4CE)}.logo .en{font-family:${M};font-style:italic;font-weight:800;font-size:28px;color:#1855A4}.dark .logo .en{color:#5BC4CE}
+.ft{position:absolute;bottom:28px;left:80px;right:80px;display:flex;justify-content:space-between;font-size:15px;color:#8A9BB2}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.card{background:#fff;border:1px solid #E2EAF3;border-radius:18px;padding:24px 28px;box-shadow:0 6px 18px rgba(18,36,61,.05)}.dark .card{background:rgba(16,32,60,.8);border-color:rgba(91,196,206,.18)}
+.card h3{font-size:24px;margin-bottom:12px}.card p,.card li{font-size:18px;line-height:1.7;color:#3D5270}.dark .card p,.dark .card li{color:#CFE1EF}
+ul{list-style:none}li::before{content:'•';color:#5BC4CE;font-weight:700;margin-inline-end:10px}
+.shot{border-radius:14px;overflow:hidden;border:1px solid #E2EAF3;box-shadow:0 14px 34px rgba(18,36,61,.14);background:#000}.shot img{width:100%;display:block}.shot.side{height:290px}.shot.side img{height:auto}
+.cap{font-size:17px;color:#5B6F8A;margin-top:10px;text-align:center}.dark .cap{color:#A9BFD6}
+.tag{display:inline-block;font-size:15px;font-weight:700;padding:5px 14px;border-radius:999px;background:rgba(24,85,164,.12);color:#1855A4;margin-bottom:10px}.dark .tag{background:rgba(91,196,206,.14);color:#5BC4CE}
+.sw{display:flex;gap:14px;flex-wrap:wrap}.sw div{width:150px;border-radius:14px;padding:12px;color:#fff;font-size:14px;height:110px;display:flex;flex-direction:column;justify-content:flex-end;font-family:${M};direction:ltr}.sw div b{font-family:${F};font-size:15px;display:block;margin-bottom:2px}
+.wf{background:#fff;border:2px solid #C9D8E8;border-radius:14px;padding:14px;height:420px;position:relative}.wf .b{background:#E2EAF3;border-radius:6px}.wf .l{background:#C9D8E8;border-radius:4px;height:10px}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:10px}.step{flex:1;background:#fff;border:1px solid #E2EAF3;border-radius:16px;padding:20px 18px;position:relative}.step .n{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1855A4,#5BC4CE);color:#fff;display:grid;place-items:center;font-weight:700;font-size:17px;margin-bottom:12px}.step h4{font-size:20px;margin-bottom:6px}.step p{font-size:15.5px;color:#5B6F8A;line-height:1.6}
+.arrow{width:34px;display:grid;place-items:center;color:#5BC4CE;font-size:30px;font-weight:700}
+.phones{display:flex;justify-content:space-between;gap:24px}.phone{width:356px;border-radius:38px;border:10px solid #12243D;overflow:hidden;background:#000;box-shadow:0 20px 50px rgba(0,0,0,.25)}.phone img{width:100%;display:block}
+table.cmp{width:100%;border-collapse:collapse;font-size:18px}table.cmp th{background:#1855A4;color:#fff;padding:14px;text-align:right;font-weight:700}table.cmp td{padding:14px;border-bottom:1px solid #E2EAF3;background:#fff;line-height:1.6}table.cmp td:first-child{font-weight:700}
+.badge{font-size:14px;padding:3px 10px;border-radius:999px;font-weight:700;display:inline-block}.b-inst{background:rgba(228,87,61,.12);color:#C8432A;border:1px solid rgba(228,87,61,.35)}.b-cum{background:rgba(217,138,30,.12);color:#B8700F;border:1px solid rgba(217,138,30,.35)}
+.btn{display:inline-block;padding:10px 18px;border-radius:10px;font-weight:700;font-size:15px;border:1px solid #E2EAF3;background:#fff}.btn.p{background:linear-gradient(90deg,#1855A4,#5BC4CE);color:#fff;border-color:transparent}
+.chip{display:inline-block;border:1px solid #E2EAF3;background:#fff;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}.chip.on{background:linear-gradient(90deg,#1855A4,#5BC4CE);color:#fff;border-color:transparent}
+.kpi{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid #E2EAF3;border-radius:14px;padding:12px 16px;width:220px}.kpi .ic{width:40px;height:40px;border-radius:12px;background:rgba(228,87,61,.14)}.kpi b{font-size:26px;display:block;line-height:1}.kpi span{font-size:12px;color:#5B6F8A}
+.rec{background:linear-gradient(135deg,rgba(24,85,164,.10),rgba(91,196,206,.14));border:1px solid rgba(24,85,164,.25);border-radius:18px;padding:22px 28px;margin-top:24px}.rec h3{font-size:24px;margin-bottom:8px;color:#1855A4}.rec p{font-size:18px;line-height:1.7}`;
+const hd=(t,sub,k)=>`<div class="hd"><div><h1>${t}</h1>${sub?`<div class="sub">${sub}</div>`:''}</div><div style="text-align:left"><div class="logo"><span class="ar">أثر</span><span class="vl"></span><span class="en">ATHAR</span></div><div class="k">${k||'UI/UX DESIGN · HEALTHON 2026'}</div></div></div>`;
+const ft=(n)=>`<div class="ft"><span>أثر — Silent Experience Intelligence Engine · ملف تصميم واجهات وتجربة المستخدم</span><span>هيلثون 2026 · صفحة ${n} / 8</span></div>`;
+const pages=[];
+// 1 cover
+pages.push(`<div class="pg dark" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+<div class="logo" style="gap:26px"><span class="ar" style="font-size:150px">أثر</span><span class="vl" style="height:120px;width:10px"></span><span class="en" style="font-size:96px">ATHAR</span></div>
+<div style="font-family:${M};font-style:italic;font-weight:800;font-size:26px;color:#A9BFD6;letter-spacing:.05em;direction:ltr;margin-top:6px">Silent Experience Intelligence Engine</div>
+<h1 style="font-size:56px;margin-top:60px">ملف تصميم واجهات وتجربة المستخدم</h1><div style="font-size:28px;color:#CFE1EF;margin-top:14px">UI/UX Design · مركز قيادة تجربة المريض · أربعة مقترحات على نظام تصميم واحد</div>
+<div style="display:flex;gap:16px;margin-top:40px"><span class="tag">1 · مركز القيادة الداكن</span><span class="tag">2 · الوضع الفاتح السريري</span><span class="tag">3 · تطبيق الجوال</span><span class="tag">4 · لوحة حائط القسم</span></div>
+<div style="position:absolute;bottom:40px;font-size:18px;color:#7F94AE">هيلثون 2026 · نموذج تفاعلي توضيحي ببيانات اصطناعية · بلا ربط فعلي بأنظمة المنشأة</div></div>`);
+// 2 overview + flow
+pages.push(`<div class="pg">${hd('نظرة عامة وتدفق المستخدم','المشكلة، المستخدمون، الحل، ورحلة المستخدم من الإشارة إلى النتيجة الموثقة')}
+<div class="grid3"><div class="card"><span class="tag">المشكلة</span><h3>تعثّر صامت في رحلة المريض</h3><p>انتظار طويل، تنقّل في المكان الخطأ، أو موافقة معلقة تعطّل الخدمة، دون أن يشتكي المريض. تصل الإشارة إلى فريق تجربة المريض متأخرة أو لا تصل.</p></div>
+<div class="card"><span class="tag">المستخدمون</span><h3>ثلاث شخصيات</h3><ul><li><b>مسؤول تجربة المريض</b>: يرتّب الأولويات، يتواصل، يوثّق.</li><li><b>فريق القسم</b>: يستلم الإسناد وينفذ الإجراء.</li><li><b>المريض</b>: يمنح أو يسحب موافقة تحديد الموقع.</li></ul></div>
+<div class="card"><span class="tag">الحل</span><h3>إشارات مترابطة وأولوية مفسَّرة</h3><p>يجمع أثر أحداث الرحلة من الأنظمة المرتبطة ويحوّلها إلى <b>تنبيه فوري</b> (انتظار فوق 30 د) أو <b>أولوية تراكمية</b> بأوزان مفسَّرة، ثم يتابع الحالة حتى توثيق النتيجة.</p></div></div>
+<div class="flow" style="margin-top:26px">${[['إشارات','من المواعيد والطوابير والتأمين والموقع (بموافقة).'],['ترتيب','تنبيه فوري أو أولوية تراكمية بالأوزان.'],['مركز القيادة','مؤشرات وبطاقات حالات مرتبة.'],['فتح الحالة','الخط الزمني، الموقع، الدرجة وتفسيرها.'],['تواصل وتحقق','نتيجة التواصل ثم التحقق من الاحتياج.'],['إجراء وإسناد','الإجراء والجهة المسند إليها.'],['توثيق','النتيجة وطريقة التحقق في السجل.'],['تحليل','التوزيع وزمن التواصل ونقاط الخدمة.']].map((s,i,a)=>`<div class="step"><div class="n">${i+1}</div><h4>${s[0]}</h4><p>${s[1]}</p></div>${i<a.length-1?'<div class="arrow">←</div>':''}`).join('')}</div>
+<div class="grid2" style="margin-top:22px"><div class="card"><h3>قواعد تحكم الواجهة</h3><ul><li>التنبيه الفوري يبقى ظاهرًا حتى يراجعه الفريق، ولو كانت الدرجة التراكمية منخفضة.</li><li>«لم يرد» لا يسمح بإغلاق الحالة بوصفها «تمت المعالجة»، و«تمت المعالجة» تتطلب وصف النتيجة وطريقة التحقق.</li><li>الواقعة الواحدة تُحتسب مرة واحدة فقط.</li></ul></div>
+<div class="card"><h3>مبادئ التصميم</h3><ul><li><b>الإنسان في الحلقة</b>: النظام يقترح ويرتّب ويشرح؛ الفريق يقرر.</li><li><b>الشفافية</b>: لكل درجة تفسير (الإشارة، الوزن، المصدر، الاحتساب). العتبات التوضيحية: أقل من 40 منخفضة، 40–69 متوسطة، 70 فأكثر مرتفعة.</li><li><b>تقليل البيانات والموافقة أولًا</b>: أحداث الرحلة فقط دون السجل الطبي؛ الموقع اختياري وقابل للسحب.</li></ul></div></div>${ft(2)}</div>`);
+// 3 design system
+pages.push(`<div class="pg">${hd('نظام التصميم','الألوان والخطوط والمكونات المشتركة بين المقترحات الأربعة')}
+<div class="grid2"><div class="card"><h3>الألوان</h3><div class="sw">${[['#050E1F','كحلي عميق','الخلفية'],['#1855A4','أزرق أثر','الأساسي'],['#5BC4CE','تركواز','التمييز'],['#FF5D5D','أحمر','تنبيه فوري'],['#F2A93B','برتقالي','أولوية تراكمية'],['#4CC38A','أخضر','تمت المعالجة'],['#8FA9C8','رمادي مزرق','محايد'],['#F3F7FB','فاتح','خلفية فاتحة']].map(([c,n,u])=>`<div style="background:${c};${c==='#F3F7FB'?'color:#12243D;border:1px solid #E2EAF3':''}"><b>${n} · ${u}</b>${c}</div>`).join('')}</div>
+<h3 style="margin-top:22px">الخطوط</h3><p style="font-size:30px;font-weight:700">IBM Plex Sans Arabic — العناوين والنصوص</p><p style="font-family:${M};font-style:italic;font-weight:800;font-size:28px;direction:ltr;text-align:left;color:#1855A4">Montserrat ExtraBold Italic — ATHAR</p><p>الأحجام: 26 / 18 / 15.5 للويب، 15 / 12 / 11 للجوال. اتجاه RTL أصلي مع تبديل كامل إلى الإنجليزية.</p></div>
+<div class="card"><h3>المكونات</h3><div style="display:flex;flex-direction:column;gap:18px">
+<div><p style="font-weight:700">شارات نوع التنبيه</p><span class="badge b-inst">● تنبيه فوري</span> <span class="badge b-cum">▲ أولوية تراكمية</span></div>
+<div><p style="font-weight:700">مستويات الأولوية</p><span class="chip">منخفضة (أقل من 40)</span> <span class="chip" style="background:rgba(217,138,30,.14);color:#B8700F;border-color:transparent">متوسطة (40–69)</span> <span class="chip" style="background:rgba(228,87,61,.14);color:#C8432A;border-color:transparent">مرتفعة (70+)</span></div>
+<div><p style="font-weight:700">حالات المعالجة</p><span class="chip">قيد المراجعة</span> <span class="chip" style="color:#1C8FA0">جارٍ التواصل</span> <span class="chip" style="color:#1C8FA0">قيد المعالجة</span> <span class="chip" style="color:#2E9E6C">تمت المعالجة</span> <span class="chip" style="color:#C8432A">تم التصعيد</span></div>
+<div><p style="font-weight:700">أزرار ومرشحات</p><span class="btn p">لماذا ظهرت هذه الأولوية؟</span> <span class="btn">إعادة ضبط السيناريو</span> &nbsp; <span class="chip on">الكل</span> <span class="chip">تنبيهات فورية</span> <span class="chip">قيد المعالجة</span></div>
+<div><p style="font-weight:700">بطاقة مؤشر</p><div class="kpi"><div class="ic"></div><div><b>3</b><span>تنبيهات فورية مفتوحة</span></div></div></div></div></div></div>${ft(3)}</div>`);
+// 4 proposal 1
+pages.push(`<div class="pg dark">${hd('المقترح 1 · مركز القيادة الداكن','سطح مكتب لغرفة عمليات تجربة المريض: تباين عالٍ وإشارات ملوّنة للشاشات الكبيرة. هو المنفَّذ في النموذج التفاعلي.','PROPOSAL 1 · DARK COMMAND CENTER')}
+<div style="display:grid;grid-template-columns:1.25fr 1fr;gap:26px"><div><div class="shot"><img src="${img('ux/dark_home.png')}"></div><div class="cap">مركز القيادة: 4 مؤشرات، مرشحات، وبطاقات الحالات؛ إطار أحمر للحالات ذات التنبيه الفوري</div></div>
+<div style="display:flex;flex-direction:column;gap:20px"><div><div class="shot side"><img src="${img('ux/dark_case.png')}"></div><div class="cap">تفاصيل الحالة أ-03: التنبيه الفوري ودرجة الأولوية</div></div><div><div class="shot side"><img src="${img('ux/dark_analytics.png')}"></div><div class="cap">التحليلات</div></div></div></div>
+<div style="display:flex;gap:16px;margin-top:18px"><span class="tag">الأنسب لـ: غرفة العمليات والعمل المتواصل</span><span class="tag">القوة: بروز الإشارات الحمراء والبرتقالية</span><span class="tag">القيد: أقل ملاءمة للطباعة</span></div>${ft(4)}</div>`);
+// 5 proposal 2
+pages.push(`<div class="pg">${hd('المقترح 2 · الوضع الفاتح السريري','النظام نفسه بسمة فاتحة لمكاتب الأقسام والإضاءة القوية والطباعة؛ قابل للتبديل من الإعدادات بنقرة.','PROPOSAL 2 · CLINICAL LIGHT')}
+<div style="display:grid;grid-template-columns:1.25fr 1fr;gap:26px"><div><div class="shot"><img src="${img('ux/light_home.png')}"></div><div class="cap">مركز القيادة بالوضع الفاتح؛ الشريط الجانبي يبقى داكنًا لتثبيت الهوية</div></div>
+<div style="display:flex;flex-direction:column;gap:20px"><div><div class="shot side"><img src="${img('ux/light_case.png')}"></div><div class="cap">تفاصيل الحالة</div></div><div><div class="shot side"><img src="${img('ux/light_analytics.png')}"></div><div class="cap">التحليلات</div></div></div></div>
+<div style="display:flex;gap:16px;margin-top:18px"><span class="tag">الأنسب لـ: مكاتب الأقسام والتقارير</span><span class="tag">القوة: قراءة مريحة وطباعة واضحة</span><span class="tag">القيد: الشارات الملوّنة أقل بروزًا</span></div>${ft(5)}</div>`);
+// 6 proposal 3
+pages.push(`<div class="pg">${hd('المقترح 3 · تطبيق الجوال','لمسؤول تجربة المريض أثناء التنقل، وشاشة موافقة المريض على هاتفه.','PROPOSAL 3 · MOBILE APP')}
+<div class="phones"><div><div class="phone"><img src="${img('ux/m1.png')}"></div><div class="cap">مركز القيادة: مؤشرات مضغوطة وقائمة مرتبة</div></div><div><div class="phone"><img src="${img('ux/m2.png')}"></div><div class="cap">تفاصيل الحالة: التنبيه ثم الدرجة وزر «لماذا؟»</div></div><div><div class="phone"><img src="${img('ux/m3.png')}"></div><div class="cap">تحديث الحالة: تواصل ← تحقق ← إجراء ← حالة</div></div><div><div class="phone"><img src="${img('ux/m4.png')}"></div><div class="cap">شاشة المريض: موافقة صريحة قابلة للسحب</div></div></div>${ft(6)}</div>`);
+// 7 proposal 4
+pages.push(`<div class="pg dark">${hd('المقترح 4 · لوحة حائط القسم','شاشة تلفاز في مكتب القسم تعرض ما يحتاج تواصلًا الآن دون تفاعل؛ رقم الحالة والقسم فقط دون بيانات تعريفية.','PROPOSAL 4 · DEPARTMENT WALLBOARD')}
+<div class="shot" style="max-width:1180px;margin:0 auto"><img src="${img('ux/wallboard.png')}"></div>
+<div style="display:flex;gap:16px;margin-top:18px;justify-content:center"><span class="tag">الأنسب لـ: وعي الفريق الجماعي</span><span class="tag">تحديث تلقائي كل دقيقة</span><span class="tag">القيد: عرض فقط، لا توثيق</span></div>${ft(7)}</div>`);
+// 8 accessibility + handoff
+pages.push(`<div class="pg">${hd('إمكانية الوصول والخصوصية والتسليم','ما يضمن واجهة مفهومة وآمنة، وكيف تُستخدم هذه الملفات')}
+<div class="grid3"><div class="card"><h3>القراءة والوصول</h3><ul><li>تباين لا يقل عن 4.5:1 في السمتين.</li><li>الحالة لا تُنقل باللون وحده: شارة نصية وأيقونة لكل نوع.</li><li>RTL أصلي، وأرقام وأوقات بصيغة موحدة (09:43) في اللغتين.</li></ul></div>
+<div class="card"><h3>الخصوصية والأخلاقيات</h3><ul><li>لا بيانات طبية في أي شاشة؛ أحداث الرحلة فقط.</li><li>الموافقة على الموقع صريحة، خلال الزيارة فقط، وقابلة للسحب.</li><li>لا يُستخدم النظام لتقييم الموظفين أفرادًا.</li></ul></div>
+<div class="card"><h3>حالات الحواف</h3><ul><li>رسائل تحقق واضحة عند محاولة إغلاق الحالة دون نتيجة موثقة.</li><li>انتهاء شرط التنبيه لا يغلق الحالة تلقائيًا؛ تبقى للمراجعة.</li><li>حالة فارغة عند عدم وجود حالات مطابقة للتصفية.</li></ul></div></div>
+<div class="grid2" style="margin-top:26px"><div class="card"><h3>محتويات الحزمة</h3><ul><li>هذا الملف (PDF) + شاشات التصميم بدقة 2x–3x في media/ux/screens.</li><li>النموذج التفاعلي index.html يعمل في المتصفح مباشرة.</li><li>الفيديو التوضيحي (60 ثانية) واللوقو بصيغ متعددة.</li></ul></div>
+<div class="card"><h3>الاستيراد إلى Figma والخطوات التالية</h3><ul><li>الشاشات مصدرها HTML ويمكن استيرادها كطبقات قابلة للتعديل عبر إضافة html.to.design.</li><li>اختبار قابلية الاستخدام مع 3–5 مسؤولي تجربة مريض على السيناريو أ-03.</li><li>معايرة العتبات (30 د، 40/70) والأوزان ببيانات ميدانية.</li></ul></div></div>${ft(8)}</div>`);
+const html=`<!doctype html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><style>${CSS}@page{size:1920px 1080px;margin:0}</style></head><body>${pages.join('')}</body></html>`;
+fs.writeFileSync('ux/deck_short.html',html);
+(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium',args:['--no-sandbox']});const p=await b.newPage({viewport:{width:1920,height:1080}});await p.setContent(html);await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(800);
+ await p.pdf({path:'ATHAR_UIUX_Design_Short.pdf',width:'1920px',height:'1080px',printBackground:true,preferCSSPageSize:true});
+ const n=await p.evaluate(()=>document.querySelectorAll('.pg').length);
+ for(let i=0;i<n;i++){ const el=(await p.$$('.pg'))[i]; await el.screenshot({path:`ux/short${String(i+1).padStart(2,'0')}.png`}); }
+ console.log('pages',n); await b.close();})();

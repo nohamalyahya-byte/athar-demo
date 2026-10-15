@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أثر · مركز قيادة أثر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:ital,wght@1,800&display=swap">
+<style>
+:root{--blue:#1855A4;--teal:#5BC4CE;--navy:#050E1F;--ink:#F2F7FC;--muted:#A9BFD6;--faint:#7F94AE;--line:rgba(91,196,206,.16);--card:rgba(16,32,60,.78);--card2:rgba(22,42,76,.85);
+--red:#FF5D5D;--red-s:rgba(228,87,61,.18);--orange:#F2A93B;--orange-s:rgba(242,169,59,.16);--green:#4CC38A;--green-s:rgba(76,195,138,.16);--slate:#8FA9C8;--slate-s:rgba(143,169,200,.16);
+--font:'IBM Plex Sans Arabic','Sakkal Majalla',Tahoma,sans-serif}
+:root[data-theme="light"]{--navy:#F3F7FB;--ink:#12243D;--muted:#5B6F8A;--faint:#8A9BB2;--line:#E2EAF3;--card:#fff;--card2:#F6F9FC;--slate:#5F7896}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.55;
+ background:radial-gradient(900px 500px at 80% -10%,rgba(91,196,206,.16),transparent 60%),radial-gradient(700px 500px at 0% 100%,rgba(24,85,164,.35),transparent 60%),linear-gradient(160deg,#050E1F 0%,#0A1A36 55%,#071429 100%);background-attachment:fixed}
+:root[data-theme="light"] body{background:#F3F7FB}
+html[lang="en"] body{font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif}
+button{font:inherit;cursor:pointer;color:inherit}
+input,select,textarea{font:inherit;color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+:root[data-theme="light"] input,:root[data-theme="light"] select,:root[data-theme="light"] textarea{background:#fff}
+select option{color:#12243D}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside{background:linear-gradient(180deg,#050E1F,#0B1B36 70%,#0A1830);border-inline-end:1px solid rgba(91,196,206,.14);padding:24px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px;color:#F2F7FC}
+.logo{display:flex;align-items:center;justify-content:center;gap:12px;direction:rtl}
+.logo .ar{font-size:38px;font-weight:700;line-height:1}
+.logo .vl{width:4px;height:36px;border-radius:4px;background:linear-gradient(180deg,var(--blue),var(--teal));box-shadow:0 0 12px rgba(91,196,206,.6)}
+.logo .en{font-family:Montserrat,sans-serif;font-style:italic;font-weight:800;font-size:24px;color:var(--teal);letter-spacing:.02em}
+.tagline{text-align:center;font-size:11.5px;color:#A9BFD6;margin:6px 0 22px;font-family:Montserrat,sans-serif;font-style:normal;letter-spacing:.02em}
+nav button{width:100%;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:0;background:transparent;color:#C9D8E8;font-weight:600;text-align:start}
+nav button:hover{background:rgba(255,255,255,.06)}
+nav button.on{background:rgba(91,196,206,.14);color:#fff;box-shadow:inset 0 0 0 1px rgba(91,196,206,.3)}
+nav svg{width:20px;height:20px;flex:none}
+.side-foot{margin-top:auto;font-size:12px;color:#7F94AE;text-align:center;line-height:1.6}
+main{padding:20px 26px 110px;min-width:0}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.search{flex:1;max-width:520px;position:relative}
+.search input{padding-inline-start:38px;border-radius:12px;background:var(--card)}
+.search svg{position:absolute;inset-inline-start:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;opacity:.6}
+.who{margin-inline-start:auto;display:flex;align-items:center;gap:10px}
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--blue);font-weight:700;font-size:13px;color:#fff}
+.who b{display:block;font-size:14px}.who span{font-size:12px;color:var(--muted)}
+.tbtn{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;font-size:13px}
+.demo-note{display:flex;align-items:center;gap:10px;background:rgba(242,169,59,.10);border:1px solid rgba(242,169,59,.35);color:#FFD89A;border-radius:12px;padding:8px 14px;font-size:13px;margin-bottom:14px}
+:root[data-theme="light"] .demo-note{color:#8F5300}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:0 12px 30px rgba(0,0,0,.25);backdrop-filter:blur(10px)}
+:root[data-theme="light"] .card{box-shadow:0 6px 18px rgba(18,36,61,.06)}
+h1{font-size:26px;font-weight:700}h2{font-size:18px;font-weight:700}h3{font-size:15.5px;font-weight:700}
+.muted{color:var(--muted)}.small{font-size:12.5px}
+.hero{position:relative;overflow:hidden;border-radius:18px;padding:22px 26px;margin-bottom:16px;background:linear-gradient(120deg,rgba(11,42,85,.92),rgba(24,85,164,.85) 60%,rgba(31,111,176,.8));border:1px solid rgba(91,196,206,.25);color:#fff}
+.hero::after{content:'';position:absolute;width:340px;height:340px;border-radius:50%;background:var(--teal);filter:blur(80px);opacity:.35;inset-inline-end:-120px;top:-200px}
+.hero p{color:#CFE1EF;margin-top:4px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.kpi{display:flex;gap:14px;align-items:center}
+.kpi .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;flex:none}
+.kpi .ic svg{width:22px;height:22px}
+.kpi .v{font-size:30px;font-weight:700;line-height:1}
+.kpi .l{font-size:13px;color:var(--muted);margin-top:4px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+.chip.on{background:linear-gradient(90deg,var(--blue),var(--teal));color:#fff;border-color:transparent}
+.grid-cases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ccard{cursor:pointer;transition:transform .2s,border-color .2s;display:flex;flex-direction:column;gap:10px}
+.ccard:hover{transform:translateY(-3px);border-color:rgba(91,196,206,.45)}
+.ccard.instant{box-shadow:0 0 0 1px rgba(255,93,93,.55),0 0 26px rgba(228,87,61,.25)}
+.crow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700}
+.b-inst{background:var(--red-s);color:#FFB3A6;border:1px solid rgba(255,93,93,.5)}
+.b-cum{background:var(--orange-s);color:#FFD89A;border:1px solid rgba(242,169,59,.45)}
+:root[data-theme="light"] .b-inst{color:#B0331F}:root[data-theme="light"] .b-cum{color:#8F5300}
+.st{border-radius:8px;padding:2px 9px;font-size:12px;font-weight:600;background:var(--slate-s);color:var(--slate)}
+.st.done{background:var(--green-s);color:var(--green)}.st.esc{background:var(--red-s);color:var(--red)}.st.work{background:rgba(91,196,206,.15);color:var(--teal)}
+.score{display:flex;align-items:baseline;gap:6px}
+.score b{font-size:28px;line-height:1}
+.lvl{font-size:12px;font-weight:700;border-radius:8px;padding:2px 8px}
+.lv-low{background:var(--slate-s);color:var(--slate)}.lv-med{background:var(--orange-s);color:var(--orange)}.lv-high{background:var(--red-s);color:var(--red)}
+.btn{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:8px 14px;font-weight:600;font-size:13.5px}
+.btn:hover{border-color:rgba(91,196,206,.5)}
+.btn.p{background:linear-gradient(90deg,var(--blue),var(--teal));border:0;color:#fff;box-shadow:0 8px 20px rgba(91,196,206,.25)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sm{padding:5px 10px;font-size:12.5px}
+.case-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;align-items:start}
+.col{display:flex;flex-direction:column;gap:14px}
+.alertbox{border-radius:14px;padding:12px 16px;background:var(--red-s);border:1px solid rgba(255,93,93,.55);display:flex;gap:12px;align-items:flex-start}
+.alertbox.ended{background:rgba(242,169,59,.10);border-color:rgba(242,169,59,.45)}
+.alertbox svg{width:22px;height:22px;flex:none;color:var(--red);margin-top:2px}
+.sim{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.clock{font-family:Montserrat,sans-serif;font-style:normal;font-weight:800;font-size:20px;color:var(--teal);direction:ltr}
+.tl{display:flex;flex-direction:column;gap:8px}
+.ev{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+:root[data-theme="light"] .ev{background:#F8FBFE}
+.ev .meta{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted)}
+.ev .meta i{font-style:normal;color:var(--faint)}
+.tag{font-size:11.5px;border-radius:6px;padding:1px 7px;border:1px solid var(--line)}
+.tag.sys{color:#9EC9FF;border-color:rgba(111,167,255,.4)}.tag.loc{color:var(--teal);border-color:rgba(91,196,206,.5)}
+.es{font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px}
+.es.on{background:rgba(91,196,206,.15);color:var(--teal)}.es.off{background:var(--slate-s);color:var(--slate)}.es.chk{background:var(--orange-s);color:var(--orange)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px}
+.kv dt{color:var(--muted)}
+.sec-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.note{font-size:12.5px;color:var(--muted);border-inline-start:3px solid var(--teal);padding-inline-start:10px;margin-top:10px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form fieldset{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.form legend{padding:0 6px;font-weight:700;font-size:13px;color:var(--teal)}
+.form label{display:block;font-size:12.5px;color:var(--muted);margin:6px 0 4px}
+.err{color:var(--red);font-size:13px;margin-top:8px;font-weight:600}
+.ok{color:var(--green);font-size:13px;margin-top:8px;font-weight:600}
+.log{display:flex;flex-direction:column;gap:6px;max-height:340px;overflow:auto}
+.log div{display:grid;grid-template-columns:62px 1fr;gap:10px;font-size:13px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.log time{font-family:Montserrat,sans-serif;font-style:normal;font-weight:800;color:var(--teal);direction:ltr;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:start}
+th{color:var(--muted);font-weight:600;font-size:12.5px}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:150px 1fr 40px;gap:10px;align-items:center;font-size:13px}
+.bar .tr{height:12px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden}
+.bar .fl{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--teal))}
+.bar b{text-align:end}
+.an-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.modal-bg{position:fixed;inset:0;background:rgba(3,10,25,.65);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+.modal-bg.open{display:flex}
+.modal{width:min(640px,100%);max-height:90vh;overflow:auto}
+.modal .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+.path svg{width:100%;height:auto;display:block}
+.tour{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:10px;background:rgba(5,14,31,.94);border:1px solid rgba(91,196,206,.35);border-radius:999px;padding:8px 10px;box-shadow:0 14px 40px rgba(0,0,0,.5);color:#fff}
+.tour .dots{display:flex;gap:5px}.tour .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25)}.tour .dots i.on{background:var(--teal)}
+.tour span{font-size:13px;white-space:nowrap}
+.hl{outline:2px solid var(--teal);outline-offset:4px;border-radius:16px;transition:outline-color .3s}
+.empty{padding:20px;text-align:center;color:var(--muted)}
+.why td b{font-family:Montserrat,sans-serif;font-style:normal}
+@media(max-width:1100px){.app{grid-template-columns:1fr}aside{position:static;height:auto}.kpis,.grid-cases{grid-template-columns:1fr 1fr}.case-grid,.an-grid,.form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="logo"><span class="ar">أثر</span><span class="vl"></span><span class="en">ATHAR</span></div>
+    <div class="tagline">Silent Experience Intelligence Engine</div>
+    <nav id="nav"></nav>
+    <div class="side-foot" id="sideFoot"></div>
+  </aside>
+  <main>
+    <div class="top">
+      <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search"></div>
+      <button class="tbtn" id="langBtn"></button>
+      <div class="who"><div class="av" id="av"></div><div><b id="whoName"></b><span id="whoRole"></span></div></div>
+    </div>
+    <div class="demo-note" id="demoNote"></div>
+    <div id="view"></div>
+  </main>
+</div>
+<div class="tour" id="tour"></div>
+<div class="modal-bg" id="mbg"><div class="card modal" id="modal"></div></div>
+
+<script>
+(function(){
+/* ================= i18n ================= */
+let lang='ar';
+const D={
+ ar:{nav_home:'مركز القيادة',nav_cases:'الحالات',nav_an:'التحليلات',nav_set:'الإعدادات',side_foot:'نموذج تفاعلي توضيحي<br>بيانات اصطناعية',
+  search:'ابحث برقم الحالة أو القسم…',who:'مسؤول تجربة المريض',role:'إدارة تجربة المريض',
+  demo_note:'جميع الحالات والأوقات والحدود والأوزان أمثلة توضيحية. نموذج تفاعلي بلا ربط فعلي بأنظمة المنشأة ولا تتبّع حقيقي للمريض.',
+  home_t:'مركز قيادة أثر',home_d:'إشارات مترابطة، وأولوية واضحة، ومتابعة حتى توثيق النتيجة.',
+  k_inst:'تنبيهات فورية مفتوحة',k_cum:'حالات ذات أولوية تراكمية',k_work:'حالات قيد المعالجة',k_done:'حالات تمت معالجتها',
+  f_all:'الكل',f_inst:'تنبيهات فورية',f_cum:'أولوية تراكمية',f_work:'قيد المعالجة',f_closed:'مغلقة',
+  b_inst:'تنبيه فوري',b_cum:'أولوية تراكمية',pts:'نقطة',illus:'مثال توضيحي',
+  lv_low:'أولوية تراكمية منخفضة',lv_med:'أولوية تراكمية متوسطة',lv_high:'أولوية تراكمية مرتفعة',
+  interactive_hint:'الحالة أ-03 تحتوي السيناريو الكامل القابل للمحاكاة؛ بقية الحالات قابلة للفتح والتحديث ببياناتها الخاصة.',
+  no_cases:'لا توجد حالات مطابقة.',open_case:'فتح الحالة',
+  st_review:'قيد المراجعة',st_contacting:'جارٍ التواصل',st_processing:'قيد المعالجة',st_resolved:'تمت المعالجة',st_escalated:'تم التصعيد',st_closed_no_action:'مغلقة دون حاجة إلى إجراء',
+  cases_t:'الحالات',cases_d:'كل حالة تمثل رحلة مريض واحدة؛ قد تحمل تنبيهًا فوريًا وأولوية تراكمية معًا.',
+  th_case:'الحالة',th_dept:'القسم',th_type:'نوع التنبيه',th_score:'درجة أولوية التواصل',th_status:'حالة المعالجة',
+  back:'رجوع',age:'العمر',yrs:'سنة',dept:'القسم',visit:'الزيارة',
+  sim_t:'محاكاة السيناريو',sim_clock:'ساعة المحاكاة',sim_before:'قبل الزيارة',sim_adv:'تقديم وقت المحاكاة',sim_reset:'إعادة ضبط السيناريو',
+  sim_add:'إضافة حدث توضيحي',add_move:'تنقل غير متوقع',add_return:'عودة غير متوقعة إلى محطة سابقة',add_appr:'موافقة معلقة تعيق الخدمة',
+  sim_end:'انتهت خطوات الوقت في هذا السيناريو؛ يمكن إضافة أحداث توضيحية.',sim_note:'الأوقات والحدود والأوزان أمثلة توضيحية.',
+  sim_only:'المحاكاة متاحة في الحالة أ-03 فقط.',
+  inst_msg:'تنبيه فوري: تجاوز حد انتظار الخدمة. لا يتطلب التنبيه بلوغ عتبة الأولوية التراكمية.',
+  inst_ended:'انتهى شرط التنبيه، وتبقى الحالة مفتوحة لمراجعة الفريق؛ انتهاء الانتظار وحده لا يثبت معالجة احتياج المريض.',
+  inst_closed:'تمت مراجعة التنبيه الفوري وإغلاقه ضمن معالجة الحالة.',
+  score_t:'درجة أولوية التواصل',score_note:'تساعد الدرجة على ترتيب الحالات، ولا تمثل نسبة لعدم الرضا أو تقييمًا سريريًا.',
+  why_btn:'لماذا ظهرت هذه الأولوية؟',thr_note:'عتبات توضيحية تحتاج إلى معايرة ميدانية.',
+  inst_keep:'التنبيه الفوري يظل ظاهرًا ويستدعي المراجعة حتى لو كانت الدرجة التراكمية منخفضة.',
+  tl_t:'الخط الزمني للرحلة',tl_start:'البداية',tl_upd:'آخر تحديث',tl_place:'المكان',tl_src:'المصدر',
+  pl_sys:'المكان من نظام الخدمة',pl_loc:'المنطقة من تحديد الموقع الداخلي',pl_none:'غير متاح',
+  es_on:'مستمر',es_off:'انتهى',es_chk:'يحتاج تحققًا',
+  tl_note:'لا يُستنتج وجود المريض داخل المنشأة من كون الزيارة مفتوحة.',
+  loc_t:'الموقع والموافقة',c_status:'حالة الموافقة',c_at:'وقت تسجيل الموافقة',c_scope:'النطاق',c_src:'مصدر المكان',c_last:'آخر تحديث',
+  c_none:'لم تُسجَّل بعد',c_granted:'موافق',c_denied:'غير موافق',c_withdrawn:'تم سحب الموافقة',
+  c_scope_v:'داخل المنشأة خلال الزيارة الحالية',c_src_loc:'تحديد الموقع الداخلي (محاكاة)',c_src_sys:'أحداث نقاط الخدمة من الأنظمة المرتبطة',
+  c_req:'محاكاة طلب الموافقة',c_withdraw:'سحب الموافقة',
+  loc_fallback:'يستمر أثر بالاعتماد على أحداث الأنظمة المرتبطة عند عدم تفعيل تتبّع الموقع.',
+  path_t:'محاكاة بيانات موقع داخلي',path_frozen:'تم سحب الموافقة: أُوقفت إضافة تحديثات موقع جديدة.',path_hidden:'مسار الحركة مخفي لعدم وجود موافقة على التتبّع. تُعرض أحداث نقاط الخدمة المتاحة من الأنظمة.',
+  cm_t:'السماح بتحديد الموقع داخل المنشأة',cm_body:'يساعد تحديد موقعك داخل المنشأة خلال هذه الزيارة فريق تجربة المريض على معرفة منطقة الخدمة ومدة التوقف، لتقديم المساعدة عند الحاجة. يمكنك رفض التتبع أو سحب موافقتك.',
+  cm_yes:'أوافق',cm_no:'لا أوافق',cm_sim:'محاكاة لشاشة المريض — لا يُطلب موقع الجهاز الحقيقي.',
+  ask_t:'إشارات تستحق سؤال المريض',ask_none:'لا توجد إشارات نشطة مؤهلة حاليًا.',ask_comp:'لا تظهر شكوى مسجلة في البيانات المتاحة.',ask_survey:'لا تظهر استجابة لاستبيان في البيانات المتاحة.',
+  ask_note:'غياب الشكوى أو الاستبيان لا يُفسَّر على أنه رضا، ولا على أنه عدم رضا.',
+  post_btn:'استعراض سيناريو ما بعد الزيارة',post_hide:'إخفاء سيناريو ما بعد الزيارة',post_tag:'توسع لاحق — خارج نطاق التجربة الأولية',
+  post_msg:'لم يظهر حدث صرف في المصدر المرتبط بعد المدة المحددة للسيناريو.',post_act:'الإجراء المقترح: التحقق من اكتمال البيانات، وإمكان الصرف خارج المنشأة، ثم التواصل عند الحاجة والتنسيق مع الجهة المختصة.',
+  post_note:'لا يُحتسب هذا الحدث ضمن درجة السيناريو الرئيسي، وليس شرطًا لبدء التدخل.',
+  upd_t:'تحديث الحالة',upd_sub:'يُحفظ في سجل الحالة داخل الديمو.',
+  g_contact:'أولًا: نتيجة التواصل',g_verify:'ثانيًا: نتيجة التحقق',g_action:'ثالثًا: الإجراء',g_status:'رابعًا: حالة المعالجة',
+  ct_none:'لم تبدأ المحاولة',ct_ok:'تم التواصل',ct_noans:'لم يرد',ct_later:'طلب التواصل لاحقًا',
+  vf_open:'لم تُحسم بعد',vf_need:'احتياج مؤكد',vf_noneed:'لا حاجة إلى إجراء',vf_insuf:'بيانات غير كافية',
+  a_desc:'وصف الإجراء',a_owner:'المسؤول عن المتابعة',a_assignee:'الجهة المسند إليها',a_fu:'موعد المتابعة (إن وجد)',
+  r_desc:'وصف النتيجة',r_how:'كيفية التحقق من النتيجة',r_hint:'مطلوبان عند اختيار «تمت المعالجة».',
+  save:'حفظ تحديث الحالة',saved:'تم حفظ التحديث في سجل الحالة.',nochange:'لا توجد تغييرات للحفظ.',
+  e_noans:'«لم يرد» لا يسمح بإغلاق الحالة بوصفها «تمت المعالجة».',e_res:'«تمت المعالجة» يتطلب وصف النتيجة وكيفية التحقق منها.',
+  e_res_ct:'«تمت المعالجة» يتطلب «تم التواصل» أو توثيقًا بديلًا في وصف النتيجة.',e_noaction:'«مغلقة دون حاجة إلى إجراء» تتطلب نتيجة تحقق «لا حاجة إلى إجراء».',
+  e_act:'حالة «قيد المعالجة» أو «تم التصعيد» تتطلب وصف الإجراء والجهة المسند إليها.',
+  closed_note:'إغلاق الحالة لا يثبت تلقائيًا صرف دواء أو اكتمال بقية الخدمات؛ تُوثَّق كل خطوة على حدة.',
+  log_t:'سجل المتابعة',log_sub:'سجل توضيحي داخل النموذج.',
+  learn_t:'بيانات للتقييم والتحسين',learn_b:'تُحفظ النتيجة ضمن بيانات يمكن استخدامها لاحقًا لتقييم القواعد ومعايرة الأوزان. لا يعيد هذا الديمو تدريب أي نموذج ولا يغيّر الأوزان تلقائيًا.',
+  why_t:'لماذا ظهرت هذه الأولوية؟',w_sig:'الإشارة',w_w:'الوزن',w_src:'المصدر',w_state:'الحالة',w_count:'محتسبة',w_total:'مجموع الإشارات النشطة المؤهلة',
+  ws_active:'نشطة',ws_hist:'سجل تاريخي',ws_unq:'غير مؤهلة',ws_dup:'دليل مكرر',yes:'نعم',no:'لا',
+  why_note1:'لا يُحتسب التنقل أو العودة إلا بعد مقارنتهما بالخدمات المطلوبة والمسار المتوقع للمريض، وعند توفر موافقة التتبّع إذا كان مصدرهما تحديد الموقع.',
+  why_note2:'تُحتسب الواقعة الواحدة مرة واحدة فقط؛ لا يُضاف وزنان للدليل نفسه تحت اسمين مختلفين.',
+  why_note3:'الإشارة التي انتهى شرطها تنتقل إلى السجل التاريخي وتُستبعد من مجموع الإشارات النشطة في هذا المثال.',
+  close:'إغلاق',
+  an_t:'التحليلات',an_d:'بيانات اصطناعية لشرح شكل التحليل، وليست نتائج تجربة فعلية.',
+  an_type:'الحالات حسب نوع التنبيه',an_status:'الحالات حسب حالة المعالجة',an_ttc:'زمن بدء التواصل (دقائق من إنشاء التنبيه)',an_need:'الاحتياجات المؤكدة بعد التواصل',an_unr:'الحالات التي تعذر التواصل معها',an_sp:'أكثر نقاط الخدمة ظهورًا للإشارات',
+  an_tbl:'نوع التعثّر والإجراء المسجل',t_type:'نوع التعثّر',t_act:'الإجراء المسجل',t_n:'عدد الحالات',t_out:'النتيجة الموثقة',
+  an_sat:'رضا المرضى المعلن — آخر 12 شهرًا',an_sat_n:'مؤشر الاستبيانات يعكس من أجاب فقط؛ يُعرض هنا للسياق.',
+  ty_inst:'تنبيه فوري فقط',ty_cum:'أولوية تراكمية فقط',ty_both:'الاثنان معًا',ty_none:'دون تنبيه نشط',
+  no_contact:'لم يبدأ التواصل',not_doc:'لم تُوثَّق بعد',none_rec:'لم يُسجَّل إجراء',
+  set_t:'الإعدادات',set_d:'اللغة والمظهر وعتبات الأولوية.',set_lang:'اللغة',set_theme:'المظهر',dark:'داكن',light:'فاتح',
+  set_thr:'عتبات الأولوية التراكمية',thr_low:'أقل من 40: أولوية تراكمية منخفضة',thr_med:'من 40 إلى 69: أولوية تراكمية متوسطة',thr_high:'70 فأكثر: أولوية تراكمية مرتفعة',
+  set_inst:'التنبيه الفوري',set_inst_b:'حد الانتظار التوضيحي: 30 دقيقة. يظهر التنبيه الفوري عند تحقق الشرط التشغيلي دون انتظار تراكم الأوزان.',
+  set_pr:'مبادئ التشغيل',pr1:'الإنسان في الحلقة: النظام يقترح ويرتّب ويشرح السبب؛ الفريق يقرر.',pr2:'تقليل البيانات: أحداث الرحلة فقط، دون الوصول إلى السجل الطبي.',pr3:'الموقع اختياري: بموافقة صريحة، خلال الزيارة الحالية فقط، ويمكن سحبها.',pr4:'لا يُستخدم لتقييم الموظفين أفرادًا.',
+  tour:['مركز القيادة','فتح حالة والتنبيه الفوري','الوقت والمكان والموافقة','تفسير الأولوية التراكمية','توثيق التواصل والإجراء','النتيجة وسجل المتابعة'],
+  prev:'السابق',next:'التالي',step:'خطوة',
+  lg_alert:'إنشاء تنبيه فوري: ',lg_assign:'إسناد الحالة إلى: ',lg_contact:'محاولة تواصل: ',lg_verify:'نتيجة التحقق: ',lg_action:'الإجراء: ',lg_status:'تغير حالة المعالجة: ',lg_consent:'الموافقة على تحديد الموقع: ',lg_signal:'إضافة إشارة: ',lg_result:'النتيجة: ',lg_cond_end:'انتهى شرط التنبيه الفوري؛ الحالة مفتوحة للمراجعة.',lg_case:'فتح الحالة في مركز القيادة.',
+  dash:'—',min:'د',over:'فوق الحد'},
+ en:{nav_home:'Command Center',nav_cases:'Cases',nav_an:'Analytics',nav_set:'Settings',side_foot:'Illustrative interactive model<br>Synthetic data',
+  search:'Search case ID or department…',who:'Patient Experience Officer',role:'Patient Experience Department',
+  demo_note:'All cases, times, thresholds and weights are illustrative. Interactive model — no real system integration and no real patient tracking.',
+  home_t:'ATHAR Command Center',home_d:'Connected signals, clear priority, and follow-up until the outcome is documented.',
+  k_inst:'Open instant alerts',k_cum:'Cases with cumulative priority',k_work:'Cases in progress',k_done:'Cases resolved',
+  f_all:'All',f_inst:'Instant alerts',f_cum:'Cumulative priority',f_work:'In progress',f_closed:'Closed',
+  b_inst:'Instant alert',b_cum:'Cumulative priority',pts:'pts',illus:'illustrative example',
+  lv_low:'Low cumulative priority',lv_med:'Medium cumulative priority',lv_high:'High cumulative priority',
+  interactive_hint:'Case A-03 holds the full simulatable scenario; the other cases open and update with their own data.',
+  no_cases:'No matching cases.',open_case:'Open case',
+  st_review:'Under review',st_contacting:'Contacting',st_processing:'In progress',st_resolved:'Resolved',st_escalated:'Escalated',st_closed_no_action:'Closed — no action needed',
+  cases_t:'Cases',cases_d:'Each case is one patient journey; it may carry an instant alert and cumulative priority together.',
+  th_case:'Case',th_dept:'Department',th_type:'Alert type',th_score:'Contact priority score',th_status:'Handling status',
+  back:'Back',age:'Age',yrs:'yrs',dept:'Department',visit:'Visit',
+  sim_t:'Scenario simulation',sim_clock:'Simulation clock',sim_before:'Before visit',sim_adv:'Advance simulation time',sim_reset:'Reset scenario',
+  sim_add:'Add illustrative event',add_move:'Unexpected movement',add_return:'Unexpected return to an earlier station',add_appr:'Pending approval blocking service',
+  sim_end:'Time steps for this scenario are complete; illustrative events can be added.',sim_note:'Times, thresholds and weights are illustrative examples.',
+  sim_only:'Simulation is available for case A-03 only.',
+  inst_msg:'Instant alert: service waiting limit exceeded. The alert does not require reaching the cumulative priority threshold.',
+  inst_ended:'The alert condition has ended; the case stays open for team review — the end of waiting alone does not prove the patient\'s need was addressed.',
+  inst_closed:'The instant alert was reviewed and closed as part of handling the case.',
+  score_t:'Contact priority score',score_note:'The score helps rank cases; it is not a dissatisfaction percentage or a clinical assessment.',
+  why_btn:'Why this priority?',thr_note:'Illustrative thresholds requiring field calibration.',
+  inst_keep:'An instant alert stays visible and requires review even when the cumulative score is low.',
+  tl_t:'Journey timeline',tl_start:'Start',tl_upd:'Last update',tl_place:'Place',tl_src:'Source',
+  pl_sys:'Place from service system',pl_loc:'Zone from indoor positioning',pl_none:'Not available',
+  es_on:'Ongoing',es_off:'Ended',es_chk:'Needs verification',
+  tl_note:'Presence inside the facility is not inferred from an open visit.',
+  loc_t:'Location & consent',c_status:'Consent status',c_at:'Consent recorded at',c_scope:'Scope',c_src:'Place source',c_last:'Last update',
+  c_none:'Not recorded yet',c_granted:'Granted',c_denied:'Declined',c_withdrawn:'Consent withdrawn',
+  c_scope_v:'Inside the facility during the current visit',c_src_loc:'Indoor positioning (simulated)',c_src_sys:'Service-point events from connected systems',
+  c_req:'Simulate consent request',c_withdraw:'Withdraw consent',
+  loc_fallback:'ATHAR continues to rely on connected-system events when location tracking is not enabled.',
+  path_t:'Simulated indoor location data',path_frozen:'Consent withdrawn: no new location updates are added.',path_hidden:'Movement path hidden — no tracking consent. Available service-point events from systems are shown.',
+  cm_t:'Allow indoor location within the facility',cm_body:'Locating you inside the facility during this visit helps the Patient Experience team know your service area and how long you have waited, so they can help when needed. You can decline tracking or withdraw your consent.',
+  cm_yes:'I agree',cm_no:'I do not agree',cm_sim:'Simulated patient screen — the real device location is never requested.',
+  ask_t:'Signals worth asking the patient about',ask_none:'No active qualifying signals right now.',ask_comp:'No recorded complaint appears in the available data.',ask_survey:'No survey response appears in the available data.',
+  ask_note:'Absence of a complaint or survey is not read as satisfaction, nor as dissatisfaction.',
+  post_btn:'Show post-visit scenario',post_hide:'Hide post-visit scenario',post_tag:'Later extension — outside the initial pilot scope',
+  post_msg:'No dispense event appeared in the connected source after the scenario\'s defined period.',post_act:'Suggested action: verify data completeness and the possibility of dispensing outside the facility, then contact the patient if needed and coordinate with the responsible unit.',
+  post_note:'This event is not counted in the main scenario score and is not a prerequisite for intervention.',
+  upd_t:'Case update',upd_sub:'Saved to the case log inside the demo.',
+  g_contact:'1. Contact outcome',g_verify:'2. Verification outcome',g_action:'3. Action',g_status:'4. Handling status',
+  ct_none:'Not attempted',ct_ok:'Contacted',ct_noans:'No answer',ct_later:'Asked to be contacted later',
+  vf_open:'Not determined yet',vf_need:'Confirmed need',vf_noneed:'No action needed',vf_insuf:'Insufficient data',
+  a_desc:'Action description',a_owner:'Follow-up owner',a_assignee:'Assigned unit',a_fu:'Follow-up date (if any)',
+  r_desc:'Outcome description',r_how:'How the outcome was verified',r_hint:'Both required when choosing "Resolved".',
+  save:'Save case update',saved:'Update saved to the case log.',nochange:'No changes to save.',
+  e_noans:'"No answer" cannot close the case as "Resolved".',e_res:'"Resolved" requires an outcome description and how it was verified.',
+  e_res_ct:'"Resolved" requires "Contacted" or alternative documentation in the outcome description.',e_noaction:'"Closed — no action needed" requires the verification outcome "No action needed".',
+  e_act:'"In progress" or "Escalated" requires an action description and an assigned unit.',
+  closed_note:'Closing a case does not automatically prove dispensing or completion of other services; each step is documented separately.',
+  log_t:'Follow-up log',log_sub:'Illustrative log inside the model.',
+  learn_t:'Data for evaluation and improvement',learn_b:'The outcome is stored as data that can later be used to evaluate the rules and calibrate weights. This demo does not retrain any model or change weights automatically.',
+  why_t:'Why this priority?',w_sig:'Signal',w_w:'Weight',w_src:'Source',w_state:'State',w_count:'Counted',w_total:'Total of active qualifying signals',
+  ws_active:'Active',ws_hist:'Historical',ws_unq:'Not qualifying',ws_dup:'Duplicate evidence',yes:'Yes',no:'No',
+  why_note1:'Movement or return only counts after comparison with the requested services and the expected path, and — when derived from positioning — only with tracking consent.',
+  why_note2:'A single occurrence is counted once; no two weights are added for the same evidence under different names.',
+  why_note3:'A signal whose condition has ended moves to the historical log and is excluded from the active total in this example.',
+  close:'Close',
+  an_t:'Analytics',an_d:'Synthetic data to illustrate the analysis format — not results of an actual pilot.',
+  an_type:'Cases by alert type',an_status:'Cases by handling status',an_ttc:'Time to first contact (minutes from alert)',an_need:'Confirmed needs after contact',an_unr:'Cases that could not be reached',an_sp:'Service points with most signals',
+  an_tbl:'Friction type and recorded action',t_type:'Friction type',t_act:'Recorded action',t_n:'Cases',t_out:'Documented outcome',
+  an_sat:'Reported satisfaction — last 12 months',an_sat_n:'The survey indicator reflects respondents only; shown here for context.',
+  ty_inst:'Instant alert only',ty_cum:'Cumulative priority only',ty_both:'Both',ty_none:'No active alert',
+  no_contact:'Contact not started',not_doc:'Not documented yet',none_rec:'No action recorded',
+  set_t:'Settings',set_d:'Language, appearance and priority thresholds.',set_lang:'Language',set_theme:'Appearance',dark:'Dark',light:'Light',
+  set_thr:'Cumulative priority thresholds',thr_low:'Below 40: low cumulative priority',thr_med:'40 to 69: medium cumulative priority',thr_high:'70 and above: high cumulative priority',
+  set_inst:'Instant alert',set_inst_b:'Illustrative waiting limit: 30 minutes. The instant alert appears when the operational condition is met, without waiting for weights to accumulate.',
+  set_pr:'Operating principles',pr1:'Human in the loop: the system suggests, ranks and explains; the team decides.',pr2:'Data minimisation: journey events only, no access to the medical record.',pr3:'Location is optional: explicit consent, current visit only, withdrawable.',pr4:'Not used to evaluate individual staff.',
+  tour:['Command center','Open a case & instant alert','Time, place and consent','Explaining cumulative priority','Documenting contact & action','Outcome & follow-up log'],
+  prev:'Back',next:'Next',step:'Step',
+  lg_alert:'Instant alert created: ',lg_assign:'Case assigned to: ',lg_contact:'Contact attempt: ',lg_verify:'Verification outcome: ',lg_action:'Action: ',lg_status:'Handling status changed: ',lg_consent:'Indoor location consent: ',lg_signal:'Signal added: ',lg_result:'Outcome: ',lg_cond_end:'Instant alert condition ended; case remains open for review.',lg_case:'Case opened in the command center.',
+  dash:'—',min:'min',over:'over limit'}
+};
+const t=k=>(D[lang][k]!==undefined?D[lang][k]:k);
+const L=o=>o==null?'':(typeof o==='string'?o:(o[lang]||o.ar));
+
+/* ================= constants ================= */
+const TH={med:40,high:70}; const WAIT_LIMIT=30;
+const level=s=>s>=TH.high?'high':s>=TH.med?'med':'low';
+const SIG={
+ resched:{w:8,n:{ar:'تكرار إعادة الجدولة من مقدم الخدمة',en:'Repeated provider-initiated rescheduling'},src:{ar:'نظام المواعيد',en:'Appointments system'}},
+ wait:{w:12,n:{ar:'انتظار يتجاوز الحد التوضيحي (30 د)',en:'Waiting above illustrative limit (30 min)'},src:{ar:'نظام الطوابير',en:'Queue system'}},
+ move:{w:10,n:{ar:'تنقل غير متوقع مقارنة بالمسار المتوقع',en:'Unexpected movement vs expected path'},src:{ar:'تحديد الموقع الداخلي (محاكاة)',en:'Indoor positioning (simulated)'}},
+ ret:{w:10,n:{ar:'عودة غير متوقعة إلى محطة سابقة',en:'Unexpected return to an earlier station'},src:{ar:'تحديد الموقع الداخلي (محاكاة)',en:'Indoor positioning (simulated)'}},
+ appr:{w:10,n:{ar:'موافقة معلقة تعيق الخدمة',en:'Pending approval blocking service'},src:{ar:'نظام التأمين والموافقات',en:'Insurance & approvals system'}}
+};
+const P={reg:{ar:'التسجيل',en:'Registration'},cw:{ar:'انتظار العيادة',en:'Clinic waiting'},cl:{ar:'العيادة',en:'Clinic'},rad:{ar:'منطقة الأشعة',en:'Radiology zone'},ins:{ar:'نافذة التأمين',en:'Insurance desk'},ph:{ar:'الصيدلية',en:'Pharmacy'},ent:{ar:'المدخل',en:'Entrance'},lab:{ar:'المختبر',en:'Laboratory'},er:{ar:'الطوارئ',en:'Emergency'}};
+const DEPTS={ob:{ar:'النساء والولادة',en:'OB/GYN'},or:{ar:'العظام',en:'Orthopedics'},im:{ar:'الباطنة',en:'Internal Medicine'},de:{ar:'الجلدية',en:'Dermatology'},ca:{ar:'القلب',en:'Cardiology'},em:{ar:'الطوارئ',en:'Emergency'}};
+
+/* ================= data ================= */
+function sig(key,opts){return Object.assign({key,w:SIG[key].w,state:'active',src:(key==='move'||key==='ret')?'loc':'sys',ev:key+'-'+Math.random().toString(36).slice(2,7),pathChecked:true},opts||{})}
+function evn(o){return Object.assign({status:'off',psrc:'sys'},o)}
+function baseForm(){return {contact:'none',verify:'open',adesc:'',owner:'',assignee:'',fu:'',rdesc:'',rhow:''}}
+function seed(){
+ const cs=[];
+ // A-01 instant only, ongoing wait
+ cs.push({id:'A-01',name:{ar:'الحالة أ-01',en:'Case A-01'},age:34,dept:'ob',status:'review',consent:{s:'none'},
+  inst:{state:'open',at:'10:35',reason:{ar:'انتظار 41 دقيقة — 11 دقيقة فوق الحد التوضيحي',en:'41 min wait — 11 min over illustrative limit'}},
+  signals:[sig('wait')],
+  events:[evn({what:{ar:'التسجيل',en:'Registration'},start:'10:02',upd:'10:04',place:'reg',src:{ar:'نظام معلومات المستشفى',en:'HIS'}}),
+          evn({what:{ar:'انتظار العيادة (41 د حتى الآن)',en:'Clinic waiting (41 min so far)'},start:'10:05',upd:'10:46',place:'cw',src:{ar:'نظام الطوابير',en:'Queue system'},status:'on'})],
+  form:baseForm(),log:[{at:'10:35',k:'lg_alert',v:{ar:'انتظار يتجاوز الحد التوضيحي',en:'waiting above illustrative limit'}}],loc:[]});
+ // A-02 cumulative only, contacting
+ cs.push({id:'A-02',name:{ar:'الحالة أ-02',en:'Case A-02'},age:45,dept:'or',status:'contacting',consent:{s:'granted',at:'08:51',last:'09:58'},inst:null,
+  signals:[sig('resched'),sig('appr'),sig('ret')],
+  events:[evn({what:{ar:'إعادة جدولة الموعد مرتين من مقدم الخدمة',en:'Appointment rescheduled twice by provider'},start:'—',upd:'—',place:null,src:{ar:'نظام المواعيد',en:'Appointments system'}}),
+          evn({what:{ar:'موافقة تأمين معلقة لإجراء الأشعة',en:'Insurance approval pending for imaging'},start:'09:20',upd:'09:58',place:'ins',src:{ar:'نظام التأمين والموافقات',en:'Insurance & approvals'},status:'on'}),
+          evn({what:{ar:'عودة إلى نافذة التسجيل بعد بدء الخدمة',en:'Returned to registration after service start'},start:'09:41',upd:'09:44',place:'reg',psrc:'loc',src:{ar:'تحديد الموقع الداخلي (محاكاة)',en:'Indoor positioning (simulated)'}})],
+  form:Object.assign(baseForm(),{contact:'ok',assignee:'شؤون التأمين',owner:'فريق تجربة المريض',adesc:'متابعة الموافقة مع شؤون التأمين'}),
+  log:[{at:'09:46',k:'lg_signal',v:{ar:'اجتماع 3 إشارات مؤهلة',en:'3 qualifying signals combined'}},{at:'09:50',k:'lg_assign',v:{ar:'شؤون التأمين',en:'Insurance affairs'}},{at:'09:55',k:'lg_contact',v:{ar:'تم التواصل',en:'Contacted'}}],
+  loc:['ent','reg','cw','cl','ins','reg']});
+ // A-03 scenario
+ cs.push(scenarioA03());
+ // A-04 both badges, medium
+ cs.push({id:'A-04',name:{ar:'الحالة أ-04',en:'Case A-04'},age:29,dept:'de',status:'review',consent:{s:'granted',at:'09:02',last:'10:30'},
+  inst:{state:'open',at:'10:21',reason:{ar:'انتظار 36 دقيقة — 6 دقائق فوق الحد التوضيحي',en:'36 min wait — 6 min over illustrative limit'}},
+  signals:[sig('resched'),sig('wait'),sig('appr'),sig('move')],
+  events:[evn({what:{ar:'إعادة جدولة الموعد مرتين من مقدم الخدمة',en:'Appointment rescheduled twice by provider'},start:'—',upd:'—',place:null,src:{ar:'نظام المواعيد',en:'Appointments system'}}),
+          evn({what:{ar:'توجه إلى المختبر دون طلب تحاليل في الزيارة',en:'Went to the lab with no lab order in the visit'},start:'09:31',upd:'09:39',place:'lab',psrc:'loc',src:{ar:'تحديد الموقع الداخلي (محاكاة)',en:'Indoor positioning (simulated)'}}),
+          evn({what:{ar:'موافقة معلقة لإجراء جلدي',en:'Approval pending for dermatology procedure'},start:'09:45',upd:'10:30',place:'ins',src:{ar:'نظام التأمين والموافقات',en:'Insurance & approvals'},status:'on'}),
+          evn({what:{ar:'انتظار العيادة (36 د حتى الآن)',en:'Clinic waiting (36 min so far)'},start:'09:51',upd:'10:27',place:'cw',src:{ar:'نظام الطوابير',en:'Queue system'},status:'on'})],
+  form:baseForm(),log:[{at:'10:21',k:'lg_alert',v:{ar:'انتظار يتجاوز الحد التوضيحي',en:'waiting above illustrative limit'}}],loc:['ent','reg','lab','cw','ins','cw']});
+ // A-05 resolved
+ cs.push({id:'A-05',name:{ar:'الحالة أ-05',en:'Case A-05'},age:62,dept:'ca',status:'resolved',consent:{s:'denied',at:'08:40'},
+  inst:{state:'closed',at:'09:20',reason:{ar:'انتظار 34 دقيقة',en:'34 min wait'}},
+  signals:[sig('wait',{state:'hist'})],
+  events:[evn({what:{ar:'انتظار العيادة 44 دقيقة (14 فوق الحد)',en:'Clinic waiting 44 min (14 over limit)'},start:'08:46',upd:'09:30',place:'cw',src:{ar:'نظام الطوابير',en:'Queue system'}}),
+          evn({what:{ar:'بدء خدمة العيادة',en:'Clinic service started'},start:'09:30',upd:'09:52',place:'cl',src:{ar:'نظام معلومات المستشفى',en:'HIS'}})],
+  form:Object.assign(baseForm(),{contact:'ok',verify:'need',adesc:'اعتذار وتنسيق أولوية الدخول للطبيب',owner:'فريق تجربة المريض',assignee:'تمريض العيادة',rdesc:'دخل المريض للطبيب خلال 8 دقائق من التواصل',rhow:'حدث بدء الخدمة في النظام + تأكيد شفهي من المريض'}),
+  log:[{at:'09:20',k:'lg_alert',v:{ar:'انتظار يتجاوز الحد التوضيحي',en:'waiting above illustrative limit'}},{at:'09:22',k:'lg_assign',v:{ar:'تمريض العيادة',en:'Clinic nursing'}},{at:'09:24',k:'lg_contact',v:{ar:'تم التواصل',en:'Contacted'}},{at:'09:25',k:'lg_verify',v:{ar:'احتياج مؤكد',en:'Confirmed need'}},{at:'09:31',k:'lg_status',v:{ar:'تمت المعالجة',en:'Resolved'}}],loc:[]});
+ // A-06 no answer
+ cs.push({id:'A-06',name:{ar:'الحالة أ-06',en:'Case A-06'},age:51,dept:'em',status:'contacting',consent:{s:'none'},
+  inst:{state:'open',at:'11:05',reason:{ar:'انتظار 33 دقيقة في الطوارئ (حالة غير حرجة)',en:'33 min ER wait (non-urgent)'}},
+  signals:[sig('wait')],
+  events:[evn({what:{ar:'انتظار الطوارئ — فرز غير حرج',en:'ER waiting — non-urgent triage'},start:'10:32',upd:'11:05',place:'er',src:{ar:'نظام الطوابير',en:'Queue system'},status:'on'})],
+  form:Object.assign(baseForm(),{contact:'noans',assignee:'فريق تجربة المريض'}),
+  log:[{at:'11:05',k:'lg_alert',v:{ar:'انتظار يتجاوز الحد التوضيحي',en:'waiting above illustrative limit'}},{at:'11:12',k:'lg_contact',v:{ar:'لم يرد',en:'No answer'}}],loc:[]});
+ return cs;
+}
+function scenarioA03(){
+ return {id:'A-03',name:{ar:'الحالة أ-03',en:'Case A-03'},age:58,dept:'im',status:'review',interactive:true,step:0,clock:null,post:false,
+  consent:{s:'none'},inst:null,
+  signals:[sig('resched',{ev:'ev-resched'})],
+  events:[evn({id:'e-res',what:{ar:'تكرار إعادة الجدولة من مقدم الخدمة',en:'Repeated provider-initiated rescheduling'},start:'—',upd:'—',place:null,src:{ar:'نظام المواعيد',en:'Appointments system'}})],
+  form:baseForm(),log:[{at:'—',k:'lg_signal',v:{ar:'تكرار إعادة الجدولة (8 نقاط)',en:'Repeated rescheduling (8 pts)'}}],loc:[],added:{}};
+}
+let cases=seed();
+const byId=id=>cases.find(c=>c.id===id);
+
+/* ================= derived ================= */
+function qualifies(c,s){
+ if(s.state!=='active')return false;
+ if(s.src==='loc'){ if(!(c.consent.s==='granted'||(c.consent.s==='withdrawn'&&s.preWithdraw)))return false; if(!s.pathChecked)return false;}
+ return true;
+}
+function scoreRows(c){
+ const seen={};const rows=c.signals.map(s=>{let st=s.state==='hist'?'hist':qualifies(c,s)?'active':'unq';let counted=false;
+  if(st==='active'){ if(seen[s.ev]){st='dup'} else {seen[s.ev]=1;counted=true} } return {s,st,counted}});
+ return rows;
+}
+const score=c=>scoreRows(c).filter(r=>r.counted).reduce((a,r)=>a+r.s.w,0);
+const activeCount=c=>scoreRows(c).filter(r=>r.counted).length;
+const closed=c=>['resolved','closed_no_action'].includes(c.status);
+const hasInst=c=>c.inst&&c.inst.state!=='closed'&&!closed(c);
+const hasCum=c=>activeCount(c)>=2&&!closed(c);
+const working=c=>['contacting','processing','escalated'].includes(c.status);
+function stCls(s){return s==='resolved'||s==='closed_no_action'?'done':s==='escalated'?'esc':['contacting','processing'].includes(s)?'work':''}
+
+/* ================= state & routing ================= */
+let route={v:'home',id:null}, filter='all', q='', tourStep=0, msg=null;
+function go(v,id){route={v,id:id||null};msg=null;render();window.scrollTo({top:0})}
+
+/* ================= icons ================= */
+const I={home:'<path d="M3 11l9-8 9 8v9a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/>',cases:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',an:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>',
+ bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',layers:'<path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',check:'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',warn:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>'};
+const ic=(n,col)=>`<svg viewBox="0 0 24 24" fill="none" stroke="${col||'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
+
+/* ================= render: chrome ================= */
+function renderChrome(){
+ document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+ const items=[['home','home','nav_home'],['cases','cases','nav_cases'],['analytics','an','nav_an'],['settings','set','nav_set']];
+ document.getElementById('nav').innerHTML=items.map(([v,i,k])=>`<button data-go="${v}" class="${(route.v===v||(v==='cases'&&route.v==='case'))?'on':''}">${ic(i)}${t(k)}</button>`).join('');
+ document.getElementById('sideFoot').innerHTML=t('side_foot');
+ document.getElementById('q').placeholder=t('search');document.getElementById('q').value=q;
+ document.getElementById('langBtn').textContent=lang==='ar'?'English':'العربية';
+ document.getElementById('av').textContent=lang==='ar'?'م.ت':'PX';
+ document.getElementById('whoName').textContent=t('who');document.getElementById('whoRole').textContent=t('role');
+ document.getElementById('demoNote').innerHTML=ic('warn','#F2A93B').replace('<svg','<svg style="width:18px;height:18px;flex:none"')+t('demo_note');
+}
+
+/* ================= render: helpers ================= */
+const badgesOf=c=>`<span class="badges">${hasInst(c)?`<span class="badge b-inst">${ic('bell').replace('<svg','<svg style="width:13px;height:13px"')}${t('b_inst')}</span>`:''}${hasCum(c)?`<span class="badge b-cum">${ic('layers').replace('<svg','<svg style="width:13px;height:13px"')}${t('b_cum')}</span>`:''}</span>`;
+const scoreHtml=(c,big)=>{const s=score(c),lv=level(s);return `<div class="score"><b style="${big?'font-size:40px':''}">${s}</b><span>${t('pts')}</span></div><span class="lvl lv-${lv}">${t('lv_'+lv)}</span>`};
+function filtered(){
+ return cases.filter(c=>{
+  if(filter==='inst'&&!hasInst(c))return false;if(filter==='cum'&&!hasCum(c))return false;if(filter==='work'&&!working(c))return false;if(filter==='closed'&&!closed(c))return false;
+  if(q){const s=(c.id+' '+L(c.name)+' '+L(DEPTS[c.dept])+' '+c.name.ar+' '+c.name.en).toLowerCase();if(!s.includes(q.toLowerCase()))return false}
+  return true});
+}
+function chips(){return `<div class="chips">${[['all','f_all'],['inst','f_inst'],['cum','f_cum'],['work','f_work'],['closed','f_closed']].map(([f,k])=>`<button class="chip ${filter===f?'on':''}" data-filter="${f}">${t(k)}</button>`).join('')}</div>`}
+
+/* ================= views ================= */
+function vHome(){
+ const k=[['k_inst',cases.filter(hasInst).length,'bell','#FF5D5D','var(--red-s)'],['k_cum',cases.filter(hasCum).length,'layers','#F2A93B','var(--orange-s)'],['k_work',cases.filter(working).length,'clock','#5BC4CE','rgba(91,196,206,.15)'],['k_done',cases.filter(closed).length,'check','#4CC38A','var(--green-s)']];
+ const list=filtered();
+ return `<section id="tour-1"><div class="hero"><h1>${t('home_t')}</h1><p>${t('home_d')}</p></div>
+ <div class="kpis">${k.map(([l,v,i,col,bg])=>`<div class="card kpi"><div class="ic" style="background:${bg}">${ic(i,col)}</div><div><div class="v">${v}</div><div class="l">${t(l)}</div></div></div>`).join('')}</div>
+ ${chips()}<p class="small muted" style="margin-bottom:10px">${t('interactive_hint')}</p>
+ <div class="grid-cases">${list.length?list.map(c=>`<div class="card ccard ${hasInst(c)?'instant':''}" data-open="${c.id}">
+  <div class="crow"><div><h3>${L(c.name)}</h3><span class="small muted">${L(DEPTS[c.dept])} · ${c.age} ${t('yrs')}</span></div><span class="st ${stCls(c.status)}">${t('st_'+c.status)}</span></div>
+  ${badgesOf(c)}<div class="crow" style="align-items:center">${scoreHtml(c)}</div>
+  <span class="small muted">${t('score_t')} · ${t('illus')}</span></div>`).join(''):`<div class="empty">${t('no_cases')}</div>`}</div></section>`;
+}
+function vCases(){
+ const list=filtered();
+ return `<div class="hero"><h1>${t('cases_t')}</h1><p>${t('cases_d')}</p></div>${chips()}
+ <div class="card"><table><thead><tr><th>${t('th_case')}</th><th>${t('th_dept')}</th><th>${t('th_type')}</th><th>${t('th_score')}</th><th>${t('th_status')}</th><th></th></tr></thead><tbody>
+ ${list.length?list.map(c=>`<tr><td><b>${L(c.name)}</b></td><td>${L(DEPTS[c.dept])}</td><td>${badgesOf(c)||t('dash')}</td><td>${score(c)} ${t('pts')} <span class="lvl lv-${level(score(c))}">${t('lv_'+level(score(c)))}</span></td><td><span class="st ${stCls(c.status)}">${t('st_'+c.status)}</span></td><td><button class="btn sm" data-open="${c.id}">${t('open_case')}</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty">${t('no_cases')}</td></tr>`}
+ </tbody></table></div>`;
+}
+function clockLabel(c){return c.clock||t('sim_before')}
+function simBox(c){
+ if(!c.interactive)return `<div class="card"><div class="sec-h"><h2>${t('sim_t')}</h2></div><p class="small muted">${t('sim_only')}</p></div>`;
+ const done=c.step>=3;const g=c.consent.s==='granted';
+ const btnAdd=(k,lab)=>`<button class="btn sm" data-add="${k}" ${!done||c.added[k]?'disabled':''}>+ ${lab}</button>`;
+ return `<div class="card" id="tour-2a"><div class="sec-h"><h2>${t('sim_t')}</h2><span class="small muted">${t('sim_clock')}: <span class="clock">${clockLabel(c)}</span></span></div>
+ <div class="sim"><button class="btn p sm" data-adv ${done?'disabled':''}>${t('sim_adv')} ⏱</button><button class="btn sm" data-reset>${t('sim_reset')}</button></div>
+ ${done?`<p class="small muted" style="margin-top:8px">${t('sim_end')}</p>`:''}
+ <div class="sim" style="margin-top:10px"><span class="small muted">${t('sim_add')}:</span>${btnAdd('move',t('add_move'))}${btnAdd('ret',t('add_return'))}${btnAdd('appr',t('add_appr'))}</div>
+ ${done&&!g?`<p class="note">${lang==='ar'?'دون موافقة التتبّع تُضاف أحداث نقاط الخدمة من الأنظمة فقط، ولا يُحتسب التنقل أو العودة.':'Without tracking consent, only service-point events from systems are added; movement and return are not counted.'}</p>`:''}
+ <p class="note">${t('sim_note')}</p></div>`;
+}
+function instBox(c){
+ if(!c.inst)return '';
+ if(c.inst.state==='closed'||closed(c))return `<div class="alertbox ended">${ic('check','#4CC38A')}<div><b>${t('b_inst')} · ${c.inst.at}</b><p class="small">${L(c.inst.reason)}</p><p class="small muted">${t('inst_closed')}</p></div></div>`;
+ return `<div class="alertbox ${c.inst.state==='ended'?'ended':''}">${ic('bell','#FF5D5D')}<div><b>${t('b_inst')} · ${c.inst.at}</b><p class="small">${L(c.inst.reason)}</p><p style="margin-top:4px">${t('inst_msg')}</p>${c.inst.state==='ended'?`<p class="small" style="margin-top:4px;color:#FFD89A">${t('inst_ended')}</p>`:''}</div></div>`;
+}
+function scoreCard(c){
+ const s=score(c),lv=level(s);
+ return `<div class="card" id="tour-4"><div class="sec-h"><h2>${t('score_t')}</h2>${badgesOf(c)}</div>
+ <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><div class="score"><b style="font-size:42px">${s}</b><span style="font-size:18px">${t('pts')}</span></div><span class="muted">— ${t('illus')}</span><span class="lvl lv-${lv}">${t('lv_'+lv)}</span></div>
+ <p class="small" style="margin-top:8px">${t('score_note')}</p>
+ ${hasInst(c)?`<p class="small" style="margin-top:6px;color:#FFB3A6;font-weight:600">${t('inst_keep')}</p>`:''}
+ <div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap"><button class="btn p sm" data-why>${t('why_btn')}</button><span class="small muted">${TH.med} / ${TH.high} · ${t('thr_note')}</span></div></div>`;
+}
+function timeline(c){
+ return `<div class="card" id="tour-3a"><div class="sec-h"><h2>${t('tl_t')}</h2></div><div class="tl">
+ ${c.events.map(e=>`<div class="ev"><b>${L(e.what)}</b><span class="es ${e.status}">${t('es_'+e.status)}</span>
+  <div class="meta"><span><i>${t('tl_start')}:</i> ${e.start}</span><span><i>${t('tl_upd')}:</i> ${e.upd}</span>
+  <span><i>${t('tl_place')}:</i> ${e.place?L(P[e.place]):t('pl_none')} ${e.place?`<span class="tag ${e.psrc}">${t(e.psrc==='loc'?'pl_loc':'pl_sys')}</span>`:''}</span>
+  <span><i>${t('tl_src')}:</i> ${L(e.src)}</span>${e.note?`<span style="color:#FFD89A">${L(e.note)}</span>`:''}</div></div>`).join('')}
+ </div><p class="note">${t('tl_note')}</p></div>`;
+}
+const ZONES={ent:[60,150],reg:[180,70],cw:[330,70],cl:[480,70],rad:[480,230],ins:[330,230],lab:[180,230],ph:[630,150],er:[630,70]};
+function pathSvg(c){
+ const pts=c.loc.map(z=>ZONES[z]);
+ let s=`<svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans Arabic,sans-serif">`;
+ s+=`<rect x="10" y="10" width="680" height="270" rx="16" fill="rgba(255,255,255,.03)" stroke="rgba(91,196,206,.25)"/>`;
+ Object.entries(ZONES).forEach(([k,[x,y]])=>{s+=`<rect x="${x-58}" y="${y-24}" width="116" height="48" rx="10" fill="rgba(24,85,164,.30)" stroke="rgba(255,255,255,.18)"/><text x="${x}" y="${y+5}" text-anchor="middle" font-size="13" fill="#CFE1EF">${L(P[k])}</text>`});
+ if(pts.length>1)s+=`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#5BC4CE" stroke-width="3" stroke-dasharray="7 6" stroke-linejoin="round"/>`;
+ pts.forEach((p,i)=>{s+=`<circle cx="${p[0]}" cy="${p[1]}" r="${i===pts.length-1?9:6}" fill="${i===pts.length-1?'#FF5D5D':'#5BC4CE'}" stroke="#fff" stroke-width="2"/>`});
+ return s+`</svg>`;
+}
+function locCard(c){
+ const cs=c.consent.s;const src=cs==='granted'||cs==='withdrawn'?t('c_src_loc'):t('c_src_sys');
+ return `<div class="card" id="tour-3b"><div class="sec-h"><h2>${t('loc_t')}</h2><div style="display:flex;gap:8px"><button class="btn sm" data-consent ${cs==='granted'?'disabled':''}>${t('c_req')}</button><button class="btn sm" data-withdraw ${cs!=='granted'?'disabled':''}>${t('c_withdraw')}</button></div></div>
+ <dl class="kv"><dt>${t('c_status')}</dt><dd><b>${t('c_'+cs)}</b></dd><dt>${t('c_at')}</dt><dd>${c.consent.at||t('dash')}</dd><dt>${t('c_scope')}</dt><dd>${t('c_scope_v')}</dd><dt>${t('c_src')}</dt><dd>${src}</dd><dt>${t('c_last')}</dt><dd>${c.consent.last||c.consent.at||t('dash')}</dd></dl>
+ ${cs==='granted'||cs==='withdrawn'?`<div class="path" style="margin-top:12px"><div class="small" style="color:var(--teal);font-weight:700;margin-bottom:6px">${t('path_t')}</div>${c.loc.length?pathSvg(c):`<p class="small muted">${lang==='ar'?'لا توجد تحديثات موقع بعد.':'No location updates yet.'}</p>`}${cs==='withdrawn'?`<p class="small" style="color:#FFD89A;margin-top:6px">${t('path_frozen')}</p>`:''}</div>`:`<p class="small muted" style="margin-top:10px">${t('path_hidden')}</p>`}
+ <p class="note">${t('loc_fallback')}</p></div>`;
+}
+function askCard(c){
+ const rows=scoreRows(c).filter(r=>r.counted);
+ return `<div class="card"><h2 style="margin-bottom:8px">${t('ask_t')}</h2>
+ ${rows.length?`<ul style="list-style:none;display:flex;flex-direction:column;gap:6px">${rows.map(r=>`<li>• ${L(SIG[r.s.key].n)} <span class="small muted">(${r.s.w} ${t('pts')})</span></li>`).join('')}</ul>`:`<p class="small muted">${t('ask_none')}</p>`}
+ <p class="small muted" style="margin-top:8px">${t('ask_comp')} ${t('ask_survey')}</p><p class="note">${t('ask_note')}</p>
+ ${c.interactive?`<button class="btn sm" style="margin-top:10px" data-post>${c.post?t('post_hide'):t('post_btn')}</button>
+ ${c.post?`<div class="card" style="margin-top:10px;background:var(--card2)"><span class="badge b-cum">${t('post_tag')}</span><p style="margin-top:8px">${t('post_msg')}</p><p class="small" style="margin-top:6px">${t('post_act')}</p><p class="note">${t('post_note')}</p></div>`:''}`:''}</div>`;
+}
+function sel(name,opts,val){return `<select name="${name}">${opts.map(([v,k])=>`<option value="${v}" ${val===v?'selected':''}>${t(k)}</option>`).join('')}</select>`}
+function formCard(c){
+ const f=c.form;
+ return `<div class="card" id="tour-5"><div class="sec-h"><h2>${t('upd_t')}</h2><span class="small muted">${t('upd_sub')}</span></div>
+ <form class="form" id="uform" onsubmit="return false">
+  <fieldset><legend>${t('g_contact')}</legend>${sel('contact',[['none','ct_none'],['ok','ct_ok'],['noans','ct_noans'],['later','ct_later']],f.contact)}</fieldset>
+  <fieldset><legend>${t('g_verify')}</legend>${sel('verify',[['open','vf_open'],['need','vf_need'],['noneed','vf_noneed'],['insuf','vf_insuf']],f.verify)}</fieldset>
+  <fieldset style="grid-column:1/-1"><legend>${t('g_action')}</legend><div class="form" style="gap:8px">
+   <div><label>${t('a_desc')}</label><input name="adesc" value="${f.adesc||''}"></div><div><label>${t('a_owner')}</label><input name="owner" value="${f.owner||''}"></div>
+   <div><label>${t('a_assignee')}</label><input name="assignee" value="${f.assignee||''}"></div><div><label>${t('a_fu')}</label><input name="fu" type="date" value="${f.fu||''}"></div></div></fieldset>
+  <fieldset style="grid-column:1/-1"><legend>${t('g_status')}</legend>${sel('status',[['review','st_review'],['contacting','st_contacting'],['processing','st_processing'],['resolved','st_resolved'],['escalated','st_escalated'],['closed_no_action','st_closed_no_action']],c.status)}
+   <div class="form" style="gap:8px;margin-top:6px"><div><label>${t('r_desc')}</label><textarea name="rdesc" rows="2">${f.rdesc||''}</textarea></div><div><label>${t('r_how')}</label><textarea name="rhow" rows="2">${f.rhow||''}</textarea></div></div>
+   <p class="small muted" style="margin-top:4px">${t('r_hint')}</p></fieldset>
+ </form>
+ <div style="display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap"><button class="btn p" data-save>${t('save')}</button><span id="fmsg" class="${msg?(msg.ok?'ok':'err'):''}">${msg?msg.text:''}</span></div>
+ ${closed(c)?`<p class="note">${t('closed_note')}</p>`:''}</div>`;
+}
+function logCard(c){
+ return `<div class="card" id="tour-6"><div class="sec-h"><h2>${t('log_t')}</h2><span class="small muted">${t('log_sub')}</span></div>
+ <div class="log">${c.log.slice().reverse().map(l=>`<div><time>${l.at}</time><span>${t(l.k)}${L(l.v)}</span></div>`).join('')}</div>
+ <div class="card" style="margin-top:12px;background:var(--card2)"><h3>${t('learn_t')}</h3><p class="small muted" style="margin-top:4px">${t('learn_b')}</p></div></div>`;
+}
+function vCase(){
+ const c=byId(route.id);if(!c)return go('home');
+ return `<div class="hero" id="tour-2"><div class="crow"><div><button class="btn sm" data-go="${route.from||'home'}" style="margin-bottom:8px">← ${t('back')}</button><h1>${L(c.name)}</h1><p>${t('age')} ${c.age} · ${t('dept')}: ${L(DEPTS[c.dept])}</p></div><div style="text-align:end">${badgesOf(c)}<div style="margin-top:8px"><span class="st ${stCls(c.status)}" style="background:rgba(255,255,255,.12);color:#fff">${t('st_'+c.status)}</span></div></div></div></div>
+ <div class="case-grid"><div class="col">${instBox(c)}${simBox(c)}${timeline(c)}${locCard(c)}</div>
+ <div class="col">${scoreCard(c)}${askCard(c)}${formCard(c)}${logCard(c)}</div></div>`;
+}
+function bars(rows){const m=Math.max(1,...rows.map(r=>r[1]));return `<div class="bars">${rows.map(([l,v])=>`<div class="bar"><span>${l}</span><div class="tr"><div class="fl" style="width:${v/m*100}%"></div></div><b>${v}</b></div>`).join('')}</div>`}
+const toMin=s=>{if(!s||!s.includes(':'))return null;const [h,m]=s.split(':').map(Number);return h*60+m};
+function vAnalytics(){
+ const ty={inst:0,cum:0,both:0,none:0};cases.forEach(c=>{const a=hasInst(c),b=hasCum(c);ty[a&&b?'both':a?'inst':b?'cum':'none']++});
+ const stc={};cases.forEach(c=>stc[c.status]=(stc[c.status]||0)+1);
+ const ttc=cases.map(c=>{const a=c.log.find(l=>l.k==='lg_alert'||l.k==='lg_signal'&&l.at!=='—');const ct=c.log.find(l=>l.k==='lg_contact');const d=a&&ct?toMin(ct.at)-toMin(a.at):null;return [L(c.name),d]}).filter(r=>r[1]!=null&&r[1]>=0);
+ const need=cases.filter(c=>c.form.verify==='need').length, unr=cases.filter(c=>c.form.contact==='noans').length;
+ const sp={};cases.forEach(c=>c.events.forEach(e=>{if(e.place&&c.signals.length)sp[e.place]=(sp[e.place]||0)+1}));
+ const groups={};cases.forEach(c=>{const top=scoreRows(c).filter(r=>r.counted).sort((a,b)=>b.s.w-a.s.w)[0]||scoreRows(c)[0];if(!top)return;const k=top.s.key;groups[k]=groups[k]||{n:0,acts:new Set(),outs:new Set()};groups[k].n++;groups[k].acts.add(c.form.adesc||t('none_rec'));groups[k].outs.add(closed(c)?(c.form.rdesc||t('st_'+c.status)):t('not_doc'))});
+ const sat=[91,92,91.6,92.8,93.1,92.6,93.4,93.9,93.2,93.8,94.3,94];
+ const W=600,H=160,mn=90,mx=96;const ps=sat.map((v,i)=>[20+i*(W-40)/11,H-20-(v-mn)/(mx-mn)*(H-40)]);
+ return `<div class="hero"><h1>${t('an_t')}</h1><p>${t('an_d')}</p></div>
+ <div class="an-grid">
+  <div class="card"><h3 style="margin-bottom:10px">${t('an_type')}</h3>${bars([[t('ty_inst'),ty.inst],[t('ty_cum'),ty.cum],[t('ty_both'),ty.both],[t('ty_none'),ty.none]])}</div>
+  <div class="card"><h3 style="margin-bottom:10px">${t('an_status')}</h3>${bars(Object.keys(stc).map(k=>[t('st_'+k),stc[k]]))}</div>
+  <div class="card"><h3 style="margin-bottom:10px">${t('an_ttc')}</h3>${ttc.length?bars(ttc):`<p class="small muted">${t('no_contact')}</p>`}</div>
+  <div class="card"><h3 style="margin-bottom:10px">${t('an_sp')}</h3>${bars(Object.entries(sp).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>[L(P[k]),v]))}</div>
+  <div class="card"><h3>${t('an_need')}</h3><div style="font-size:40px;font-weight:700;color:var(--teal)">${need}</div></div>
+  <div class="card"><h3>${t('an_unr')}</h3><div style="font-size:40px;font-weight:700;color:var(--orange)">${unr}</div></div>
+  <div class="card" style="grid-column:1/-1"><h3 style="margin-bottom:10px">${t('an_tbl')}</h3><table><thead><tr><th>${t('t_type')}</th><th>${t('t_act')}</th><th>${t('t_n')}</th><th>${t('t_out')}</th></tr></thead><tbody>
+   ${Object.entries(groups).map(([k,g])=>`<tr><td>${L(SIG[k].n)}</td><td>${[...g.acts].join('؛ ')}</td><td>${g.n}</td><td>${[...g.outs].join('؛ ')}</td></tr>`).join('')}</tbody></table>
+   <p class="note">${t('an_d')}</p></div>
+  <div class="card" style="grid-column:1/-1"><h3>${t('an_sat')}</h3><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;margin-top:8px"><polyline points="${ps.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#5BC4CE" stroke-width="3"/>${ps.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#5BC4CE"/>`).join('')}<text x="${ps[11][0]}" y="${ps[11][1]-10}" fill="#CFE1EF" font-size="13" text-anchor="middle">94%</text></svg><p class="small muted">${t('an_sat_n')} ${t('illus')}.</p></div>
+ </div>`;
+}
+function vSettings(){
+ return `<div class="hero"><h1>${t('set_t')}</h1><p>${t('set_d')}</p></div><div class="an-grid">
+ <div class="card"><h3>${t('set_lang')}</h3><div class="chips" style="margin-top:10px"><button class="chip ${lang==='ar'?'on':''}" data-lang="ar">العربية</button><button class="chip ${lang==='en'?'on':''}" data-lang="en">English</button></div></div>
+ <div class="card"><h3>${t('set_theme')}</h3><div class="chips" style="margin-top:10px"><button class="chip ${document.documentElement.dataset.theme!=='light'?'on':''}" data-theme="dark">${t('dark')}</button><button class="chip ${document.documentElement.dataset.theme==='light'?'on':''}" data-theme="light">${t('light')}</button></div></div>
+ <div class="card"><h3>${t('set_thr')}</h3><div style="display:flex;flex-direction:column;gap:6px;margin-top:10px"><span class="lvl lv-low">${t('thr_low')}</span><span class="lvl lv-med">${t('thr_med')}</span><span class="lvl lv-high">${t('thr_high')}</span></div><p class="note">${t('thr_note')}</p></div>
+ <div class="card"><h3>${t('set_inst')}</h3><p class="small" style="margin-top:8px">${t('set_inst_b')}</p><p class="note">${t('inst_keep')}</p></div>
+ <div class="card" style="grid-column:1/-1"><h3>${t('set_pr')}</h3><ul style="list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:6px"><li>• ${t('pr1')}</li><li>• ${t('pr2')}</li><li>• ${t('pr3')}</li><li>• ${t('pr4')}</li></ul></div></div>`;
+}
+
+/* ================= tour ================= */
+const TOUR=[{v:'home',el:'tour-1'},{v:'case',id:'A-03',el:'tour-2a'},{v:'case',id:'A-03',el:'tour-3a'},{v:'case',id:'A-03',el:'tour-4'},{v:'case',id:'A-03',el:'tour-5'},{v:'case',id:'A-03',el:'tour-6'}];
+function renderTour(){
+ const el=document.getElementById('tour');
+ el.innerHTML=`<button class="btn sm" data-tour="-1" ${tourStep===0?'disabled':''}>${lang==='ar'?'→':'←'} ${t('prev')}</button><div class="dots">${TOUR.map((_,i)=>`<i class="${i===tourStep?'on':''}"></i>`).join('')}</div><span>${t('step')} ${tourStep+1}/6 · ${t('tour')[tourStep]}</span><button class="btn p sm" data-tour="1" ${tourStep===5?'disabled':''}>${t('next')} ${lang==='ar'?'←':'→'}</button>`;
+}
+function applyTour(){
+ const s=TOUR[tourStep];route={v:s.v,id:s.id||null,from:'home'};msg=null;render();
+ const target=document.getElementById(s.el);document.querySelectorAll('.hl').forEach(x=>x.classList.remove('hl'));
+ if(target){target.classList.add('hl');target.scrollIntoView({behavior:'smooth',block:'center'})}
+}
+
+/* ================= render ================= */
+function render(){
+ renderChrome();
+ const v=document.getElementById('view');
+ v.innerHTML=route.v==='home'?vHome():route.v==='cases'?vCases():route.v==='case'?vCase():route.v==='analytics'?vAnalytics():vSettings();
+ renderTour();
+}
+
+/* ================= scenario actions ================= */
+function addLog(c,k,v){c.log.push({at:c.clock||(c.log.length?c.log[c.log.length-1].at:'—'),k,v})}
+function advance(c){
+ if(c.step===0){c.step=1;c.clock='09:12';
+  c.events.push(evn({id:'e-reg',what:{ar:'التسجيل',en:'Registration'},start:'09:12',upd:'09:12',place:'reg',src:{ar:'نظام معلومات المستشفى',en:'HIS'}}));
+  c.events.push(evn({id:'e-wait',what:{ar:'بدء انتظار العيادة',en:'Clinic waiting started'},start:'09:12',upd:'09:12',place:'cw',src:{ar:'نظام الطوابير',en:'Queue system'},status:'on'}));
+  ping(c,['ent','reg','cw']);
+ }else if(c.step===1){c.step=2;c.clock='09:43';
+  const w=c.events.find(e=>e.id==='e-wait');w.what={ar:'انتظار العيادة: 31 دقيقة (1 دقيقة فوق الحد التوضيحي 30 د)',en:'Clinic waiting: 31 min (1 min over the 30-min illustrative limit)'};w.upd='09:43';
+  c.inst={state:'open',at:'09:43',reason:{ar:'انتظار 31 دقيقة — تجاوز الحد التوضيحي (30 د)',en:'31 min wait — exceeded illustrative limit (30 min)'}};
+  c.signals.push(sig('wait',{ev:'ev-wait'}));
+  addLog(c,'lg_alert',{ar:'تجاوز حد انتظار الخدمة (انتظار 31 د)',en:'service waiting limit exceeded (31 min)'});
+  addLog(c,'lg_signal',{ar:'انتظار يتجاوز الحد (12 نقطة) — المجموع التراكمي الحالي 20 نقطة',en:'waiting above limit (12 pts) — current cumulative total 20 pts'});
+  if(c.status==='review')c.status='review';
+ }else if(c.step===2){c.step=3;c.clock='10:02';
+  const w=c.events.find(e=>e.id==='e-wait');w.what={ar:'انتهى الانتظار بعد 50 دقيقة (20 دقيقة فوق الحد التوضيحي)',en:'Waiting ended after 50 min (20 min over the illustrative limit)'};w.upd='10:02';w.status='off';
+  c.events.push(evn({id:'e-clinic',what:{ar:'بدء خدمة العيادة',en:'Clinic service started'},start:'10:02',upd:'10:02',place:'cl',src:{ar:'نظام معلومات المستشفى',en:'HIS'},status:'on'}));
+  const s=c.signals.find(x=>x.key==='wait');s.state='hist';
+  if(c.inst&&c.inst.state==='open')c.inst.state='ended';
+  addLog(c,'lg_cond_end',{ar:'',en:''});
+  ping(c,['cl']);
+ }
+}
+function ping(c,zones){if(c.consent.s==='granted'){zones.forEach(z=>c.loc.push(z));c.consent.last=c.clock}}
+function addEvent(c,k){
+ const g=c.consent.s==='granted';
+ const tick={move:'10:41',ret:'10:55',appr:'11:02'}[k];c.clock=tick;c.added[k]=1;
+ if(k==='appr'){
+  c.events.push(evn({what:{ar:'موافقة تأمين معلقة تعيق استكمال الخدمة',en:'Insurance approval pending, blocking service completion'},start:tick,upd:tick,place:'ins',src:{ar:'نظام التأمين والموافقات',en:'Insurance & approvals'},status:'on'}));
+  c.signals.push(sig('appr',{ev:'ev-appr'}));addLog(c,'lg_signal',{ar:'موافقة معلقة تعيق الخدمة (10 نقاط)',en:'pending approval blocking service (10 pts)'});ping(c,['ins']);return;
+ }
+ if(g){
+  if(k==='move'){c.events.push(evn({what:{ar:'توجه إلى منطقة الأشعة دون طلب أشعة في هذه الزيارة',en:'Went to the radiology zone with no imaging order in this visit'},start:tick,upd:tick,place:'rad',psrc:'loc',src:{ar:'تحديد الموقع الداخلي (محاكاة)',en:'Indoor positioning (simulated)'},note:{ar:'مؤهلة: تمت مقارنتها بالخدمات المطلوبة والمسار المتوقع',en:'Qualifies: compared with requested services and expected path'}}));
+   c.signals.push(sig('move',{ev:'ev-move-rad'}));ping(c,['rad']);addLog(c,'lg_signal',{ar:'تنقل غير متوقع إلى منطقة الأشعة (10 نقاط)',en:'unexpected movement to radiology (10 pts)'});}
+  else{c.events.push(evn({what:{ar:'عودة إلى منطقة التسجيل بعد بدء خدمة العيادة',en:'Returned to registration after clinic service started'},start:tick,upd:tick,place:'reg',psrc:'loc',src:{ar:'تحديد الموقع الداخلي (محاكاة)',en:'Indoor positioning (simulated)'},note:{ar:'واقعة مستقلة عن التنقل إلى الأشعة؛ لا يُحتسب الدليل نفسه مرتين',en:'Separate from the radiology movement; the same evidence is not counted twice'}}));
+   c.signals.push(sig('ret',{ev:'ev-return-reg'}));ping(c,['reg']);addLog(c,'lg_signal',{ar:'عودة غير متوقعة إلى محطة سابقة (10 نقاط)',en:'unexpected return to an earlier station (10 pts)'});}
+ }else{
+  const ev=k==='move'?{what:{ar:'تسجيل حضور في نقطة خدمة الأشعة',en:'Check-in at radiology service point'},place:'rad'}:{what:{ar:'تذكرة جديدة في نافذة التسجيل',en:'New ticket at registration desk'},place:'reg'};
+  c.events.push(evn(Object.assign(ev,{start:tick,upd:tick,psrc:'sys',src:{ar:'نظام الطوابير',en:'Queue system'},status:'chk',note:{ar:'حدث نقطة خدمة من الأنظمة؛ لا يُحتسب كتنقل أو عودة دون موافقة التتبّع وبيانات المسار',en:'Service-point event from systems; not counted as movement/return without tracking consent and path data'}})));
+ }
+}
+function saveForm(c){
+ const fd=new FormData(document.getElementById('uform'));const f={};fd.forEach((v,k)=>f[k]=String(v).trim());
+ const st=f.status;
+ if(st==='resolved'&&f.contact==='noans')return msg={ok:false,text:t('e_noans')};
+ if(st==='resolved'&&(!f.rdesc||!f.rhow))return msg={ok:false,text:t('e_res')};
+ if(st==='resolved'&&f.contact!=='ok'&&!f.rdesc)return msg={ok:false,text:t('e_res_ct')};
+ if(st==='closed_no_action'&&f.verify!=='noneed')return msg={ok:false,text:t('e_noaction')};
+ if((st==='processing'||st==='escalated')&&(!f.adesc||!f.assignee))return msg={ok:false,text:t('e_act')};
+ const o=c.form;let ch=0;const nowAt=c.clock||'—';
+ const lg=(k,v)=>{c.log.push({at:nowAt,k,v});ch++};
+ const txt=s=>({ar:s,en:s});
+ if(f.assignee!==(o.assignee||''))lg('lg_assign',txt(f.assignee||t('dash')));
+ if(f.contact!==o.contact)lg('lg_contact',{ar:D.ar['ct_'+f.contact],en:D.en['ct_'+f.contact]});
+ if(f.verify!==o.verify)lg('lg_verify',{ar:D.ar['vf_'+f.verify],en:D.en['vf_'+f.verify]});
+ if(f.adesc!==(o.adesc||''))lg('lg_action',txt(f.adesc+(f.owner?' · '+f.owner:'')));
+ if(st!==c.status)lg('lg_status',{ar:D.ar['st_'+st],en:D.en['st_'+st]});
+ if(f.rdesc!==(o.rdesc||'')&&f.rdesc)lg('lg_result',txt(f.rdesc+(f.rhow?' — '+f.rhow:'')));
+ if(!ch&&f.owner===(o.owner||'')&&f.fu===(o.fu||'')&&f.rhow===(o.rhow||''))return msg={ok:false,text:t('nochange')};
+ c.form=Object.assign(c.form,{contact:f.contact,verify:f.verify,adesc:f.adesc,owner:f.owner,assignee:f.assignee,fu:f.fu,rdesc:f.rdesc,rhow:f.rhow});
+ c.status=st;if(closed(c)&&c.inst&&c.inst.state!=='closed')c.inst.state='closed';
+ msg={ok:true,text:t('saved')};
+}
+function whyModal(c){
+ const rows=scoreRows(c);const total=score(c);const lab={active:'ws_active',hist:'ws_hist',unq:'ws_unq',dup:'ws_dup'};
+ openModal(`<h2>${t('why_t')} — ${L(c.name)}</h2><table class="why" style="margin-top:12px"><thead><tr><th>${t('w_sig')}</th><th>${t('w_w')}</th><th>${t('w_src')}</th><th>${t('w_state')}</th><th>${t('w_count')}</th></tr></thead><tbody>
+ ${rows.map(r=>`<tr><td>${L(SIG[r.s.key].n)}</td><td><b>${r.s.w}</b></td><td>${L(SIG[r.s.key].src)}</td><td>${t(lab[r.st])}</td><td>${r.counted?t('yes'):t('no')}</td></tr>`).join('')}
+ <tr><td><b>${t('w_total')}</b></td><td colspan="4"><b>${rows.filter(r=>r.counted).map(r=>r.s.w).join(' + ')||'0'} = ${total} ${t('pts')}</b> · <span class="lvl lv-${level(total)}">${t('lv_'+level(total))}</span></td></tr></tbody></table>
+ <p class="note">${t('why_note1')}</p><p class="note">${t('why_note2')}</p><p class="note">${t('why_note3')}</p><p class="note">${t('thr_note')} ${t('sim_note')}</p>
+ <div class="acts"><button class="btn p" data-close>${t('close')}</button></div>`);
+}
+function consentModal(){openModal(`<span class="badge b-cum">${t('cm_sim')}</span><h2 style="margin-top:10px">${t('cm_t')}</h2><p style="margin-top:8px">${t('cm_body')}</p><div class="acts"><button class="btn" data-cm="no">${t('cm_no')}</button><button class="btn p" data-cm="yes">${t('cm_yes')}</button></div>`)}
+function openModal(h){document.getElementById('modal').innerHTML=h;document.getElementById('mbg').classList.add('open')}
+function closeModal(){document.getElementById('mbg').classList.remove('open')}
+
+/* ================= events ================= */
+document.addEventListener('click',e=>{
+ const b=e.target.closest('[data-go],[data-open],[data-filter],[data-adv],[data-reset],[data-add],[data-why],[data-consent],[data-withdraw],[data-cm],[data-close],[data-save],[data-post],[data-tour],[data-lang],[data-theme],#langBtn');
+ if(!b){if(e.target.id==='mbg')closeModal();return}
+ const c=route.v==='case'?byId(route.id):null;
+ if(b.id==='langBtn'){lang=lang==='ar'?'en':'ar';render();return}
+ if(b.dataset.lang){lang=b.dataset.lang;render();return}
+ if(b.dataset.theme){document.documentElement.dataset.theme=b.dataset.theme;render();return}
+ if(b.dataset.go){go(b.dataset.go);return}
+ if(b.dataset.open){const from=route.v==='cases'?'cases':'home';route={v:'case',id:b.dataset.open,from};msg=null;render();window.scrollTo({top:0});return}
+ if(b.dataset.filter){filter=b.dataset.filter;render();return}
+ if(b.dataset.tour){tourStep=Math.max(0,Math.min(5,tourStep+Number(b.dataset.tour)));applyTour();return}
+ if(b.hasAttribute('data-close')){closeModal();return}
+ if(!c)return;
+ if(b.hasAttribute('data-adv')){advance(c);msg=null;render();return}
+ if(b.hasAttribute('data-reset')){const i=cases.findIndex(x=>x.id==='A-03');cases[i]=scenarioA03();msg=null;render();return}
+ if(b.dataset.add){addEvent(c,b.dataset.add);msg=null;render();return}
+ if(b.hasAttribute('data-why')){whyModal(c);return}
+ if(b.hasAttribute('data-consent')){consentModal();return}
+ if(b.dataset.cm){const at=c.clock||(lang==='ar'?'قبل الزيارة':'pre-visit');
+  if(b.dataset.cm==='yes'){c.consent={s:'granted',at,last:at};if(c.interactive){const z=[];if(c.step>=1)z.push('ent','reg','cw');if(c.step>=3)z.push('cl');c.loc=z}}
+  else c.consent={s:'denied',at};
+  addLog(c,'lg_consent',{ar:D.ar['c_'+c.consent.s],en:D.en['c_'+c.consent.s]});closeModal();render();return}
+ if(b.hasAttribute('data-withdraw')){c.signals.forEach(s=>{if(s.src==='loc')s.preWithdraw=true});c.consent=Object.assign({},c.consent,{s:'withdrawn',last:c.clock||c.consent.last});addLog(c,'lg_consent',{ar:D.ar.c_withdrawn,en:D.en.c_withdrawn});render();return}
+ if(b.hasAttribute('data-save')){saveForm(c);if(!msg.ok){const m=document.getElementById('fmsg');m.className='err';m.textContent=msg.text;msg=null;return}render();const f=document.getElementById('tour-5');f&&f.scrollIntoView({block:'center'});return}
+ if(b.hasAttribute('data-post')){c.post=!c.post;render();return}
+});
+document.getElementById('q').addEventListener('input',e=>{q=e.target.value;if(route.v!=='home'&&route.v!=='cases')route={v:'cases'};const pos=e.target.selectionStart;render();const el=document.getElementById('q');el.focus();el.setSelectionRange(pos,pos)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+render();
+})();
+</script>
+</body>
+</html>
