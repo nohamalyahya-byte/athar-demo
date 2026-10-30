@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nuha Alyahya — Intro</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --bg:#061126; --ice:#9fd7ff; --ice2:#66c8ff; --text:#dfeaf7; --muted:#9eb0c7; --white:#fff;
+  --line:rgba(130,190,255,.25); --line2:rgba(130,190,255,.45);
+  --serif:"Cormorant Garamond",serif; --sans:"Montserrat",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#040b18}
+body{font-family:var(--sans);color:var(--text);-webkit-font-smoothing:antialiased}
+*{font-variant-numeric:lining-nums !important}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;
+  background:linear-gradient(180deg,#06152d 0%,#061126 45%,#040b18 100%)}
+#glowA,#glowB{position:absolute;border-radius:50%;pointer-events:none}
+#glowA{width:1300px;height:900px;background:radial-gradient(closest-side,rgba(71,151,225,.22),transparent)}
+#glowB{width:1100px;height:900px;background:radial-gradient(closest-side,rgba(24,85,164,.30),transparent)}
+#dots{position:absolute;inset:0;background:radial-gradient(circle at 15% 22%,rgba(79,170,245,.12) 0 1px,transparent 2px) 0 0/42px 42px;opacity:.45}
+#net{position:absolute;inset:0}
+#wave{position:absolute;left:0;top:0}
+#vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(2,6,14,.65) 100%);pointer-events:none}
+
+/* persistent chrome */
+#brand{position:absolute;left:120px;top:64px;font:600 34px var(--serif);color:#fff;letter-spacing:.01em}
+#chapter{position:absolute;right:120px;top:74px;font:500 15px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--ice)}
+#chapter b{color:#fff;font-weight:600;margin-inline-end:14px}
+#progress{position:absolute;left:120px;right:120px;bottom:60px;height:2px;background:rgba(159,215,255,.12)}
+#progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ice2),var(--ice));box-shadow:0 0 10px rgba(102,200,255,.8)}
+
+.scene{position:absolute;inset:0;opacity:0;visibility:hidden}
+.a{will-change:transform,opacity}
+.eyebrow{display:flex;align-items:center;gap:18px;font:500 17px var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--ice)}
+.eyebrow:before{content:"";width:46px;height:1px;background:var(--ice)}
+.h1{font:600 92px/1.02 var(--serif);color:#fff}
+.h2{font:600 70px/1.06 var(--serif);color:#fff}
+.glass{background:linear-gradient(180deg,rgba(18,49,87,.80),rgba(8,29,58,.82));border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.35);border-radius:22px}
+.ice{color:var(--ice)}
+.w{display:inline-block;white-space:pre}
+.c{display:inline-block}
+
+/* S1 intro */
+#s1 .center{position:absolute;left:0;right:0;top:330px;text-align:center}
+#s1 .roles{font:500 20px var(--sans);letter-spacing:.42em;text-transform:uppercase;color:#a9bad0}
+#s1 .roles span{color:var(--ice);margin:0 22px}
+#s1 .name{font:600 210px/1 var(--serif);color:#fff;margin-top:34px;text-shadow:0 0 60px rgba(102,200,255,.25)}
+#s1 .rule{width:520px;height:2px;margin:40px auto 0;background:linear-gradient(90deg,transparent,var(--ice),transparent);box-shadow:0 0 18px rgba(159,215,255,.8)}
+#s1 .sub{font:400 26px var(--sans);letter-spacing:.12em;color:var(--muted);margin-top:34px}
+
+/* S2 credentials chips */
+#s2 .center{position:absolute;left:0;right:0;top:300px;text-align:center}
+#s2 .chips{display:flex;justify-content:center;gap:34px}
+.chip{display:inline-flex;align-items:center;gap:18px;height:96px;padding:0 44px 0 30px;border:1.5px solid var(--line2);border-radius:999px;background:rgba(7,27,54,.6);font:600 40px var(--sans);color:#fff;letter-spacing:.04em}
+.chip i{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line2);display:grid;place-items:center;font-style:normal;color:var(--ice);font-size:22px}
+#s2 .tag{font:600 104px/1.08 var(--serif);color:#fff;margin-top:90px}
+#s2 .focus{margin-top:46px;font:500 24px var(--sans);color:var(--text);letter-spacing:.04em}
+#s2 .focus span{color:var(--ice2);margin:0 20px}
+
+/* S3 mission */
+#s3 .wrap{position:absolute;left:220px;right:220px;top:250px}
+#s3 .quote{font:500 76px/1.22 var(--serif);color:#e8f1fb;margin-top:44px}
+#s3 .quote .hl{color:var(--ice);font-style:italic}
+#s3 .mark{position:absolute;left:-110px;top:40px;font:700 260px/1 var(--serif);color:rgba(159,215,255,.18)}
+
+/* S4 pillars */
+#s4 .head{position:absolute;left:120px;top:190px;width:1680px}
+#s4 .lead{font:400 28px/1.55 var(--sans);color:var(--muted);max-width:1180px;margin-top:26px}
+#s4 .grid{position:absolute;left:120px;right:120px;top:530px;display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.pillar{padding:40px 34px 44px;min-height:330px}
+.pillar .ic{width:84px;height:84px;border-radius:22px;display:grid;place-items:center;background:rgba(102,200,255,.10);border:1px solid var(--line2)}
+.pillar .ic svg{width:44px;height:44px;stroke:var(--ice);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.pillar .n{font:500 16px var(--sans);letter-spacing:.3em;color:var(--ice2);margin-top:36px}
+.pillar h3{font:600 44px/1.08 var(--serif);color:#fff;margin-top:12px}
+
+/* S5 experience */
+#s5 .head{position:absolute;left:120px;top:190px}
+#s5 .line{position:absolute;left:160px;top:420px;width:3px;height:520px;background:linear-gradient(180deg,var(--ice),rgba(159,215,255,.1));transform-origin:top}
+.node{position:absolute;left:146px;width:31px;height:31px;border-radius:50%;background:#061126;border:3px solid var(--ice);box-shadow:0 0 22px rgba(159,215,255,.7)}
+.node.small{left:151px;width:21px;height:21px;border-width:2px}
+.exp{position:absolute;left:230px;right:120px}
+#s5 .main{top:395px;padding:40px 48px}
+#s5 .main .date{font:500 18px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--ice)}
+#s5 .main h3{font:600 64px/1.05 var(--serif);color:#fff;margin-top:12px}
+#s5 .main .role{font:600 28px var(--sans);color:#eef7ff;margin-top:16px}
+#s5 .main p{font:400 23px/1.55 var(--sans);color:var(--muted);margin-top:12px;max-width:1300px}
+.clin{font:400 24px/1.4 var(--sans);color:var(--text)}
+.clin b{font-weight:600;color:#fff}
+.clin span{display:block;font-size:18px;letter-spacing:.2em;text-transform:uppercase;color:var(--ice2);margin-bottom:6px}
+
+/* S6 projects */
+#s6 .head{position:absolute;left:120px;top:150px;right:120px;display:flex;align-items:flex-end;justify-content:space-between}
+#s6 .head p{font:400 24px var(--sans);color:var(--muted)}
+#s6 .cards{position:absolute;left:120px;right:120px;top:360px;display:grid;grid-template-columns:repeat(6,1fr);gap:28px}
+.pcard{grid-column:span 2;padding:28px 34px 30px;min-height:268px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.pcard.wide{grid-column:span 3;min-height:228px}
+.pcard .num{font:600 50px var(--serif);color:rgba(159,215,255,.35);line-height:1}
+.pcard .cat{font:500 14.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--ice2);margin-top:14px}
+.pcard h4{font:600 36px/1.08 var(--serif);color:#fff;margin-top:10px}
+.pcard p{font:400 19px/1.5 var(--sans);color:var(--muted);margin-top:auto;padding-top:14px}
+.pcard p b{color:var(--ice);font-weight:600}
+.pcard:after{content:"";position:absolute;inset:auto -30% -60% auto;width:300px;height:300px;border-radius:50%;background:rgba(102,200,255,.10);filter:blur(30px)}
+
+/* S7 award */
+#s7 .left{position:absolute;left:120px;top:210px;width:800px}
+#s7 .place{display:flex;align-items:baseline;gap:14px;margin-top:30px}
+#s7 .place .big{font:700 190px/0.9 var(--serif);color:#fff;text-shadow:0 0 50px rgba(159,215,255,.35)}
+#s7 .place .big .sup{font-size:62px;position:relative;top:-64px;color:var(--ice);margin-left:4px}
+#s7 .place .lbl{font:600 46px var(--serif);color:var(--ice)}
+#s7 h3{font:600 56px/1.08 var(--serif);color:#fff;margin-top:26px}
+#s7 .meta{font:500 22px/1.5 var(--sans);color:var(--text);margin-top:14px}
+#s7 .meta span{color:var(--ice2)}
+#s7 .desc{font:400 22px/1.6 var(--sans);color:var(--muted);margin-top:20px}
+#s7 .tags{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.tagp{font:500 17px var(--sans);padding:11px 20px;border:1px solid var(--line2);border-radius:999px;color:#eef7ff;background:rgba(7,27,54,.55)}
+#s7 .cert{position:absolute;right:120px;top:250px;width:860px;perspective:1600px}
+#s7 .cert .frame{padding:16px;border-radius:20px;transform-style:preserve-3d}
+#s7 .cert img{display:block;width:100%;border-radius:10px}
+
+/* S8 certifications */
+#s8 .head{position:absolute;left:120px;top:170px}
+#s8 .row{position:absolute;left:120px;right:120px;top:350px;display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.ccard{padding:18px 18px 30px}
+.ccard .img{height:330px;border-radius:12px;overflow:hidden;background:#0b203f;display:grid;place-items:center}
+.ccard .img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.ccard .t{display:flex;align-items:baseline;justify-content:space-between;margin:26px 10px 0}
+.ccard .t b{font:600 52px var(--serif);color:#fff}
+.ccard .t span{font:500 14.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ice2);padding:8px 14px;border:1px solid var(--line2);border-radius:999px}
+.ccard .full{font:500 21px/1.4 var(--sans);color:var(--text);margin:10px 10px 0}
+.ccard .org{font:400 18px var(--sans);color:var(--muted);margin:6px 10px 0}
+
+/* S9 education */
+#s9 .head{position:absolute;left:120px;top:190px}
+#s9 .row{position:absolute;left:120px;right:120px;top:410px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.edu{padding:46px 52px 50px;position:relative;overflow:hidden}
+.edu .gpa{font:700 150px/0.9 var(--serif);color:#fff}
+.edu .gpa small{font-size:56px;color:var(--ice);margin-left:8px}
+.edu .hon{display:inline-block;margin-top:30px;font:600 16px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:#05213a;background:linear-gradient(180deg,#a8e3ff,#6ac9f6);padding:9px 18px;border-radius:999px}
+.edu h3{font:600 46px/1.1 var(--serif);color:#fff;margin-top:26px}
+.edu p{font:400 22px var(--sans);color:var(--muted);margin-top:12px}
+.edu .yr{position:absolute;right:46px;top:52px;font:500 20px var(--sans);letter-spacing:.2em;color:var(--ice2)}
+
+/* S10 website */
+#s10 .head{position:absolute;left:0;right:0;top:112px;text-align:center}
+#s10 .head .eyebrow{justify-content:center}
+#s10 .head .eyebrow:after{content:"";width:46px;height:1px;background:var(--ice)}
+#s10 .h2{margin-top:16px;font-size:64px}
+#s10 .browser{position:absolute;left:50%;top:296px;width:1260px;margin-left:-630px;height:672px;border-radius:18px;overflow:hidden;
+  border:1px solid var(--line2);background:#0a1a33;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 80px rgba(102,200,255,.15)}
+#s10 .bar{height:58px;display:flex;align-items:center;gap:12px;padding:0 22px;background:linear-gradient(180deg,#13294a,#0d2040);border-bottom:1px solid var(--line)}
+#s10 .bar i{width:14px;height:14px;border-radius:50%;background:#33507a}
+#s10 .url{margin-left:24px;flex:1;max-width:620px;height:36px;border-radius:10px;background:rgba(4,14,30,.7);border:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 16px;font:500 17px var(--sans);color:#dfeaf7}
+#s10 .url svg{width:16px;height:16px;stroke:var(--ice);fill:none;stroke-width:2}
+#s10 .view{position:absolute;top:58px;left:0;right:0;bottom:0;overflow:hidden}
+#s10 .view img{width:100%;display:block}
+
+/* S11 outro */
+#s11 .center{position:absolute;left:0;right:0;top:230px;text-align:center}
+#s11 .eyebrow{justify-content:center}
+#s11 .eyebrow:after{content:"";width:46px;height:1px;background:var(--ice)}
+#s11 .big{font:600 170px/1 var(--serif);color:#fff;margin-top:24px;text-shadow:0 0 60px rgba(102,200,255,.25)}
+#s11 .tag{font:500 italic 44px var(--serif);color:var(--ice);margin-top:22px}
+#s11 .contacts{display:flex;justify-content:center;gap:28px;margin-top:70px}
+.ct{display:flex;align-items:center;gap:16px;padding:20px 30px;font:500 24px var(--sans);color:#eef7ff}
+.ct svg{width:28px;height:28px;stroke:var(--ice);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ct.primary{background:linear-gradient(180deg,#a8e3ff,#6ac9f6);color:#05213a;border-color:#89d6ff;box-shadow:0 12px 40px rgba(88,189,244,.35)}
+.ct.primary svg{stroke:#05213a}
+#fade{position:absolute;inset:0;background:#02060e;opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="glowA"></div><div id="glowB"></div>
+  <div id="dots"></div>
+  <canvas id="wave" width="1920" height="1080"></canvas>
+  <canvas id="net" width="1920" height="1080"></canvas>
+  <div id="vignette"></div>
+
+  <!-- S1 · Intro -->
+  <section class="scene" id="s1" data-s="0" data-e="6">
+    <div class="center">
+      <div class="roles a" data-fx="blur" data-d="0.5" data-dur="1.4">Healthcare Leader<span>|</span>Change Maker<span>|</span>Lifelong Learner</div>
+      <div class="name a" data-fx="chars" data-d="1.1" data-dur="1.1" data-stagger="0.06">Nuha Alyahya</div>
+      <div class="rule a" data-fx="line" data-d="2.1" data-dur="1.3"></div>
+      <div class="sub a" data-fx="up" data-d="2.7" data-dur="1.1">Healthcare Projects &amp; Digital Transformation · Riyadh, Saudi Arabia</div>
+    </div>
+  </section>
+
+  <!-- S2 · Credentials + tagline -->
+  <section class="scene" id="s2" data-s="6" data-e="12" data-ch="01" data-chn="Profile">
+    <div class="center">
+      <div class="chips">
+        <div class="chip a" data-fx="pop" data-d="0.3"><i>✦</i>PMP®</div>
+        <div class="chip a" data-fx="pop" data-d="0.5"><i>◇</i>CPHQ</div>
+        <div class="chip a" data-fx="pop" data-d="0.7"><i>▱</i>CKP</div>
+      </div>
+      <div class="tag a" data-fx="words" data-d="1.2" data-dur="0.9" data-stagger="0.14">Driven by purpose. <span class="ice">Focused on people.</span></div>
+      <div class="focus a" data-fx="up" data-d="2.6">Project Management<span>|</span>Digital Transformation<span>|</span>Healthcare Operations<span>|</span>Quality Improvement</div>
+    </div>
+  </section>
+
+  <!-- S3 · Mission -->
+  <section class="scene" id="s3" data-s="12" data-e="19.5" data-ch="02" data-chn="Mission">
+    <div class="wrap">
+      <div class="mark a" data-fx="fade" data-d="0.2" data-dur="1.4">“</div>
+      <div class="eyebrow a" data-fx="left" data-d="0.2">My mission</div>
+      <div class="quote a" data-fx="words" data-d="0.6" data-dur="0.8" data-stagger="0.085">Transforming healthcare through <span class="hl">technology,</span> <span class="hl">people,</span> and <span class="hl">purpose</span> — driving meaningful change that enhances patient experiences and builds healthier communities.</div>
+    </div>
+  </section>
+
+  <!-- S4 · What I do -->
+  <section class="scene" id="s4" data-s="19.5" data-e="25.5" data-ch="03" data-chn="Expertise">
+    <div class="head">
+      <div class="eyebrow a" data-fx="left" data-d="0.1">About me</div>
+      <div class="h1 a" data-fx="up" data-d="0.25" style="margin-top:18px">Healthcare, operations &amp; digital delivery</div>
+      <div class="lead a" data-fx="up" data-d="0.55">I turn healthcare operational needs into clear requirements, practical workflows and digital solutions.</div>
+    </div>
+    <div class="grid">
+      <div class="pillar glass a" data-fx="rise" data-d="0.9">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M8 10h8M8 14h5M8 18h7"/></svg></div>
+        <div class="n">01</div><h3>Project Management</h3>
+      </div>
+      <div class="pillar glass a" data-fx="rise" data-d="1.05">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M7 12l3-3 2 2 4-4"/></svg></div>
+        <div class="n">02</div><h3>Digital Transformation</h3>
+      </div>
+      <div class="pillar glass a" data-fx="rise" data-d="1.2">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></div>
+        <div class="n">03</div><h3>Healthcare Operations</h3>
+      </div>
+      <div class="pillar glass a" data-fx="rise" data-d="1.35">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+        <div class="n">04</div><h3>Quality Improvement</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- S5 · Experience -->
+  <section class="scene" id="s5" data-s="25.5" data-e="31.5" data-ch="04" data-chn="Experience">
+    <div class="head">
+      <div class="eyebrow a" data-fx="left" data-d="0.1">Experience</div>
+      <div class="h1 a" data-fx="up" data-d="0.25" style="margin-top:18px">Healthcare, operations &amp; delivery</div>
+    </div>
+    <div class="line a" data-fx="vline" data-d="0.5" data-dur="1.6"></div>
+    <div class="node a" data-fx="pop" data-d="0.6" style="top:440px"></div>
+    <div class="exp main glass a" data-fx="right" data-d="0.7">
+      <div class="date">Jan 2025 – Present · Riyadh</div>
+      <h3>Al Hammadi Hospitals</h3>
+      <div class="role">Administrative Assistant — Performance &amp; Executive Support</div>
+      <p>Supporting digital initiatives, performance reporting and cross-departmental improvement with executive leadership, operational teams and IT.</p>
+    </div>
+    <div class="node small a" data-fx="pop" data-d="1.6" style="top:822px"></div>
+    <div class="exp clin a" data-fx="right" data-d="1.7" style="top:804px"><span>Clinical foundation · 2022 – 2023</span><b>Physiotherapist Intern / Volunteer</b> — Aseer Rehabilitation Centre</div>
+    <div class="node small a" data-fx="pop" data-d="1.95" style="top:918px"></div>
+    <div class="exp clin a" data-fx="right" data-d="2.05" style="top:912px"><b>Physiotherapist Intern</b> — Armed Forces Hospitals, Southern Region</div>
+  </section>
+
+  <!-- S6 · Projects -->
+  <section class="scene" id="s6" data-s="31.5" data-e="40.5" data-ch="05" data-chn="Projects">
+    <div class="head">
+      <div>
+        <div class="eyebrow a" data-fx="left" data-d="0.1">Selected projects</div>
+        <div class="h1 a" data-fx="up" data-d="0.25" style="margin-top:18px">Case studies</div>
+      </div>
+      <p class="a" data-fx="fade" data-d="0.6">From operational need → clear requirements → digital solution</p>
+    </div>
+    <div class="cards">
+      <div class="pcard glass a" data-fx="rise" data-d="0.7"><div class="num">01</div><div class="cat">Patient experience</div><h4>Patient Experience Digital Platform</h4><p>A structured digital framework with defined responsibilities and follow-up workflows.</p></div>
+      <div class="pcard glass a" data-fx="rise" data-d="0.9"><div class="num">02</div><div class="cat">Executive operations</div><h4>Executive Operations Management Platform</h4><p>A centralized operating model giving leadership a clearer view of ongoing work.</p></div>
+      <div class="pcard glass a" data-fx="rise" data-d="1.1"><div class="num">03</div><div class="cat">Process improvement</div><h4>Physician Document Submission &amp; Verification Portal</h4><p>A traceable verification process across <b><span class="count" data-to="157" data-d="2.0" data-dur="1.6">0</span> physicians</b>.</p></div>
+      <div class="pcard glass wide a" data-fx="rise" data-d="1.3"><div class="num">04</div><div class="cat">Health IT</div><h4>HIS Enhancement &amp; System Improvement</h4><p>A consolidated record of system issues to prioritize and track corrective actions.</p></div>
+      <div class="pcard glass wide a" data-fx="rise" data-d="1.5"><div class="num">05</div><div class="cat">Performance improvement</div><h4>Healthcare Operations &amp; Performance Improvement</h4><p>Executive reports and analytical dashboards supporting improvement decisions.</p></div>
+    </div>
+  </section>
+
+  <!-- S7 · Award -->
+  <section class="scene" id="s7" data-s="40.5" data-e="46.5" data-ch="06" data-chn="Recognition">
+    <div class="left">
+      <div class="eyebrow a" data-fx="left" data-d="0.1">Awards &amp; achievements</div>
+      <div class="place a" data-fx="scale" data-d="0.3" data-dur="1.0"><span class="big">2<span class="sup">nd</span></span><span class="lbl">Place · Oct 2026</span></div>
+      <h3 class="a" data-fx="up" data-d="0.6">Athar | HealthThon 2026</h3>
+      <div class="meta a" data-fx="up" data-d="0.75">Digital Health Innovation Hackathon · King Saud University<br><span>Digital Patient Experience Track</span></div>
+      <div class="desc a" data-fx="up" data-d="0.9">An AI-powered concept designed to identify disruptions in patient journeys and enable proactive interventions.</div>
+      <div class="tags">
+        <span class="tagp a" data-fx="pop" data-d="1.2">Digital Innovation</span>
+        <span class="tagp a" data-fx="pop" data-d="1.3">Patient Experience</span>
+        <span class="tagp a" data-fx="pop" data-d="1.4">AI-Powered</span>
+        <span class="tagp a" data-fx="pop" data-d="1.5">Proactive Care</span>
+      </div>
+    </div>
+    <div class="cert">
+      <div class="frame glass a" data-fx="tilt" data-d="0.4" data-dur="1.4"><img src="assets/award.png" alt=""></div>
+    </div>
+  </section>
+
+  <!-- S8 · Certifications -->
+  <section class="scene" id="s8" data-s="46.5" data-e="52.5" data-ch="07" data-chn="Credentials">
+    <div class="head">
+      <div class="eyebrow a" data-fx="left" data-d="0.1">Credentials</div>
+      <div class="h1 a" data-fx="up" data-d="0.25" style="margin-top:18px">Professional certifications</div>
+    </div>
+    <div class="row">
+      <div class="ccard glass a" data-fx="rise" data-d="0.6"><div class="img"><img src="assets/pmp.jpg" alt=""></div>
+        <div class="t"><b>PMP®</b><span>Active · 2026–2029</span></div>
+        <div class="full">Project Management Professional</div><div class="org">Project Management Institute (PMI)</div></div>
+      <div class="ccard glass a" data-fx="rise" data-d="0.8"><div class="img"><img src="assets/cphq.jpg" alt=""></div>
+        <div class="t"><b>CPHQ</b><span>Valid · Dec 2028</span></div>
+        <div class="full">Certified Professional in Healthcare Quality</div><div class="org">HQCC · NAHQ</div></div>
+      <div class="ccard glass a" data-fx="rise" data-d="1.0"><div class="img"><img src="assets/ckp.jpg" alt=""></div>
+        <div class="t"><b>CKP</b><span>Nov 2025</span></div>
+        <div class="full">Certified KPI Professional</div><div class="org">The KPI Institute</div></div>
+    </div>
+  </section>
+
+  <!-- S9 · Education -->
+  <section class="scene" id="s9" data-s="52.5" data-e="57" data-ch="08" data-chn="Education">
+    <div class="head">
+      <div class="eyebrow a" data-fx="left" data-d="0.1">Education</div>
+      <div class="h1 a" data-fx="up" data-d="0.25" style="margin-top:18px">Academic excellence</div>
+    </div>
+    <div class="row">
+      <div class="edu glass a" data-fx="rise" data-d="0.5"><div class="yr">2023 – 2024</div>
+        <div class="gpa"><span class="count" data-to="4.91" data-dec="2" data-d="0.8" data-dur="1.4">0.00</span><small>/ 5</small></div>
+        <span class="hon">First Honors</span>
+        <h3>Postgraduate Diploma in Healthcare Administration</h3>
+        <p>Institute of Public Administration, Riyadh</p></div>
+      <div class="edu glass a" data-fx="rise" data-d="0.7"><div class="yr">2018 – 2022</div>
+        <div class="gpa"><span class="count" data-to="4.71" data-dec="2" data-d="1.0" data-dur="1.4">0.00</span><small>/ 5</small></div>
+        <span class="hon">Second Honors</span>
+        <h3>Bachelor of Physical Therapy</h3>
+        <p>King Khalid University, Abha</p></div>
+    </div>
+  </section>
+
+  <!-- S10 · Website -->
+  <section class="scene" id="s10" data-s="57" data-e="63" data-ch="09" data-chn="Portfolio">
+    <div class="head">
+      <div class="eyebrow a" data-fx="fade" data-d="0.1">Explore the full portfolio</div>
+      <div class="h2 a" data-fx="up" data-d="0.25">Projects, awards &amp; credentials — all in one place</div>
+    </div>
+    <div class="browser a" data-fx="browser" data-d="0.4" data-dur="1.3">
+      <div class="bar"><i></i><i></i><i></i>
+        <div class="url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="typed" data-text="nohamalyahya-byte.github.io" data-d="0.9" data-dur="1.1"></span></div>
+      </div>
+      <div class="view"><img id="siteimg" src="assets/site_full.png" alt=""></div>
+    </div>
+  </section>
+
+  <!-- S11 · Outro -->
+  <section class="scene" id="s11" data-s="63" data-e="69.5" data-ch="10" data-chn="Contact">
+    <div class="center">
+      <div class="eyebrow a" data-fx="fade" data-d="0.2">Connect</div>
+      <div class="big a" data-fx="chars" data-d="0.4" data-dur="1.0" data-stagger="0.07">Let’s talk</div>
+      <div class="tag a" data-fx="up" data-d="1.3">Driven by purpose. Focused on people.</div>
+      <div class="contacts">
+        <div class="ct glass primary a" data-fx="pop" data-d="1.8"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>nohamalyahya-byte.github.io</div>
+        <div class="ct glass a" data-fx="pop" data-d="2.0"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>noha.m.alyahya@gmail.com</div>
+        <div class="ct glass a" data-fx="pop" data-d="2.2"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>LinkedIn · Nuha Alyahya</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="brand">Nuha Alyahya</div>
+  <div id="chapter"><b></b><span></span></div>
+  <div id="progress"><i></i></div>
+  <div id="fade"></div>
+</div>
+
+<script>
+const DURATION = 69.5;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const easeOut = p => 1 - Math.pow(1 - p, 3);
+const easeOutExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const easeInOut = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const easeBack = p => { const c = 1.6; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+const $ = s => document.querySelector(s);
+const scenes = [...document.querySelectorAll('.scene')].map(el => ({ el, s: +el.dataset.s, e: +el.dataset.e, ch: el.dataset.ch, chn: el.dataset.chn }));
+
+// Split text into words / characters, keeping inline highlight spans
+function splitInto(el, mode) {
+  const out = [];
+  const walk = (node, target) => {
+    for (const child of [...node.childNodes]) {
+      if (child.nodeType === 3) {
+        const parts = mode === 'chars' ? [...child.textContent] : child.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        for (const part of parts) {
+          if (!part) continue;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); continue; }
+          const sp = document.createElement('span');
+          sp.className = mode === 'chars' ? 'c' : 'w';
+          sp.textContent = part;
+          frag.appendChild(sp); out.push(sp);
+        }
+        child.replaceWith(frag);
+      } else if (child.nodeType === 1) walk(child, target);
+    }
+  };
+  walk(el);
+  return out;
+}
+
+const anims = [...document.querySelectorAll('.a')].map(el => {
+  const sc = scenes.find(x => x.el.contains(el));
+  const a = { el, fx: el.dataset.fx || 'up', start: sc.s + (+el.dataset.d || 0), dur: +el.dataset.dur || 0.85, stagger: +el.dataset.stagger || 0.05 };
+  if (a.fx === 'chars' || a.fx === 'words') a.parts = splitInto(el, a.fx);
+  return a;
+});
+const counters = [...document.querySelectorAll('.count')].map(el => {
+  const sc = scenes.find(x => x.el.contains(el));
+  return { el, to: +el.dataset.to, dec: +el.dataset.dec || 0, start: sc.s + (+el.dataset.d), dur: +el.dataset.dur };
+});
+const typed = [...document.querySelectorAll('.typed')].map(el => {
+  const sc = scenes.find(x => x.el.contains(el));
+  return { el, text: el.dataset.text, start: sc.s + (+el.dataset.d), dur: +el.dataset.dur };
+});
+
+function applyFx(a, t) {
+  const p = clamp((t - a.start) / a.dur), e = easeOut(p), s = a.el.style;
+  switch (a.fx) {
+    case 'fade': s.opacity = e; break;
+    case 'up': s.opacity = e; s.transform = `translateY(${(1 - e) * 46}px)`; break;
+    case 'rise': s.opacity = e; s.transform = `translateY(${(1 - easeOutExpo(p)) * 120}px) scale(${0.94 + 0.06 * e})`; break;
+    case 'left': s.opacity = e; s.transform = `translateX(${(1 - e) * -50}px)`; break;
+    case 'right': s.opacity = e; s.transform = `translateX(${(1 - e) * 70}px)`; break;
+    case 'scale': s.opacity = e; s.transform = `scale(${0.82 + 0.18 * easeBack(p)})`; s.transformOrigin = 'left bottom'; break;
+    case 'pop': s.opacity = e; s.transform = `scale(${p === 0 ? 0.6 : 0.6 + 0.4 * easeBack(p)})`; break;
+    case 'blur': s.opacity = e; s.filter = `blur(${(1 - e) * 14}px)`; s.letterSpacing = `${0.42 + (1 - e) * 0.3}em`; break;
+    case 'line': s.transform = `scaleX(${easeInOut(p)})`; s.opacity = p > 0 ? 1 : 0; break;
+    case 'vline': s.transform = `scaleY(${easeInOut(p)})`; s.opacity = p > 0 ? 1 : 0; break;
+    case 'tilt': {
+      const ee = easeOutExpo(p);
+      s.opacity = e;
+      s.transform = `translateX(${(1 - ee) * 160}px) rotateY(${-28 * (1 - ee) - 6}deg) rotateX(${4 * (1 - ee) + 2}deg) rotateZ(${(1 - ee) * 4}deg)`;
+      break;
+    }
+    case 'browser': {
+      const ee = easeOutExpo(p);
+      s.opacity = e;
+      s.transform = `perspective(2000px) translateY(${(1 - ee) * 220}px) rotateX(${(1 - ee) * 22}deg) scale(${0.9 + 0.1 * ee})`;
+      break;
+    }
+    case 'chars': case 'words': {
+      s.opacity = 1;
+      a.parts.forEach((sp, i) => {
+        const q = clamp((t - a.start - i * a.stagger) / a.dur), qe = easeOut(q);
+        sp.style.opacity = qe;
+        sp.style.transform = `translateY(${(1 - qe) * (a.fx === 'chars' ? 60 : 30)}px)`;
+        sp.style.filter = `blur(${(1 - qe) * 8}px)`;
+      });
+      break;
+    }
+  }
+}
+
+// Deterministic particle network (pseudo-random seed)
+let seed = 7;
+const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const P = Array.from({ length: 95 }, () => ({ x: rnd() * 1920, y: rnd() * 1080, ax: 20 + rnd() * 70, ay: 20 + rnd() * 60, fx: 0.05 + rnd() * 0.12, fy: 0.04 + rnd() * 0.1, ph: rnd() * 6.28, r: 0.8 + rnd() * 1.8 }));
+const ctx = $('#net').getContext('2d');
+function drawNet(t, intensity) {
+  ctx.clearRect(0, 0, 1920, 1080);
+  if (intensity <= 0.001) return;
+  const pts = P.map(p => [p.x + Math.sin(t * p.fx + p.ph) * p.ax, p.y + Math.cos(t * p.fy + p.ph * 1.3) * p.ay, p.r]);
+  ctx.lineWidth = 1;
+  for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+    const dx = pts[i][0] - pts[j][0], dy = pts[i][1] - pts[j][1], d = Math.hypot(dx, dy);
+    if (d < 190) {
+      ctx.strokeStyle = `rgba(102,200,255,${(1 - d / 190) * 0.22 * intensity})`;
+      ctx.beginPath(); ctx.moveTo(pts[i][0], pts[i][1]); ctx.lineTo(pts[j][0], pts[j][1]); ctx.stroke();
+    }
+  }
+  for (const [x, y, r] of pts) {
+    ctx.fillStyle = `rgba(159,215,255,${0.75 * intensity})`;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+  }
+}
+
+// Glowing particle ribbon along the bottom (echoes the site's hero art)
+const glow = document.createElement('canvas'); glow.width = glow.height = 64;
+{ const g = glow.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  rg.addColorStop(0, 'rgba(210,240,255,1)'); rg.addColorStop(0.18, 'rgba(120,205,255,.85)'); rg.addColorStop(0.5, 'rgba(60,150,240,.22)'); rg.addColorStop(1, 'rgba(40,120,230,0)');
+  g.fillStyle = rg; g.fillRect(0, 0, 64, 64); }
+const STRANDS = Array.from({ length: 7 }, (_, k) => ({ k, amp: 70 + rnd() * 40, freq: 0.0021 + rnd() * 0.0008, sp: 0.22 + rnd() * 0.12, ph: rnd() * 6.28,
+  dots: Array.from({ length: 120 }, () => ({ u: rnd(), j: (rnd() - 0.5) * 34, s: 0.25 + rnd() * rnd() * 0.9, tw: rnd() * 6.28 })) }));
+const wctx = $('#wave').getContext('2d');
+function drawWave(t, intensity) {
+  wctx.clearRect(0, 0, 1920, 1080);
+  if (intensity <= 0.001) return;
+  wctx.globalCompositeOperation = 'lighter';
+  const yAt = (st, x) => 900 + st.k * 13 + Math.sin(x * st.freq + t * st.sp + st.ph) * st.amp + Math.sin(x * 0.0009 - t * 0.15) * 50;
+  for (const st of STRANDS) {
+    wctx.strokeStyle = `rgba(90,180,255,${0.10 * intensity})`; wctx.lineWidth = 1.2;
+    wctx.beginPath();
+    for (let x = 300; x <= 1940; x += 16) { const y = yAt(st, x); x === 300 ? wctx.moveTo(x, y) : wctx.lineTo(x, y); }
+    wctx.stroke();
+    for (const d of st.dots) {
+      const x = 300 + ((d.u * 1700 + t * 22 * (0.6 + st.k * 0.08)) % 1700), y = yAt(st, x) + d.j;
+      const edge = clamp((x - 300) / 500), a = intensity * edge * (0.55 + 0.45 * Math.sin(t * 1.3 + d.tw));
+      const sz = 64 * d.s; wctx.globalAlpha = clamp(a);
+      wctx.drawImage(glow, x - sz / 2, y - sz / 2, sz, sz);
+    }
+  }
+  wctx.globalAlpha = 1; wctx.globalCompositeOperation = 'source-over';
+}
+
+const XF = 0.55; // cross-fade seconds
+window.seek = function (t) {
+  // background drift
+  $('#glowA').style.transform = `translate(${880 + Math.sin(t * 0.13) * 160}px, ${-260 + Math.cos(t * 0.11) * 90}px)`;
+  $('#glowB').style.transform = `translate(${-300 + Math.cos(t * 0.09) * 140}px, ${420 + Math.sin(t * 0.12) * 80}px)`;
+  const introOutro = t < 6 ? 1 : t > 63 ? clamp((t - 63) / 1.2) : t < 6.8 ? 1 - (t - 6) / 0.8 : 0;
+  drawWave(t, 0.3 + 0.7 * introOutro);
+  drawNet(t, 0.45 + 0.55 * introOutro);
+
+  // scenes
+  let current = null;
+  for (const sc of scenes) {
+    const fin = clamp((t - sc.s) / XF), fout = sc === scenes[scenes.length - 1] ? 1 : clamp((sc.e - t) / XF);
+    const vis = t >= sc.s && t < sc.e + 0.001;
+    sc.el.style.visibility = vis ? 'visible' : 'hidden';
+    if (!vis) continue;
+    current = sc;
+    const o = Math.min(easeOut(fin), easeOut(fout));
+    sc.el.style.opacity = o;
+    const lift = (1 - easeOut(fout)) * -30;
+    sc.el.style.transform = `translateY(${lift}px)`;
+    sc.el.style.filter = fout < 1 ? `blur(${(1 - fout) * 6}px)` : 'none';
+  }
+  anims.forEach(a => applyFx(a, t));
+  counters.forEach(c => {
+    const p = easeOut(clamp((t - c.start) / c.dur));
+    c.el.textContent = (c.to * p).toFixed(c.dec);
+  });
+  typed.forEach(ty => {
+    const n = Math.round(ty.text.length * clamp((t - ty.start) / ty.dur));
+    ty.el.textContent = ty.text.slice(0, n) + (t > ty.start && t < ty.start + ty.dur + 0.8 && Math.floor(t * 3) % 2 === 0 ? '|' : '');
+  });
+
+  // website scroll
+  const sp = easeInOut(clamp((t - 58.6) / 4.2));
+  $('#siteimg').style.transform = `translateY(${-sp * 3300}px)`;
+
+  // chrome: brand / chapter / progress
+  const chromeOn = clamp((t - 6.2) / 0.8) * (1 - clamp((t - 63.2) / 0.8));
+  $('#brand').style.opacity = chromeOn;
+  $('#chapter').style.opacity = current && current.ch ? chromeOn * Math.min(clamp((t - current.s) / 0.6), clamp((current.e - t) / 0.4)) : 0;
+  if (current && current.ch) { $('#chapter b').textContent = current.ch; $('#chapter span').textContent = current.chn; }
+  $('#progress').style.opacity = chromeOn;
+  $('#progress i').style.width = `${clamp((t - 6) / (63 - 6)) * 100}%`;
+
+  // final fade to black
+  $('#fade').style.opacity = clamp((t - (DURATION - 1.1)) / 1.0);
+};
+window.ready = (async () => { await document.fonts.ready; await Promise.all([...document.images].map(i => i.decode().catch(() => {}))); window.seek(0); return true; })();
+</script>
+</body>
+</html>
