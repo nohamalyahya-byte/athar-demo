@@ -7,6 +7,7 @@
 | الملف | الوصف |
 |---|---|
 | `nuha-alyahya-intro.mp4` | الفيديو النهائي: ‎1920×1080، ‏30 إطار/ث، H.264 + AAC، ‏21MB |
+| `nuha-alyahya-intro-5mb.mp4` | نسخة مضغوطة (4.6MB) بنفس الدقة 1080p، ترميز ثنائي المرور بمعدل 430kbps للصورة و96kbps للصوت |
 | `poster.jpg` | صورة غلاف (Thumbnail) من مشهد الافتتاح |
 | `source/` | المصدر الكامل لإعادة التوليد أو التعديل |
 
@@ -47,6 +48,16 @@ ffmpeg -y -i /tmp/music.wav -af "highpass=f=40,loudnorm=I=-16:TP=-1.5:LRA=11" -a
 ffmpeg -y -framerate 30 -i /tmp/frames/f%05d.jpg -i /tmp/music_norm.wav -map 0:v -map 1:a \
   -c:v libx264 -preset slow -crf 18 -tune animation -pix_fmt yuv420p -movflags +faststart \
   -c:a aac -b:a 192k -shortest ../nuha-alyahya-intro.mp4
+```
+
+لنسخة أقل من 5MB (ترميز ثنائي المرور بنفس الإطارات):
+
+```bash
+ffmpeg -y -framerate 30 -i /tmp/frames/f%05d.jpg -c:v libx264 -preset veryslow -tune animation \
+  -b:v 430k -pass 1 -pix_fmt yuv420p -an -f null /dev/null
+ffmpeg -y -framerate 30 -i /tmp/frames/f%05d.jpg -i /tmp/music_norm.wav -map 0:v -map 1:a \
+  -c:v libx264 -preset veryslow -tune animation -b:v 430k -pass 2 -pix_fmt yuv420p \
+  -movflags +faststart -c:a aac -b:a 96k -shortest ../nuha-alyahya-intro-5mb.mp4
 ```
 
 لتحديث لقطة الموقع (`assets/site_full.png`) بعد تعديله استخدم `scripts/shot_site.js`.
